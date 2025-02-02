@@ -37,8 +37,8 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
         userName: "NeptuneOWO",
         email: "neptune@studio.klaynight.fr",
         links: [
-            { icon: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.jpg",url: "https://www.roblox.com/users/3261357291/profile", text: "roblox" },
-            { icon: "https://img.freepik.com/vector-premium/logotipo-tiktok_628407-1683.jpg?semt=ais_hybrid",url: "https://www.tiktok.com/@neptuneowo_", text: "tiktok" },
+            { icon: "https://tr.rbxcdn.com/30DAY-Avatar-D93F7C7A9A55F82FFEF82E48C6A86E6E-Png/352/352/Avatar/Webp/noFilter",url: "https://www.roblox.com/users/3261357291/profile", text: "roblox" },
+            { icon: "https://cliply.co/wp-content/uploads/2021/02/372102690_TIKTOK_LOGO_1080.png",url: "https://www.tiktok.com/@neptuneowo_", text: "tiktok" },
             { icon: "https://cdn.discordapp.com/attachments/1317863719161561179/1335382549765165106/efjz.jpg?ex=679ff76a&is=679ea5ea&hm=1b01411b619ff15ef36ceed583ef950234def5f2eacd446645eab4b0280ba048&",url: "https://discord.gg/5EFfn3pZSt", text: "SL brm5" }
         ],
         backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
