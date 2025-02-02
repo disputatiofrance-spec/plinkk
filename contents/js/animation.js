@@ -1,4 +1,47 @@
 const styleSheet = document.styleSheets[0];
+const animations = [
+    {
+    name: "fade",
+    keyframes: "fade 1s ease-in-out"
+    },
+    {
+    name: "slide",
+    keyframes: "slide 1s ease-in-out"
+    },
+    {
+    name: "zoom",
+    keyframes: "zoom 1s ease-in-out"
+    },
+    {
+    name: "rotate",
+    keyframes: "rotate 1s ease-in-out"
+    },
+    {
+    name: "bounce",
+    keyframes: "bounce 1s ease-in-out"
+    },
+    {
+    name: "shake",
+    keyframes: "shake 1s ease-in-out"
+    },
+    {
+    name: "flip",
+    keyframes: "flip 1s ease-in-out"
+    },
+    {
+    name: "pulse",
+    keyframes: "pulse 1s ease-in-out "
+    },
+    {
+    name: "swing",
+    keyframes: "swing 1s ease-in-out"
+    },
+    {
+    name: "wobble",
+    keyframes: "wobble 1s ease-in-out"
+    }
+];
+
 styleSheet.insertRule(`
 @keyframes fade {
     from { opacity: 0; }
