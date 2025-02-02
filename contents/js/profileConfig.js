@@ -1,5 +1,5 @@
 const selectedAnimationIndex = 0; // Change this value to select a different animation
-const selectedAnimationButtonIndex =1;
+const selectedAnimationButtonIndex =2;
 // 0 : Fondu
 // 1 : Glisser
 // 2 : Zoomer
@@ -33,7 +33,7 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
         profileLink: "https://discord.gg/uFZXwWdewc",
         profileImage: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp",
         profileIcon: "https://cdn.discordapp.com/icons/1197867213110132748/a_833bd9dc0d68996f7f5a3088697a3e25.png?size=256",
-        profileSiteText: "wartycoon",
+        profileSiteText: "",
         userName: "NeptuneOWO",
         email: "neptune@studio.klaynight.fr",
         links: [
@@ -43,7 +43,8 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
         ],
         backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
         profileHoverColor: "",
-        neonColors: []
+        neonColors: ["", "", "", "", ""],
+        iconUrl: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp"
     };
 
 function setTheme(index) {

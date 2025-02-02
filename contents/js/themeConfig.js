@@ -123,7 +123,7 @@ const themes = [
     buttonBackground: "#FF69B4",
     buttonHoverBackground: "#FF1493",
     buttonTextColor: "black",
-    linkHoverColor: "#FF1493"
+    linkHoverColor: "##ADD8E6"
 },
 {
     background: "#e6d5d5",
@@ -132,7 +132,7 @@ const themes = [
     buttonBackground: "#8a7272", 
     buttonHoverBackground: "#800080", 
     buttonTextColor: "white",
-    linkHoverColor: "#800080" 
+    linkHoverColor: "#ADD8E6" 
 }
 // Ajoutez autant de thèmes que vous le souhaitez
 ];

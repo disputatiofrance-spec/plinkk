@@ -305,11 +305,16 @@
         applyAnimationButton(animations[selectedAnimationButtonIndex]);
 
         document.title = profileData.userName + " - Linktree";
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.href = profileData.iconUrl;
+        document.head.appendChild(link);
+        
     });
 
     document.addEventListener("DOMContentLoaded", function () {
         const footer = document.createElement("footer");
-        footer.innerHTML = 'Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer">Klaynight Studio©</a> & Pacman';
+        footer.innerHTML = 'Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer">Klaynight Studio©</a> & Pacman ';
         Object.freeze(footer);
         document.body.appendChild(footer);
     });
