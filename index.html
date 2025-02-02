@@ -297,6 +297,11 @@
         applyAnimationButton(animations[selectedAnimationButtonIndex]);
 
         document.title = profileData.userName + " - Linktree";
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.href = profileData.iconUrl;
+        document.head.appendChild(link);
+        
     });
 
     document.addEventListener("DOMContentLoaded", function () {
