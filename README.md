@@ -23,62 +23,61 @@ Ce projet est un modèle de site web de liens, conçu pour afficher des informat
    ```
 
 2. **Modifier les informations de profil :**
-
-   Ouvrez ``index.html`` et modifiez les valeurs de l'objet `profileData` dans le script JavaScript pour refléter vos informations personnelles.
+   - Ouvrez `index.html` et modifiez les valeurs de l'objet `profileData` :
+   - `profileLink`: Lien vers votre profil ou site web.
+   - `profileImage`: URL de l'image de profil.
+   - `profileIcon`: URL de l'icône de profil.
+   - `profileSiteText`: Texte affiché pour le site.
+   - `userName`: Votre nom.
+   - `email`: Votre adresse email.
+   - `links`: Liste de liens avec icônes, URL et texte descriptif.
+   - `backgroundImage`: URL de l'image de fond.
+   - `profileHoverColor`: Couleur de survol du profil.
+   - `neonColors`: Couleurs néon pour les effets.
 
    ```js
    const profileData = {
-       profileLink: "https://votre-lien.com",
-       profileImage: "https://votre-image.com/image.jpg",
-       profileIcon: "https://votre-icone.com/icone.png",
-       profileSiteText: "Votre site",
-       userName: "Votre Nom",
-       email: "votre.email@exemple.com",
-       links: [
-           { icon: "https://votre-icone.com/icone1.png", url: "https://votre-lien1.com", text: "Lien 1" },
-           { icon: "https://votre-icone.com/icone2.png", url: "https://votre-lien2.com", text: "Lien 2" },
-           { icon: "https://votre-icone.com/icone3.png", url: "https://votre-lien3.com", text: "Lien 3" }
-       ],
-       backgroundImage: "https://votre-image-de-fond.com/image.jpg",
-       profileHoverColor: "#7289DA",
-       neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"]
+     profileLink: "https://votre-lien.com", // Lien vers votre profil ou site web
+     profileImage: "https://votre-image.com/image.jpg", // URL de l'image de profil
+     profileIcon: "https://votre-icone.com/icone.png", // URL de l'icône de profil
+     profileSiteText: "Votre site", // Texte affiché pour le site
+     userName: "Votre Nom", // Votre nom
+     email: "votre.email@exemple.com", // Votre adresse email
+     links: [
+       { icon: "https://votre-icone.com/icone1.png", url: "https://votre-lien1.com", text: "Lien 1" }, // Premier lien
+       { icon: "https://votre-icone.com/icone2.png", url: "https://votre-lien2.com", text: "Lien 2" }, // Deuxième lien
+       { icon: "https://votre-icone.com/icone3.png", url: "https://votre-lien3.com", text: "Lien 3" }  // Troisième lien
+     ],
+     backgroundImage: "https://votre-image-de-fond.com/image.jpg", // URL de l'image de fond
+     profileHoverColor: "#7289DA", // Couleur de survol du profil
+     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"] // Couleurs néon pour les effets
    };
    ```
 
 3. **Personnaliser les thèmes :**
-
-   Vous pouvez ajouter ou modifier les thèmes dans le tableau `themes` pour correspondre à vos préférences de style.
+   - Vous pouvez ajouter ou modifier les thèmes dans le tableau `themes` :
+   - `background`: Couleur de fond en rgba.
+   - `hoverColor`: Couleur de survol des éléments.
+   - `textColor`: Couleur du texte.
+   - `buttonBackground`: Couleur de fond des boutons.
+   - `buttonHoverBackground`: Couleur de fond des boutons au survol.
+   - `buttonTextColor`: Couleur du texte des boutons.
+   - `linkHoverColor`: Couleur des liens au survol.
 
    ```js
    const themes = [
-       {
-           background: "rgba(0, 0, 0, 0.6)",
-           hoverColor: "#7289DA",
-           textColor: "white",
-           buttonBackground: "#2C2F33",
-           buttonHoverBackground: "#7289DA",
-           buttonTextColor: "white",
-           linkHoverColor: "#7289DA"
-       },
-       // Ajoutez d'autres thèmes ici
+     {
+       background: "rgba(0, 0, 0, 0.6)", // Couleur de fond
+       hoverColor: "#7289DA", // Couleur de survol
+       textColor: "white", // Couleur du texte
+       buttonBackground: "#2C2F33", // Couleur de fond des boutons
+       buttonHoverBackground: "#7289DA", // Couleur de fond des boutons au survol
+       buttonTextColor: "white", // Couleur du texte des boutons
+       linkHoverColor: "#7289DA" // Couleur des liens au survol
+     },
+     // Ajoutez d'autres thèmes ici
    ];
    ```
-   Sélectionner un thème :
-
-```js
-const selectedThemeIndex = 6; // Changez cette valeur pour sélectionner un autre thème
-                // 0 : Grey Theme
-                // 1 : Light Yellow Theme
-                // 2 : Green Theme
-                // 3 : Blue Theme
-                // 4 : Red Theme
-                // 5 : Light blue Theme
-                // 6 : Dark Theme
-                // 7 : Orange Theme
-                // 8 : Grey Dark Theme
-                // 9 : Green Grey Theme
-                // 10 : Very Light Blue Theme
-```
 
 ## Licence
 
