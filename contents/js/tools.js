@@ -100,21 +100,36 @@ function applyTheme(theme) {
     article.style.background = theme.background;
     article.style.color = theme.textColor;
     document.querySelectorAll(".discord-box").forEach(box => {
-    box.style.backgroundColor = theme.buttonBackground;
-    box.style.color = theme.buttonTextColor;
+        box.style.backgroundColor = theme.buttonBackground;
+        box.style.color = theme.buttonTextColor;
     });
-    document.querySelectorAll(".discord-box:hover").forEach(box => {
-    box.style.backgroundColor = theme.buttonHoverBackground;
+    document.querySelectorAll(".discord-box").forEach(box => {
+        box.addEventListener("mouseover", () => {
+            box.style.backgroundColor = theme.buttonHoverBackground;
+            box.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
+        });
+        box.addEventListener("mouseout", () => {
+            box.style.backgroundColor = theme.buttonBackground;
+            box.style.boxShadow = "none";
+        });
     });
     document.querySelectorAll("a").forEach(link => {
-    link.style.color = theme.textColor;
+        link.style.color = theme.textColor;
     });
     document.querySelectorAll("a:hover").forEach(link => {
-    link.style.color = theme.linkHoverColor;
+        link.style.color = theme.linkHoverColor;
     });
     const emailDiv = document.querySelector(".email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
+
+    // Appliquer la nouvelle propriété articleHoverBoxShadow
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+        article:hover {
+            box-shadow: ${theme.articleHoverBoxShadow};
+        }
+    `, styleSheet.cssRules.length);
 }
 
 function applyAnimation(animation) {
