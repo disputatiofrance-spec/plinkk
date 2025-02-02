@@ -27,7 +27,7 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
     // 11 : Brown Theme
     // 12 : Purple Theme
     // 13 : Pink Theme
-    // 14 : Neptune Theme (Light Brown Theme)
+    // 14 : Neptune Theme (Light pink theme)
 
     const profileData = {
         profileLink: "https://discord.gg/uFZXwWdewc",
