@@ -292,7 +292,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const selectedThemeIndex = 8; // Changez cette valeur pour sélectionner un autre thème
+            const selectedThemeIndex = 12; // Changez cette valeur pour sélectionner un autre thème
                 // 0 : Grey Theme
                 // 1 : Light Yellow Theme
                 // 2 : Green Theme
@@ -319,7 +319,7 @@
                 ],
                 backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
                 profileHoverColor: "#000000",
-                neonColors: ["#000000", "#000000", "#000000", "#000000", "##000000"]
+                neonColors: []
             };
 
             const themes = [
@@ -421,6 +421,24 @@
                 buttonHoverBackground: "#0000FF",
                 buttonTextColor: "black",
                 linkHoverColor: "#0000FF"
+            },
+            {
+                background: "rgba(139, 69, 19, 0.6)",
+                hoverColor: "#A0522D",
+                textColor: "white",
+                buttonBackground: "#8B4513", 
+                buttonHoverBackground: "#A0522D", 
+                buttonTextColor: "white",
+                linkHoverColor: "#A0522D" 
+            },
+            {
+                background: "#e6d5d5",
+                hoverColor: "#800080",
+                textColor: "white",
+                buttonBackground: "#8a7272", 
+                buttonHoverBackground: "#800080", 
+                buttonTextColor: "white",
+                linkHoverColor: "#800080" 
             }
             // Ajoutez autant de thèmes que vous le souhaitez
             ];
@@ -545,7 +563,7 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             const footer = document.createElement("footer");
-            footer.innerHTML = 'Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer">Klaynight Studio©</a> & paccman';
+            footer.innerHTML = 'Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer">Klaynight Studio©</a> & pacman';
             Object.freeze(footer);
             document.body.appendChild(footer);
         });
