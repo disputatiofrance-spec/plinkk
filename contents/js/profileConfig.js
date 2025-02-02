@@ -32,7 +32,7 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
     const profileData = {
         profileLink: "https://discord.gg/uFZXwWdewc",
         profileImage: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp",
-        profileIcon: "https://yt3.googleusercontent.com/ex7zSg0FHrSx4AuUtypSvhOsNWKgmrQ77SRd4ryqk9abUbO55VJCagYxBzFAZfSEsRILydth=s900-c-k-c0x00ffffff-no-rj",
+        profileIcon: "https://cdn.discordapp.com/icons/1197867213110132748/a_833bd9dc0d68996f7f5a3088697a3e25.png?size=256",
         profileSiteText: "",
         userName: "NeptuneOWO",
         email: "neptune@studio.klaynight.fr",
