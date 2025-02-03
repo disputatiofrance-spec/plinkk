@@ -41,7 +41,7 @@ const selectedThemeIndex = 14; // Changez cette valeur pour sélectionner un aut
             { icon: "https://cliply.co/wp-content/uploads/2021/02/372102690_TIKTOK_LOGO_1080.png",url: "https://www.tiktok.com/@neptuneowo_", text: "tiktok" },
             { icon: "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg",url: "https://discord.gg/5EFfn3pZSt", text: "Shadow Legion" }
         ],
-        backgroundImage: "https://previews.123rf.com/images/noppanun/noppanun1409/noppanun140900089/31830302-seamless-pattern-g%C3%A9om%C3%A9trique-noir-et-blanc-avec-la-ligne-et-l-hexagone.jpg",
+        backgroundImage: "https://us.123rf.com/450wm/elenka1/elenka12112/elenka1211200098/178680293-motif-g%C3%A9om%C3%A9trique-abstrait-avec-des-rayures-des-lignes-fond-vectorielle-continue-ornement-blanc.jpg?ver=6",
         profileHoverColor: "",
         neonColors: ["", "", "", "", ""],
         iconUrl: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp"
