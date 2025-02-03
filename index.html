@@ -113,7 +113,7 @@
             transform: scale(1.02);
             background-size: 500%;
             z-index: -1;
-            animation: neon 2s infinite alternate;
+            animation: neon 0s infinite alternate;
         }
 
         .profile-pic-wrapper::before {
@@ -127,14 +127,14 @@
             transform: scale(1.02);
             background-size: 500%;
             z-index: -1;
-            animation: neon-2 2s infinite alternate;
+            animation: neon-2 0s infinite alternate;
         }
 
         @keyframes neon-2 {
             0% {
             filter: hue-rotate(0deg);
             }
-            100% {
+            0% {
             filter: hue-rotate(360deg);
             }
         }
@@ -143,7 +143,7 @@
             0% {
             filter: hue-rotate(0deg) blur(20px);
             }
-            100% {
+            0% {
             filter: hue-rotate(360deg) blur(20px);
             }
         }
@@ -189,7 +189,7 @@
             padding: 15px;
             background-color: #2C2F33;
             border-radius: 15px;
-            color: white;
+            color: rgb(255, 255, 255);
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
@@ -215,7 +215,7 @@
 
         /* Effet hover pour le lien Discord */
         .discord-box:hover {
-            background-color: #7289da00;
+            background-color: #00000000;
             box-shadow: 0 0 15px 5px rgba(114, 137, 218, 0);
             transform: scale(1.05);
             color: rgba(255, 255, 255, 0);
@@ -232,7 +232,7 @@
             bottom: 10px;
             width: 100%;
             text-align: center;
-            font-size: 0.7em;
+            font-size: 0.6em;
             font-weight: bold;
             color: white;
             letter-spacing: 2px;
@@ -250,7 +250,7 @@
         }
 
         a:hover {
-            color: #7289da00;
+            color: #7289da;
         }
 
         span img {
