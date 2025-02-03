@@ -132,13 +132,17 @@ function applyTheme(theme) {
     `, styleSheet.cssRules.length);
 }
 
-function applyAnimation(animation) {
+function applyAnimation(animation, animationEnabled) {
     const article = document.getElementById("profile-article");
-    article.style.animation = animation.keyframes;
+    if (animationEnabled) {
+        article.style.animation = animation.keyframes;
+    }
 }
-function applyAnimationButton(animation) {
+function applyAnimationButton(animation, animationButtonEnabled) {
     const articleChildren = document.querySelectorAll("#profile-article > *");
-    articleChildren.forEach(child => {
-    child.style.animation = animation.keyframes;
-    });
+    if (animationButtonEnabled) {
+        articleChildren.forEach(child => {
+            child.style.animation = animation.keyframes;
+        });
+    }
 }

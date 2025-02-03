@@ -44,7 +44,9 @@ const profileData = {
     backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
     profileHoverColor: "#7289DA",
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"],
-    iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+    iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4",
+    EnableAnimation: 1, // 1 : Enable, 0 : Disable
+    EnableAnimationButton: 1 // 1 : Enable, 0 : Disable
 };
 
 function setTheme(index) {
