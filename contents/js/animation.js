@@ -42,6 +42,13 @@ const animations = [
     }
 ];
 
+const animationBackground = [
+    {
+        name: "moveBackground",
+        keyframes: "moveBackground linear infinite"
+    }
+];
+
 styleSheet.insertRule(`
 @keyframes fade {
     from { opacity: 0; }
@@ -161,6 +168,18 @@ styleSheet.insertRule(`
     }
     100% {
         transform: translateX(0%);
+    }
+}
+`, styleSheet.cssRules.length);
+
+styleSheet.insertRule(`
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 100%;
     }
 }
 `, styleSheet.cssRules.length);

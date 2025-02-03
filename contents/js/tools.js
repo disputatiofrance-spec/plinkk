@@ -1,4 +1,4 @@
-function createProfileContainer(profileData) {
+    function createProfileContainer(profileData) {
     const profileContainer = document.createElement("div");
     profileContainer.className = "profile-container";
 
@@ -77,8 +77,14 @@ function createLinkBoxes(profileData) {
     });
 }
 
-function applyDynamicStyles(profileData, styleSheet) {
+function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground) {
     document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+    document.body.style.backgroundSize = `${profileData.backgroundSize}%`;
+    if (EnableAnimationBackground) {
+        document.body.style.animation = `${animationBackground[selectedAnimationBackgroundIndex].keyframes} ${animationDurationBackground}s`;
+    } else {
+        document.body.style.animation = "none";
+    }
 
     styleSheet.insertRule(`
     .profile-container:hover .profile-pic {

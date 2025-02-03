@@ -1,6 +1,6 @@
 const themes = [
 {
-    // Grey Theme
+    // Grey Theme (0)
     background: "rgba(0, 0, 0, 0.6)",
     hoverColor: "#7289DA",
     textColor: "white",
@@ -11,7 +11,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(114, 137, 218, 0.3)"
 },
 {
-    // Light Yellow Theme
+    // Light Yellow Theme (1)
     background: "rgba(255, 255, 255, 0.6)",
     hoverColor: "#FF5733",
     textColor: "black",
@@ -22,7 +22,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(255, 87, 51, 0.3)"
 },
 {
-    // Green Theme
+    // Green Theme (2)
     background: "rgba(0, 128, 0, 0.6)",
     hoverColor: "#00FF00",
     textColor: "white",
@@ -33,7 +33,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(0, 255, 0, 0.3)"
 },
 {
-    // Blue Theme
+    // Blue Theme (3)
     background: "rgba(255, 255, 255, 0.8)",
     hoverColor: "#0077B5",
     textColor: "black",
@@ -44,7 +44,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(0, 119, 181, 0.3)"
 },
 {
-    // Red Theme
+    // Red Theme (4)
     background: "rgba(255, 0, 0, 0.6)",
     hoverColor: "#FF0000",
     textColor: "white",
@@ -55,18 +55,18 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(255, 0, 0, 0.3)"
 },
 {
-    // Light Blue Theme
+    // Light Blue Theme (5)
     background: "rgba(173, 216, 230, 0.6)",
     hoverColor: "#87CEFA",
-    textColor: "black",
+    textColor: "white",
     buttonBackground: "#4682B4",
     buttonHoverBackground: "#87CEFA",
-    buttonTextColor: "black",
+    buttonTextColor: "white",
     linkHoverColor: "#87CEFA",
     articleHoverBoxShadow: "0px 4px 8px rgba(135, 206, 250, 0.3)"
 },
 {
-    // Dark Theme
+    // Dark Theme (6)
     background: "rgba(0, 0, 0, 0.9)",
     hoverColor: "#FF4500",
     textColor: "white",
@@ -77,7 +77,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(255, 69, 0, 0.3)"
 },
 {
-    // Orange Theme
+    // Orange Theme (7)
     background: "rgba(255, 255, 255, 0.9)",
     hoverColor: "#E1306C",
     textColor: "black",
@@ -88,7 +88,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(225, 48, 108, 0.3)"
 },
 {
-    // Grey Dark Theme
+    // Grey Dark Theme (8)
     background: "rgba(0, 0, 0, 0.5)",
     hoverColor: "#7289DA",
     textColor: "white",
@@ -99,7 +99,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(114, 137, 218, 0.3)"
 },
 {
-    // Green Grey Theme
+    // Green Grey Theme (9)
     background: "rgba(0, 0, 0, 0.6)",
     hoverColor: "#00FF00",
     textColor: "white",
@@ -110,7 +110,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(0, 255, 0, 0.3)"
 },
 {
-    // Very Light Blue Theme
+    // Very Light Blue Theme (10)
     background: "rgba(255, 255, 255, 0.6)",
     hoverColor: "#0000FF",
     textColor: "black",
@@ -121,7 +121,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(0, 0, 255, 0.3)"
 },
 {
-    // Brown Theme
+    // Brown Theme (11)
     background: "rgba(139, 69, 19, 0.6)",
     hoverColor: "#A0522D",
     textColor: "white",
@@ -132,7 +132,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(160, 82, 45, 0.3)"
 },
 {
-    // Pink Theme
+    // Pink Theme (12)
     background: "rgba(255, 182, 193, 0.6)",
     hoverColor: "#FF1493",
     textColor: "black",
@@ -143,7 +143,7 @@ const themes = [
     articleHoverBoxShadow: "0px 4px 8px rgba(255, 20, 147, 0.3)"
 },
 {
-    // Purple Theme
+    // Purple Theme (13)
     background: "#e6d5d5",
     hoverColor: "#800080",
     textColor: "white",
