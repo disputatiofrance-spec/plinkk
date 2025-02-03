@@ -1,5 +1,3 @@
-## Voici un exemple de README avec les données correctes incluses :
-
 # Links Website Template
 
 Ce projet est un modèle de site web de liens, conçu pour afficher des informations de profil et des liens vers divers sites web. Il utilise HTML, CSS et JavaScript pour créer une interface utilisateur attrayante et interactive.
