@@ -1,4 +1,4 @@
-    function createProfileContainer(profileData) {
+function createProfileContainer(profileData) {
     const profileContainer = document.createElement("div");
     profileContainer.className = "profile-container";
 
@@ -119,11 +119,20 @@ function applyTheme(theme) {
             box.style.boxShadow = "none";
         });
     });
-    document.querySelectorAll("a").forEach(link => {
+    document.querySelectorAll("a:not(.footer)").forEach(link => {
         link.style.color = theme.textColor;
     });
-    document.querySelectorAll("a:hover").forEach(link => {
+    document.querySelectorAll("a:not(.footer):hover").forEach(link => {
         link.style.color = theme.linkHoverColor;
+    });
+    document.querySelectorAll("button").forEach(link => {
+        link.style.backgroundColor = theme.buttonBackground
+    });
+    document.querySelectorAll("button > *").forEach(link => {
+        link.style.color = theme.buttonTextColor;
+    });
+    document.querySelectorAll("button:hover").forEach(link => {
+        link.style.color = theme.buttonHoverColor;
     });
     const emailDiv = document.querySelector(".email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
@@ -144,11 +153,52 @@ function applyAnimation(animation, animationEnabled) {
         article.style.animation = animation.keyframes;
     }
 }
-function applyAnimationButton(animation, animationButtonEnabled) {
+function applyAnimationButton(animation, animationButtonEnabled, delayAnimationButton) {
     const articleChildren = document.querySelectorAll("#profile-article > *");
     if (animationButtonEnabled) {
-        articleChildren.forEach(child => {
-            child.style.animation = animation.keyframes;
+        articleChildren.forEach((child, index) => {
+            child.style.animationDelay = `${(index + 1) * delayAnimationButton}s`;
+            child.style.animation = `${animation.keyframes} ${animation.duration || delayAnimationButton * index}s`;
+            child.style.animationFillMode = "backwards";
         });
     }
+}
+function setIconBasedOnTheme(theme) {
+    const iconElement = document.getElementById("theme-icon");
+
+    if (iconElement) {
+        if (!theme.darkTheme && !document.body.classList.contains("dark-theme")) {
+            iconElement.name = "moon-outline";
+        } else if (theme.darkTheme && document.body.classList.contains("dark-theme")) {
+            iconElement.name = "moon-outline";
+        } else {
+            iconElement.name = "sunny-outline";
+        }
+    }
+}
+
+function loadThemeConfig(theme) {
+    applyTheme(theme);
+    setIconBasedOnTheme(theme.darkTheme);
+}
+
+function toggleTheme(theme) {
+    const currentTheme = document.body.classList.contains("dark-theme") ? theme : theme.opposite;
+    applyTheme(currentTheme);
+    setIconBasedOnTheme(theme);
+    document.body.classList.toggle("dark-theme");
+}
+
+function createToggleThemeButton(theme) {
+    const button = document.createElement("button");
+    button.className = "theme-toggle-button";
+    const icon = document.createElement("ion-icon");
+    icon.id = "theme-icon";
+    icon.name = theme.darkTheme ? "moon-outline" : "sunny-outline";
+    button.appendChild(icon);
+    
+    button.addEventListener("click", () => toggleTheme(theme));
+
+    const article = document.getElementById("profile-article");
+    article.appendChild(button);
 }

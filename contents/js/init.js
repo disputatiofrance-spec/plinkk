@@ -3,12 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
     article.appendChild(createEmailDiv(profileData));
+    createToggleThemeButton(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     createLinkBoxes(profileData).forEach(box => article.appendChild(box));
 
     applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground);
-    applyTheme(themes[profileData.selectedThemeIndex % themes.length -1]);
+    applyTheme(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
-    applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton);
+    applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
 
     document.title = profileData.userName + " - Linktree";
     const link = document.createElement("link");
@@ -17,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(link);
 
     const footer = document.createElement("footer");
-    footer.innerHTML = 'Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer">Klaynight Studio©</a> & Pacman';
-    Object.freeze(footer);
+    const themeIndex = (profileData.selectedThemeIndex % themes.length + themes.length) % themes.length;
+    footer.innerHTML = `Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer"><p style="color:${themes[themeIndex]?.buttonTextColor || 'defaultColor'};display:inline;padding:2px 2px 2px 4px;border-radius:5px;background-color:${themes[themeIndex]?.buttonBackground || 'defaultColor'};">Klaynight Studio©</p></a> & Pacman`;
     document.body.appendChild(footer);
 });
 
