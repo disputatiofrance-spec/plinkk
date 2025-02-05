@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
     applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
     applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
 
-    document.title = profileData.userName + " - Linktree";
+    createMetaTags();
+
+    document.title = profileData.userName ? profileData.userName + " - Linktree" : "Plinkk By Klaynight";
     const link = document.createElement("link");
     link.rel = "icon";
     link.href = profileData.iconUrl;

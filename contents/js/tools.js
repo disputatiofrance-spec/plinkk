@@ -331,3 +331,32 @@ function createToggleThemeButton(theme) {
     const article = document.getElementById("profile-article");
     article.appendChild(button);
 }
+function createMetaTags() {
+    const metaTags = [
+        { name: "title", content: profileData.meta.title || "Default Title" },
+        { name: "description", content: profileData.meta.description || "Default Description" },
+        { name: "keywords", content: profileData.meta.keywords || "Default Keywords" },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: profileData.meta.url || "https://defaulturl.com" },
+        { property: "og:title", content: profileData.meta.title || "Default Title" },
+        { property: "og:description", content: profileData.meta.description || "Default Description" },
+        { property: "og:image", content: profileData.profileIcon || "https://defaulturl.com/defaultimage.png" },
+        { property: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:url", content: profileData.meta.url || "https://defaulturl.com" },
+        { property: "twitter:title", content: profileData.meta.title || "Default Title" },
+        { property: "twitter:description", content: profileData.meta.description || "Default Description" },
+        { property: "twitter:image", content: profileData.profileIcon || "https://defaulturl.com/defaultimage.png" },
+        { property: "twitter:image:alt", content: "Profile Picture" },
+        { name: "theme-color", content: themes[profileData.selectedThemeIndex % themes.length] || "#7289DA" },
+        { name: "author", content: profileData.userName + " & developed with ❤️ by Klaynight" || "Default Author" },
+        { name: "robots", content: "index, follow" }
+    ];
+
+    metaTags.forEach(tag => {
+        const meta = document.createElement("meta");
+        Object.keys(tag).forEach(key => {
+            meta.setAttribute(key, tag[key]);
+        });
+        document.head.appendChild(meta);
+    });
+}

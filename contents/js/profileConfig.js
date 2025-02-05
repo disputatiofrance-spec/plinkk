@@ -17,6 +17,12 @@ const profileData = {
     neonEnable: 1, // 1 : Enable, 0 : Disable
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
     description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
+    meta: {
+        title: "GitHub User - Linktree", // Titre de l'onglet
+        description: "GitHub User's Linktree", // Description de l'onglet
+        keywords: "GitHub, User, Profile, Links, Website, Template, plinkk, klaynight", // Mots-clés de l'onglet
+        url: "https://github.com" // URL de l'onglet
+    },
     
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
     EnableAnimationButton: 1, // 1 : Enable, 0 : Disable
@@ -24,9 +30,9 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 14,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
 
-    selectedAnimationIndex : 13,             // Animation de l'article       (voir ci-dessous)
+    selectedAnimationIndex : 0,             // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
     selectedAnimationBackgroundIndex: 0,     // Animation de l'arrière-plan  (voir ci-dessous)
 
@@ -34,7 +40,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 14,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
