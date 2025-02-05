@@ -22,17 +22,17 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 2,                  // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 13,             // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
-    selectedAnimationBackgroundIndex: 0,    // Animation de l'arrière-plan  (voir ci-dessous)
+    selectedAnimationBackgroundIndex: 0,     // Animation de l'arrière-plan  (voir ci-dessous)
 
     animationDurationBackground: 30,  // Durée de l'animation en secondes
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 5
+    selectedCanvasIndex: 1
 
 };
 //      Thèmes      \\
