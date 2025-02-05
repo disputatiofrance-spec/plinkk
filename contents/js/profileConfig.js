@@ -1,19 +1,19 @@
 const profileData = {
-    profileLink: "https://github.com", // Lien du profil 
-    profileImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Image de profil
-    profileIcon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", // Icone derrière le profil
-    profileSiteText: "GitHub", // Nom derrière le profil
-    userName: "GitHub User", // Nom affiché sur la page et dans le titre de l'onglet
-    email: "user@github.com", // Adresse mail affichée sur la page
+    profileLink: "https://discord.gg/uFZXwWdewc", // Lien du profil 
+    profileImage: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp", // Image de profil
+    profileIcon: "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg", // Icone derrière le profil
+    profileSiteText: "", // Nom derrière le profil
+    userName: "NeptuneOWO", // Nom affiché sur la page et dans le titre de l'onglet
+    email: "neptune@studio.klaynight.fr", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link1", text: "Link 1" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3" }
+        { icon: "https://tr.rbxcdn.com/30DAY-Avatar-D93F7C7A9A55F82FFEF82E48C6A86E6E-Png/352/352/Avatar/Webp/noFilter", url: "https://www.roblox.com/users/3261357291/profile", text: "Roblox" },
+        { icon: "https://cliply.co/wp-content/uploads/2021/02/372102690_TIKTOK_LOGO_1080.png", url: "https://www.tiktok.com/@neptuneowo_", text: "Tiktok" },
+        { icon: "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg", url: "https://discord.gg/5EFfn3pZSt", text: "Shadow Legion" }
     ],
     // Image de fond
-    backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
+    backgroundImage: "https://us.123rf.com/450wm/elenka1/elenka12112/elenka1211200098/178680293-motif-g%C3%A9om%C3%A9trique-abstrait-avec-des-rayures-des-lignes-fond-vectorielle-continue-ornement-blanc.jpg?ver=6",
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
-    neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
+    neonColors: ["", "", "", "", ""], // Couleurs du neon de profil
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
     
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
@@ -22,17 +22,17 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 14,                   // Thème sélectionné            (voir ci-dessous)
 
-    selectedAnimationIndex : 13,             // Animation de l'article       (voir ci-dessous)
-    selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
+    selectedAnimationIndex : 2,             // Animation de l'article       (voir ci-dessous)
+    selectedAnimationButtonIndex : 2,       // Animation des boutons        (voir ci-dessous)
     selectedAnimationBackgroundIndex: 0,     // Animation de l'arrière-plan  (voir ci-dessous)
 
     animationDurationBackground: 30,  // Durée de l'animation en secondes
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
-    canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
+    canvaEnable: 0, // 1 : Enable, 0 : Disable
+    selectedCanvasIndex: 15,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
