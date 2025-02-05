@@ -36,27 +36,37 @@ function createProfileContainer(profileData) {
     profileLink.appendChild(profileLinkDiv);
     profileContainer.appendChild(profileLink);
 
-    if (profileData.neonEnable === 0) {
-        const styleSheet = document.styleSheets[0];
-        styleSheet.insertRule(`
-            .profile-pic-wrapper::before,
-            .profile-pic-wrapper::after {
-                display: none;
-            }
-        `, styleSheet.cssRules.length);
+    // "display:none;" si le texte est vide
+    if (profileData.profileSiteText.trim() === "") {
+        profileSiteText.style.display = "none";
+    } if (profileData.profileImage.trim() === "") {
+        profilePic.style.display = "none";
+    } if (profileData.profileIcon.trim() === "") {
+        profileIcon.style.display = "none";
+    } if (profileData.profileLink.trim() === "") {
+        profileLink.style.display = "none";
+    } if (profileData.profileHoverColor.trim() === "") {
+        profileContainer.style.display = "none";
     }
 
     return profileContainer;
 }
 
-
 function createUserName(profileData) {
     const userName = document.createElement("h1");
     userName.textContent = profileData.userName;
+    
+    if (!profileData.userName.trim()) {
+        userName.style.display = "none";
+    }
+
     return userName;
 }
 
-function createEmailDiv(profileData) {
+function createEmailAndDescription(profileData) {
+    const container = document.createElement("div");
+    container.className = "email-description-container";
+
     const emailDiv = document.createElement("div");
     emailDiv.className = "email";
 
@@ -65,26 +75,74 @@ function createEmailDiv(profileData) {
     emailLink.textContent = profileData.email;
 
     emailDiv.appendChild(emailLink);
-    return emailDiv;
+
+    const descriptionDiv = document.createElement("div");
+    descriptionDiv.className = "profile-description";
+
+    const descriptionText = document.createElement("p");
+    descriptionText.textContent = profileData.description;
+
+    descriptionDiv.appendChild(descriptionText);
+
+    container.appendChild(emailDiv);
+    container.appendChild(descriptionDiv);
+    if (!profileData.description.trim()) {
+        descriptionDiv.style.display = "none";
+    } else {
+        styleSheet.insertRule(`
+            .email {
+                width: 100%;
+                border: 2px solid #7289DA;
+                border-radius: 10px;
+                background-color: #2C2F33;
+                color: white;
+                font-size: 1em;
+                font-weight: bold;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            `, styleSheet.cssRules.length);
+        styleSheet.insertRule(`
+            .email a {
+                display: block;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                color: white;
+                border-radius: 10px;
+            }
+            `, styleSheet.cssRules.length);            
+        
+    }
+    if (!profileData.email.trim()) {
+        emailDiv.style.display = "none";
+    }
+
+    return container;
 }
 
 function createLinkBoxes(profileData) {
     return profileData.links.slice(0, 5).map(link => {
-    const discordBox = document.createElement("div");
-    discordBox.className = "discord-box";
+        const discordBox = document.createElement("div");
+        discordBox.className = "discord-box";
 
-    const discordIcon = document.createElement("img");
-    discordIcon.src = link.icon;
-    discordIcon.alt = "Discord Logo";
+        const discordIcon = document.createElement("img");
+        discordIcon.src = link.icon;
+        discordIcon.alt = "Discord Logo";
 
-    const discordLink = document.createElement("a");
-    discordLink.href = link.url;
-    discordLink.target = "_blank";
-    discordLink.textContent = link.text;
+        const discordLink = document.createElement("a");
+        discordLink.href = link.url;
+        discordLink.target = "_blank";
+        discordLink.textContent = link.text;
 
-    discordBox.appendChild(discordIcon);
-    discordBox.appendChild(discordLink);
-    return discordBox;
+        discordBox.appendChild(discordIcon);
+        discordBox.appendChild(discordLink);
+
+        if (!link.text.trim()) {
+            discordLink.style.display = "none";
+        }
+
+        return discordBox;
     });
 }
 
@@ -101,9 +159,9 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         // Charger et exécuter l'animation du canvas à partir du fichier spécifié ainsi que les extensions nécessaires
         if (Array.isArray(canvaData[selectedCanvasIndex].extension)) {
             canvaData[selectedCanvasIndex].extension.forEach(ext => {
-            const s = document.createElement("script");
-            s.src = ext;
-            document.body.appendChild(s);
+                const s = document.createElement("script");
+                s.src = ext;
+                document.body.appendChild(s);
             });
         } else if (canvaData[selectedCanvasIndex].extension !== "none") {
             const s = document.createElement("script");
@@ -131,6 +189,24 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         document.body.style.animation = `${animationBackground[selectedAnimationBackgroundIndex].keyframes} ${animationDurationBackground}s`;
     } else {
         document.body.style.animation = "none";
+    }
+
+    // Appliquer le neon si activé
+    if (profileData.neonEnable === 0) {
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            .profile-pic-wrapper::before,
+            .profile-pic-wrapper::after {
+                display: none;
+            }
+        `, styleSheet.cssRules.length);
+    } if (profileData.neonEnable === 1) {
+        const neonGradient = profileData.neonColors.join(", ");
+        styleSheet.insertRule(`
+        .profile-pic-wrapper::after, .profile-pic-wrapper::before {
+            background: linear-gradient(45deg, ${neonGradient});
+        }
+        `, styleSheet.cssRules.length);
     }
 
     styleSheet.insertRule(`
@@ -172,9 +248,22 @@ function applyTheme(theme) {
     document.querySelectorAll("button:hover").forEach(link => {
         link.style.color = theme.buttonHoverColor;
     });
-    const emailDiv = document.querySelector(".email");
+    
+    const emailDiv = document.querySelector(".email-description-container .email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
+    emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+    emailDiv.style.borderColor = theme.background;
+
+    emailDiv.addEventListener("mouseover", () => {
+        emailDiv.style.backgroundColor = theme.buttonHoverBackground;
+        emailDiv.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+    });
+    emailDiv.addEventListener("mouseout", () => {
+        emailDiv.style.backgroundColor = theme.buttonBackground;
+        emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+    });
+    
 
     // Appliquer la nouvelle propriété articleHoverBoxShadow
     const styleSheet = document.styleSheets[0];
@@ -191,6 +280,7 @@ function applyAnimation(animation, animationEnabled) {
         article.style.animation = animation.keyframes;
     }
 }
+
 function applyAnimationButton(animation, animationButtonEnabled, delayAnimationButton) {
     const articleChildren = document.querySelectorAll("#profile-article > *");
     if (animationButtonEnabled) {
@@ -201,6 +291,7 @@ function applyAnimationButton(animation, animationButtonEnabled, delayAnimationB
         });
     }
 }
+
 function setIconBasedOnTheme(theme) {
     const iconElement = document.getElementById("theme-icon");
 

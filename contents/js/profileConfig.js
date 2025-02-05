@@ -16,6 +16,7 @@ const profileData = {
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
     neonEnable: 1, // 1 : Enable, 0 : Disable
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
+    description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
     
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
     EnableAnimationButton: 1, // 1 : Enable, 0 : Disable
@@ -23,7 +24,7 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 14,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 13,             // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
@@ -33,7 +34,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 14,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
@@ -65,17 +66,18 @@ const profileData = {
 // 9 : Se balancer
 
 //      Canva Animations      \\
-// 0  : Bulles
-// 1  : Neurones
-// 2  : Particules
-// 3  : Etoiles Filantes
-// 4  : Snow
-// 5  : Galaxie
-// 6  : Hexagone
-// 7  : Rotation
-// 8  : Confetti
-// 9  : Feux d'artifice
-// 10 : Boom Click
-// 11 : Foule
+// 0 : Bubble
+// 1 : Neuronal
+// 2 : Particule
+// 3 : Stars Array
+// 4 : Snow 
+// 5 : Galaxy
+// 6 : Hexagone
+// 7 : Confetti
+// 8 : Fireworks
+// 9 : Boom CLick
+// 10 : Crowd
+// 11 : Storm
 // 12 : Color Wars
-// 13 : Liquides Lumineux
+// 13 : Liquid Light
+// 14 : Rain

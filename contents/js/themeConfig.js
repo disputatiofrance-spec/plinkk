@@ -313,7 +313,7 @@ const themes = [
     hoverColor: "#800080",
     textColor: "white",
     buttonBackground: "#8a7272", 
-    buttonHoverBackground: "#800080", 
+    buttonHoverBackground: "#7a6262", 
     buttonTextColor: "white",
     linkHoverColor: "#ADD8E6",
     articleHoverBoxShadow: "0px 4px 8px rgba(128, 0, 128, 0.3)",

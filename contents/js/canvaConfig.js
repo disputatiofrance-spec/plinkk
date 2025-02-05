@@ -68,6 +68,10 @@ const canvaData = [
         animationName: 'Liquids Lights', // 13
         fileNames: 'liquidslights.js',
         extension: 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js',
+    }, 
+    {
+        animationName: 'Rain', // 14
+        fileNames: 'rain.js',
     }
     // Ajouter ici les animations supplémentaires
 ];
