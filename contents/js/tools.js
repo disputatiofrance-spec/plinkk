@@ -161,16 +161,19 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
             canvaData[selectedCanvasIndex].extension.forEach(ext => {
                 const s = document.createElement("script");
                 s.src = ext;
+                s.onerror = () => location.reload();
                 document.body.appendChild(s);
             });
         } else if (canvaData[selectedCanvasIndex].extension !== "none") {
             const s = document.createElement("script");
             s.src = `${canvaData[selectedCanvasIndex].extension}`;
+            s.onerror = () => location.reload();
             document.body.appendChild(s);
         }
 
         const script = document.createElement("script");
         script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
+        script.onerror = () => location.reload(); 
         document.body.appendChild(script);
 
         script.onload = () => {
@@ -214,6 +217,7 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         // ...existing code...
     }`);
 }
+
 
 function applyTheme(theme) {
     const article = document.getElementById("profile-article");
