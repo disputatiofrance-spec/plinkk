@@ -8,7 +8,7 @@ on:
     types:
       - opened
       - closed
-      - merged
+      - synchronize
       - reopened
   issues:
     types:
@@ -48,4 +48,4 @@ jobs:
           # Envoi du message à Discord via le Webhook
           curl -X POST -H "Content-Type: application/json" \
             -d "{\"content\": \"$MESSAGE\"}" \
-            ${{ secrets.DISCORD_WEBHOOK_URL }}
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
