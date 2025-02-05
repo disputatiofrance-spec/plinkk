@@ -10,7 +10,7 @@ on:
       - closed
       - synchronize
       - reopened
-    issues:
+  issues:
     types:
       - opened
       - edited
@@ -30,7 +30,7 @@ jobs:
 
       - name: Send notification to Discord
         run: |
-          # Définir le message à envoyer en fonction de l'événement
+          # Define the message to send based on the event
           if [[ "${{ github.event_name }}" == "push" ]]; then
             MESSAGE="📦 Commit pushed: ${{ github.actor }} - ${{ github.sha }}\nMessage: ${{ github.event.head_commit.message }}\nLink: https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
@@ -45,7 +45,7 @@ jobs:
             MESSAGE="🎉 Release ${{ github.event.action }}: ${{ github.event.release.name }}\nLink: ${{ github.event.release.html_url }}"
           fi
 
-          # Envoi du message à Discord via le Webhook
+          # Send the message to Discord via the Webhook
           curl -X POST -H "Content-Type: application/json" \
             -d "{\"content\": \"$MESSAGE\"}" \
             "${{ secrets.DISCORD_WEBHOOK_URL }}"
