@@ -9,18 +9,16 @@ on:
       - opened
       - closed
       - reopened
-      - edited
+      - synchronize
   issues:
     types:
       - opened
       - closed
       - reopened
-      - edited
   release:
     types:
       - created
       - published
-      - prereleased
 
 jobs:
   notify:
@@ -33,28 +31,33 @@ jobs:
       - name: Send notification to Discord
         run: |
           # Define the message to send based on the event
-          if [ "${{ github.event_name }}" == "push" ]; then
-            MESSAGE="📦 Commit pushed: ${{ github.actor }} - ${{ github.sha }}\nMessage: ${{ github.event.head_commit.message }}\nLink: https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          elif [ "${{ github.event_name }}" == "pull_request" ]; then
-            if [ "${{ github.event.action }}" == "opened" ]; then
-              MESSAGE="🚀 New PR opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
-            elif [ "${{ github.event.action }}" == "closed" || "${{ github.event.action }}" == "merged" ]; then
-              if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
-                MESSAGE="🔒 PR merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
-              else
-                MESSAGE="🔒 PR closed by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
-              fi
-            fi
-          elif [ "${{ github.event_name }}" == "issues" ]; then
-            MESSAGE="📄 Issue ${{ github.event.action }}: ${{ github.event.issue.title }}\nLink: ${{ github.event.issue.html_url }}"
-          elif [ "${{ github.event_name }}" == "release" ]; then
-            MESSAGE="🎉 Release ${{ github.event.release.name }}: ${{ github.event.release.body }}\nLink: ${{ github.event.release.html_url }}"
-          fi
-
-          # Escape the message to handle special characters
-          ESCAPED_MESSAGE=$(echo "$MESSAGE" | jq -R .)
+          case "${{ github.event_name }}" in
+            push)
+              MESSAGE="📦 Commit pushed: ${{ github.actor }} - ${{ github.sha }}\nMessage: ${{ github.event.head_commit.message }}\nLink: https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+              ;;
+            pull_request)
+              case "${{ github.event.action }}" in
+                opened)
+                  MESSAGE="🚀 New PR opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                  ;;
+                closed|merged)
+                  if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+                    MESSAGE="🔒 PR merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                  else
+                    MESSAGE="🔒 PR closed by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                  fi
+                  ;;
+              esac
+              ;;
+            issues)
+              MESSAGE="📄 Issue ${{ github.event.action }}: ${{ github.event.issue.title }}\nLink: ${{ github.event.issue.html_url }}"
+              ;;
+            release)
+              MESSAGE="🎉 Release ${{ github.event.release.name }}: ${{ github.event.release.body }}\nLink: ${{ github.event.release.html_url }}"
+              ;;
+          esac
 
           # Send the message to Discord via the Webhook
           curl -X POST -H "Content-Type: application/json" \
-            -d "{\"content\": $ESCAPED_MESSAGE}" \
+            -d "{\"content\": \"$MESSAGE\"}" \
             "${{ secrets.DISCORD_WEBHOOK_URL }}"
