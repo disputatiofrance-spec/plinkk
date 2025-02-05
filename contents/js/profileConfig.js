@@ -32,8 +32,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 1
-
+    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
@@ -65,8 +64,17 @@ const profileData = {
 // 9 : Se balancer
 
 //      Canva Animations      \\
-// 0 : Bulles
-// 1 : Neurones
-// 2 : Particules
-// 3 : Etoiles Filantes
-// 4 : Snow
+// 0  : Bulles
+// 1  : Neurones
+// 2  : Particules
+// 3  : Etoiles Filantes
+// 4  : Snow
+// 5  : Galaxie
+// 6  : Hexagone
+// 7  : Rotation
+// 8  : Confetti
+// 9  : Feux d'artifice
+// 10 : Boom Click
+// 11 : Foule
+// 12 : Color Wars
+// 13 : Liquides Lumineux

@@ -77,7 +77,7 @@ function createLinkBoxes(profileData) {
     });
 }
 
-function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas) {
+function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas, selectedCanvasIndex) {
     if (useCanvas) {
         const canvas = document.createElement("canvas");
         canvas.id = "backgroundCanvas";
@@ -85,10 +85,23 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        document.body.id = "container";
 
-        // Charger et exécuter l'animation du canvas à partir du fichier spécifié
+        // Charger et exécuter l'animation du canvas à partir du fichier spécifié ainsi que les extensions nécessaires
+        if (Array.isArray(canvaData[selectedCanvasIndex].extension)) {
+            canvaData[selectedCanvasIndex].extension.forEach(ext => {
+            const s = document.createElement("script");
+            s.src = ext;
+            document.body.appendChild(s);
+            });
+        } else if (canvaData[selectedCanvasIndex].extension !== "none") {
+            const s = document.createElement("script");
+            s.src = `${canvaData[selectedCanvasIndex].extension}`;
+            document.body.appendChild(s);
+        }
+
         const script = document.createElement("script");
-        script.src = `./contents/js/canvaAnimation/${canvaData[profileData.selectedCanvasIndex].fileNames}`;
+        script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
         document.body.appendChild(script);
 
         script.onload = () => {

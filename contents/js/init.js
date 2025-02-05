@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createToggleThemeButton(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     createLinkBoxes(profileData).forEach(box => article.appendChild(box));
 
-    applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable);
+    applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
     applyTheme(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
     applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);

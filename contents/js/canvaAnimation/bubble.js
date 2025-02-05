@@ -3,7 +3,7 @@ function runCanvasAnimation(ctx, canvas) {
     const MIN_RADIUS = 10;
     const MAX_RADIUS = 30;
     const MIN_SPEED = 0.005;
-    const MAX_SPEED = 0.01;
+    const MAX_SPEED = 0.1;
     const MIN_OPACITY = 0.5;
     const MAX_OPACITY = 1.0;
     const MIN_BLUR = 0;
