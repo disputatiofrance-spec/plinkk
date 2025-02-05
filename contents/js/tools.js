@@ -140,7 +140,10 @@ function createLinkBoxes(profileData) {
 
         if (!link.text.trim()) {
             discordLink.style.display = "none";
-        }
+        }colorwars.js:55 Uncaught ReferenceError: SimplexNoise is not defined
+    at init (colorwars.js:55:5)
+    at runCanvasAnimation (colorwars.js:185:1)
+    at HTMLScriptElement.<anonymous> (tools.js:120:17)
 
         return discordBox;
     });
@@ -177,8 +180,16 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         document.body.appendChild(script);
 
         script.onload = () => {
-            if (typeof runCanvasAnimation === "function") {
-                runCanvasAnimation(ctx, canvas);
+            try {
+                if (typeof runCanvasAnimation === "function") {
+                    runCanvasAnimation(ctx, canvas);
+                }
+            } catch (error) {
+                if (error.message.includes("SimplexNoise is not defined")) {
+                    location.reload();
+                } else {
+                    throw error;
+                }
             }
         };
 
