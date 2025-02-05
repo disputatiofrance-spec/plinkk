@@ -77,10 +77,33 @@ function createLinkBoxes(profileData) {
     });
 }
 
-function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground) {
-    document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas) {
+    if (useCanvas) {
+        const canvas = document.createElement("canvas");
+        canvas.id = "backgroundCanvas";
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Charger et exécuter l'animation du canvas à partir du fichier spécifié
+        const script = document.createElement("script");
+        script.src = `./contents/js/canvaAnimation/${canvaData[profileData.selectedCanvasIndex].fileNames}`;
+        document.body.appendChild(script);
+
+        script.onload = () => {
+            if (typeof runCanvasAnimation === "function") {
+                runCanvasAnimation(ctx, canvas);
+            }
+        };
+
+    } else {
+        document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+    }
+
     document.body.style.backgroundSize = `${profileData.backgroundSize}%`;
-    if (EnableAnimationBackground) {
+
+    if (EnableAnimationBackground && !useCanvas) {
         document.body.style.animation = `${animationBackground[selectedAnimationBackgroundIndex].keyframes} ${animationDurationBackground}s`;
     } else {
         document.body.style.animation = "none";
@@ -88,17 +111,8 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
 
     styleSheet.insertRule(`
     .profile-container:hover .profile-pic {
-        transform: rotateY(180deg);
-        box-shadow: 0 0 50px ${profileData.profileHoverColor};
-    }
-    `, styleSheet.cssRules.length);
-
-    const neonGradient = profileData.neonColors.join(", ");
-    styleSheet.insertRule(`
-    .profile-pic-wrapper::after, .profile-pic-wrapper::before {
-        background: linear-gradient(45deg, ${neonGradient});
-    }
-    `, styleSheet.cssRules.length);
+        // ...existing code...
+    }`);
 }
 
 function applyTheme(theme) {
