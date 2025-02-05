@@ -181,15 +181,15 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
 
         script.onload = () => {
             try {
-                if (typeof runCanvasAnimation === "function") {
-                    runCanvasAnimation(ctx, canvas);
-                }
+            if (typeof runCanvasAnimation === "function") {
+                runCanvasAnimation(ctx, canvas);
+            } else {
+                console.error("runCanvasAnimation is not a function");
+                location.reload();
+            }
             } catch (error) {
-                if (error.message.includes("SimplexNoise is not defined")) {
-                    location.reload();
-                } else {
-                    throw error;
-                }
+            console.error("Error running canvas animation:", error);
+            location.reload();
             }
         };
 
