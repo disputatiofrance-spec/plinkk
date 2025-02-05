@@ -77,22 +77,55 @@ function createLinkBoxes(profileData) {
     });
 }
 
-function applyDynamicStyles(profileData, styleSheet) {
-    document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas, selectedCanvasIndex) {
+    if (useCanvas) {
+        const canvas = document.createElement("canvas");
+        canvas.id = "backgroundCanvas";
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        document.body.id = "container";
+
+        // Charger et exécuter l'animation du canvas à partir du fichier spécifié ainsi que les extensions nécessaires
+        if (Array.isArray(canvaData[selectedCanvasIndex].extension)) {
+            canvaData[selectedCanvasIndex].extension.forEach(ext => {
+            const s = document.createElement("script");
+            s.src = ext;
+            document.body.appendChild(s);
+            });
+        } else if (canvaData[selectedCanvasIndex].extension !== "none") {
+            const s = document.createElement("script");
+            s.src = `${canvaData[selectedCanvasIndex].extension}`;
+            document.body.appendChild(s);
+        }
+
+        const script = document.createElement("script");
+        script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
+        document.body.appendChild(script);
+
+        script.onload = () => {
+            if (typeof runCanvasAnimation === "function") {
+                runCanvasAnimation(ctx, canvas);
+            }
+        };
+
+    } else {
+        document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+    }
+
+    document.body.style.backgroundSize = `${profileData.backgroundSize}%`;
+
+    if (EnableAnimationBackground && !useCanvas) {
+        document.body.style.animation = `${animationBackground[selectedAnimationBackgroundIndex].keyframes} ${animationDurationBackground}s`;
+    } else {
+        document.body.style.animation = "none";
+    }
 
     styleSheet.insertRule(`
     .profile-container:hover .profile-pic {
-        transform: rotateY(180deg);
-        box-shadow: 0 0 50px ${profileData.profileHoverColor};
-    }
-    `, styleSheet.cssRules.length);
-
-    const neonGradient = profileData.neonColors.join(", ");
-    styleSheet.insertRule(`
-    .profile-pic-wrapper::after, .profile-pic-wrapper::before {
-        background: linear-gradient(45deg, ${neonGradient});
-    }
-    `, styleSheet.cssRules.length);
+        // ...existing code...
+    }`);
 }
 
 function applyTheme(theme) {
@@ -100,30 +133,99 @@ function applyTheme(theme) {
     article.style.background = theme.background;
     article.style.color = theme.textColor;
     document.querySelectorAll(".discord-box").forEach(box => {
-    box.style.backgroundColor = theme.buttonBackground;
-    box.style.color = theme.buttonTextColor;
+        box.style.backgroundColor = theme.buttonBackground;
+        box.style.color = theme.buttonTextColor;
     });
-    document.querySelectorAll(".discord-box:hover").forEach(box => {
-    box.style.backgroundColor = theme.buttonHoverBackground;
+    document.querySelectorAll(".discord-box").forEach(box => {
+        box.addEventListener("mouseover", () => {
+            box.style.backgroundColor = theme.buttonHoverBackground;
+            box.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
+        });
+        box.addEventListener("mouseout", () => {
+            box.style.backgroundColor = theme.buttonBackground;
+            box.style.boxShadow = "none";
+        });
     });
-    document.querySelectorAll("a").forEach(link => {
-    link.style.color = theme.textColor;
+    document.querySelectorAll("a:not(.footer)").forEach(link => {
+        link.style.color = theme.textColor;
     });
-    document.querySelectorAll("a:hover").forEach(link => {
-    link.style.color = theme.linkHoverColor;
+    document.querySelectorAll("a:not(.footer):hover").forEach(link => {
+        link.style.color = theme.linkHoverColor;
+    });
+    document.querySelectorAll("button").forEach(link => {
+        link.style.backgroundColor = theme.buttonBackground
+    });
+    document.querySelectorAll("button > *").forEach(link => {
+        link.style.color = theme.buttonTextColor;
+    });
+    document.querySelectorAll("button:hover").forEach(link => {
+        link.style.color = theme.buttonHoverColor;
     });
     const emailDiv = document.querySelector(".email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
+
+    // Appliquer la nouvelle propriété articleHoverBoxShadow
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+        article:hover {
+            box-shadow: ${theme.articleHoverBoxShadow};
+        }
+    `, styleSheet.cssRules.length);
 }
 
-function applyAnimation(animation) {
+function applyAnimation(animation, animationEnabled) {
     const article = document.getElementById("profile-article");
-    article.style.animation = animation.keyframes;
+    if (animationEnabled) {
+        article.style.animation = animation.keyframes;
+    }
 }
-function applyAnimationButton(animation) {
+function applyAnimationButton(animation, animationButtonEnabled, delayAnimationButton) {
     const articleChildren = document.querySelectorAll("#profile-article > *");
-    articleChildren.forEach(child => {
-    child.style.animation = animation.keyframes;
-    });
+    if (animationButtonEnabled) {
+        articleChildren.forEach((child, index) => {
+            child.style.animationDelay = `${(index + 1) * delayAnimationButton}s`;
+            child.style.animation = `${animation.keyframes} ${animation.duration || delayAnimationButton * index}s`;
+            child.style.animationFillMode = "backwards";
+        });
+    }
+}
+function setIconBasedOnTheme(theme) {
+    const iconElement = document.getElementById("theme-icon");
+
+    if (iconElement) {
+        if (!theme.darkTheme && !document.body.classList.contains("dark-theme")) {
+            iconElement.name = "moon-outline";
+        } else if (theme.darkTheme && document.body.classList.contains("dark-theme")) {
+            iconElement.name = "moon-outline";
+        } else {
+            iconElement.name = "sunny-outline";
+        }
+    }
+}
+
+function loadThemeConfig(theme) {
+    applyTheme(theme);
+    setIconBasedOnTheme(theme.darkTheme);
+}
+
+function toggleTheme(theme) {
+    const currentTheme = document.body.classList.contains("dark-theme") ? theme : theme.opposite;
+    applyTheme(currentTheme);
+    setIconBasedOnTheme(theme);
+    document.body.classList.toggle("dark-theme");
+}
+
+function createToggleThemeButton(theme) {
+    const button = document.createElement("button");
+    button.className = "theme-toggle-button";
+    const icon = document.createElement("ion-icon");
+    icon.id = "theme-icon";
+    icon.name = theme.darkTheme ? "moon-outline" : "sunny-outline";
+    button.appendChild(icon);
+    
+    button.addEventListener("click", () => toggleTheme(theme));
+
+    const article = document.getElementById("profile-article");
+    article.appendChild(button);
 }
