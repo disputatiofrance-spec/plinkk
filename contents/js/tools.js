@@ -349,7 +349,9 @@ function createMetaTags() {
         { property: "twitter:image:alt", content: "Profile Picture" },
         { name: "theme-color", content: themes[profileData.selectedThemeIndex % themes.length] || "#7289DA" },
         { name: "author", content: profileData.userName + " & developed with ❤️ by Klaynight" || "Default Author" },
-        { name: "robots", content: "index, follow" }
+        { name: "robots", content: "index, follow" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { charset: "UTF-8" }
     ];
 
     metaTags.forEach(tag => {
@@ -360,3 +362,4 @@ function createMetaTags() {
         document.head.appendChild(meta);
     });
 }
+

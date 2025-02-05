@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () { 
+document.addEventListener("DOMContentLoaded", function () {
+    createMetaTags() 
     const article = document.getElementById("profile-article");
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
@@ -9,9 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
     applyTheme(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
-    applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
-
-    createMetaTags();
+    applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);;
+    
 
     document.title = profileData.userName ? profileData.userName + " - Linktree" : "Plinkk By Klaynight";
     const link = document.createElement("link");
