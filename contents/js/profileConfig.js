@@ -14,6 +14,7 @@ const profileData = {
     backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
+    neonEnable: 1, // 1 : Enable, 0 : Disable
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
     
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable

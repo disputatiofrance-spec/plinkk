@@ -36,8 +36,19 @@ function createProfileContainer(profileData) {
     profileLink.appendChild(profileLinkDiv);
     profileContainer.appendChild(profileLink);
 
+    if (profileData.neonEnable === 0) {
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            .profile-pic-wrapper::before,
+            .profile-pic-wrapper::after {
+                display: none;
+            }
+        `, styleSheet.cssRules.length);
+    }
+
     return profileContainer;
 }
+
 
 function createUserName(profileData) {
     const userName = document.createElement("h1");
