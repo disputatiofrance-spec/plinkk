@@ -18,6 +18,10 @@ const canvaData = [
     {
         animationName: 'Snow',
         fileNames: 'snow.js',
+    },
+    {
+        animationName: 'Galaxy',
+        fileNames: 'galaxy.js',
     }
 
     // Ajouter ici les animations supplémentaires
