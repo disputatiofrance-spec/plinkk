@@ -39,12 +39,12 @@ jobs:
             if [[ "${{ github.event.action }}" == "opened" ]]; then
               MESSAGE="🚀 New PR opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
             elif [[ "${{ github.event.action }}" == "closed" || "${{ github.event.action }}" == "merged" ]]; then
-              MESSAGE="🔒 PR closed/merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
               if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
                 MESSAGE="🔒 PR merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
-              else
+              else:
                 MESSAGE="🔒 PR closed by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
               fi
+            fi
           elif [[ "${{ github.event_name }}" == "issues" ]]; then
             MESSAGE="📄 Issue ${{ github.event.action }}: ${{ github.event.issue.title }}\nLink: ${{ github.event.issue.html_url }}"
           elif [[ "${{ github.event_name }}" == "release" ]]; then
