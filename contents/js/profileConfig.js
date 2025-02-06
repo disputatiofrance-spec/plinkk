@@ -32,7 +32,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 1,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 3,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
