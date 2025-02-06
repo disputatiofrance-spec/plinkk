@@ -184,10 +184,10 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         };
 
         setTimeout(() => {
-            if (console.error) {
+            if (console.error && !sessionStorage.getItem("firstLoadDone")) {
                 location.reload();
             }
-        }, 2000);
+        }, 5000);
 
     } else {
         document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
