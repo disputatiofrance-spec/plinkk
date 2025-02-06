@@ -160,7 +160,6 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
             canvaData[selectedCanvasIndex].extension.forEach(ext => {
                 const s = document.createElement("script");
                 s.src = ext;
-                s.onerror = () => location.reload();
                 document.body.appendChild(s);
             });
         } else if (canvaData[selectedCanvasIndex].extension !== "none" && !sessionStorage.getItem("firstLoadDone")) {
@@ -178,14 +177,10 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         script.onload = () => {
             if (typeof runCanvasAnimation === "function") {
                 runCanvasAnimation(ctx, canvas);
+            } else {
+                console.error("runCanvasAnimation is not a function");
             }
         };
-
-        setTimeout(() => {
-            if (console.error && window.innerWidth > 768) {
-                location.reload();
-            }
-        }, 2000);
 
     } else {
         document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
