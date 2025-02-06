@@ -1,7 +1,3 @@
-var script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/npm/gsap@3.9.1/dist/gsap.min.js';
-document.head.appendChild(script);
-
 function runCanvasAnimation(ctx, canvas) {
     const config = {
     src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/open-peeps-sheet.png',

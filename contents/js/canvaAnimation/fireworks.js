@@ -1,7 +1,3 @@
-var script = document.createElement('script');
-script.src = "https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js";
-document.head.appendChild(script);
-
 function runCanvasAnimation(ctx, canvasEl) {
 
     window.human = false;
