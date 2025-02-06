@@ -140,11 +140,7 @@ function createLinkBoxes(profileData) {
 
         if (!link.text.trim()) {
             discordLink.style.display = "none";
-        }colorwars.js:55 Uncaught ReferenceError: SimplexNoise is not defined
-    at init (colorwars.js:55:5)
-    at runCanvasAnimation (colorwars.js:185:1)
-    at HTMLScriptElement.<anonymous> (tools.js:120:17)
-
+        }
         return discordBox;
     });
 }
@@ -180,16 +176,12 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         document.body.appendChild(script);
 
         script.onload = () => {
-            try {
             if (typeof runCanvasAnimation === "function") {
                 runCanvasAnimation(ctx, canvas);
-            } else {
-                console.error("runCanvasAnimation is not a function");
-                location.reload();
-            }
-            } catch (error) {
-            console.error("Error running canvas animation:", error);
-            location.reload();
+                if (!sessionStorage.getItem("firstLoadDone")) {
+                    sessionStorage.setItem("firstLoadDone", "true");
+                    location.reload();
+                }
             }
         };
 
