@@ -155,32 +155,36 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         canvas.height = window.innerHeight;
         document.body.id = "container";
 
-        // Charger et exécuter l'animation du canvas à partir du fichier spécifié ainsi que les extensions nécessaires
-        if (Array.isArray(canvaData[selectedCanvasIndex].extension)) {
-            canvaData[selectedCanvasIndex].extension.forEach(ext => {
+        try {
+            // Charger et exécuter l'animation du canvas à partir du fichier spécifié ainsi que les extensions nécessaires
+            if (Array.isArray(canvaData[selectedCanvasIndex].extension)) {
+                canvaData[selectedCanvasIndex].extension.forEach(ext => {
+                    const s = document.createElement("script");
+                    s.src = ext;
+                    document.body.appendChild(s);
+                });
+            } else if (canvaData[selectedCanvasIndex].extension !== "none" && !sessionStorage.getItem("firstLoadDone")) {
                 const s = document.createElement("script");
-                s.src = ext;
+                s.src = `${canvaData[selectedCanvasIndex].extension}`;
                 document.body.appendChild(s);
-            });
-        } else if (canvaData[selectedCanvasIndex].extension !== "none" && !sessionStorage.getItem("firstLoadDone")) {
-            const s = document.createElement("script");
-            s.src = `${canvaData[selectedCanvasIndex].extension}`;
-            document.body.appendChild(s);
-        }
-
-        const script = document.createElement("script");
-        script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
-        document.body.appendChild(script);
-
-        
-
-        script.onload = () => {
-            if (typeof runCanvasAnimation === "function") {
-                runCanvasAnimation(ctx, canvas);
-            } else {
-                console.error("runCanvasAnimation is not a function");
             }
-        };
+
+            const script = document.createElement("script");
+            script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
+            document.body.appendChild(script);
+
+            script.onload = () => {
+                if (typeof runCanvasAnimation === "function") {
+                    runCanvasAnimation(ctx, canvas);
+                } else {
+                    console.error("runCanvasAnimation is not a function");
+                    document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+                }
+            };
+        } catch (error) {
+            console.error("Error loading canvas animation:", error);
+            document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+        }
 
     } else {
         document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
