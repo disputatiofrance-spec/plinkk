@@ -184,7 +184,7 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         };
 
         setTimeout(() => {
-            if (console.error && !sessionStorage.getItem("firstLoadDone")) {
+            if (typeof runCanvasAnimation !== "function") {
                 location.reload();
             }
         }, 5000);
