@@ -155,6 +155,24 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         canvas.height = window.innerHeight;
         document.body.id = "container";
 
+        try {
+            const script = document.createElement("script");
+            script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
+            document.body.appendChild(script);
+
+            script.onload = () => {
+                if (typeof runCanvasAnimation === "function") {
+                    runCanvasAnimation(ctx, canvas);
+                } else {
+                    console.error("runCanvasAnimation is not a function");
+                    document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+                }
+            };
+        } catch (error) {
+            console.error("Error loading canvas animation:", error);
+            document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+        }
+
     } else {
         document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
     }
