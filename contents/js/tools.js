@@ -163,7 +163,7 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
                 s.onerror = () => location.reload();
                 document.body.appendChild(s);
             });
-        } else if (canvaData[selectedCanvasIndex].extension !== "none") {
+        } else if (canvaData[selectedCanvasIndex].extension !== "none" && !sessionStorage.getItem("firstLoadDone")) {
             const s = document.createElement("script");
             s.src = `${canvaData[selectedCanvasIndex].extension}`;
             s.onerror = () => location.reload();
@@ -178,10 +178,6 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         script.onload = () => {
             if (typeof runCanvasAnimation === "function") {
                 runCanvasAnimation(ctx, canvas);
-                if (!sessionStorage.getItem("firstLoadDone")) {
-                    sessionStorage.setItem("firstLoadDone", "true");
-                    location.reload();
-                }
             }
         };
 
