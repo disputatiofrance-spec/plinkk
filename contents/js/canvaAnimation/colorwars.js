@@ -1,3 +1,10 @@
+var script = document.createElement('script');
+script.src = "https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js";
+document.head.appendChild(script);
+let script2 = document.createElement('script');
+script2.src = "https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js";
+document.head.appendChild(script2);
+
 function runCanvasAnimation(context, canvas) {
 
 /**

@@ -1,3 +1,7 @@
+var script = document.createElement('script');
+script.src = 'https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js';
+document.head.appendChild(script);
+
 function runCanvasAnimation(ctx, canvas) {
     window.requestAnimationFrame = (function(){
         return  window.requestAnimationFrame       ||
