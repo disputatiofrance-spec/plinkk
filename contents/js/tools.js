@@ -175,11 +175,19 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
         script.onerror = () => location.reload(); 
         document.body.appendChild(script);
 
+        
+
         script.onload = () => {
             if (typeof runCanvasAnimation === "function") {
                 runCanvasAnimation(ctx, canvas);
             }
         };
+
+        setTimeout(() => {
+            if (console.error) {
+                location.reload();
+            }
+        }, 2000);
 
     } else {
         document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
