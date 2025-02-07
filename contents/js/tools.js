@@ -325,4 +325,38 @@ function createToggleThemeButton(theme) {
 
     const article = document.getElementById("profile-article");
     article.appendChild(button);
+
+    if (!theme) {
+        button.style.display = "none";
+    }
+}
+
+function createLabelButtons(profileData) {
+    const container = document.createElement("div");
+    container.className = "label-buttons-container";
+
+    profileData.labels.forEach(label => {
+        const button = document.createElement("div");
+        button.className = "label-button";
+        button.style.backgroundColor = `${label.color}80`;
+        button.style.border = `2px solid ${label.color}`;
+        button.style.color = label.fontColor;
+        button.textContent = label.data;
+
+        button.addEventListener("mouseover", () => {
+            button.style.backgroundColor = label.color;
+        });
+
+        button.addEventListener("mouseout", () => {
+            button.style.backgroundColor = `${label.color}80`;
+        });
+
+        container.appendChild(button);
+        if (!label.data.trim() || (!label.color.trim() || label.color.trim() === "#") || (!label.fontColor.trim() || label.fontColor.trim() === "#")) {
+            button.style.display = "none";
+        }
+    });
+
+    const article = document.getElementById("profile-article");
+    article.appendChild(container);
 }

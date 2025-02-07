@@ -304,3 +304,21 @@ canvas {
 .email {
     width: 100%;
 }
+
+.label-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.label-button {
+    color: white;
+    padding: 2.5px 5px;
+    border-radius: 10px;
+    margin: 5px; /* Add margin to all sides for better spacing */
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.7em;
+    width: max-content;
+}

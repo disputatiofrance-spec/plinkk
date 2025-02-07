@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const article = document.getElementById("profile-article");
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
+    createLabelButtons(profileData);
     article.appendChild(createEmailAndDescription(profileData));
     createToggleThemeButton(themes[(profileData.selectedThemeIndex % themes.length + themes.length) % themes.length]);
     createLinkBoxes(profileData).forEach(box => article.appendChild(box));
