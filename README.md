@@ -219,7 +219,7 @@ Pour automatiser la mise à jour de votre fork avec les dernières modifications
             run: git push origin main
     ```
 
-2. **Configurer  workflowle** :
+2. **Configurer  workflow** :
     - Le secret `GITHUB_TOKEN` est automatiquement fourni par GitHub Actions et permet d'authentifier les actions GitHub pour pousser les modifications.
 
 3. **Activer le workflow** :
