@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    createMetaTags() 
     const article = document.getElementById("profile-article");
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
