@@ -266,13 +266,6 @@ function applyTheme(theme) {
         themeToggle.style.backgroundColor = theme.buttonBackground;
         themeToggle.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
     });
-
-    const labelButtons = document.querySelectorAll(".label-button");
-    labelButtons.forEach(button => {
-        button.style.border = `2px solid ${theme.buttonBackground}`;
-        button.style.color = theme.buttonTextColor;
-    });
-
     // Appliquer la nouvelle propriété articleHoverBoxShadow
     const styleSheet = document.styleSheets[0];
     styleSheet.insertRule(`
