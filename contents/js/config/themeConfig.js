@@ -4,7 +4,7 @@ const themes = [
     background: "rgba(0, 0, 0, 0.6)",
     hoverColor: "#7289DA",
     textColor: "white",
-    buttonBackground: "#2C2F33",
+    buttonBackground: "#424f7e",
     buttonHoverBackground: "#7289DA",
     buttonTextColor: "white",
     linkHoverColor: "#7289DA",
