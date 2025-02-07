@@ -1,75 +1,67 @@
-function runCanvasAnimation(ctx, canvas) {
-    const NUM_FLAKES = 200;
-    const FLAKE_SIZE_MIN = 2;
-    const FLAKE_SIZE_MAX = 5;
-    const FLAKE_SPEED_MIN = 0.5;
-    const FLAKE_SPEED_MAX = 2;
-    const WIND_SPEED = 0.5;
-    const FLAKE_COLOR = 'white';
-    const BACKGROUND_COLOR = 'grey';
+function runCanvasAnimation(bgCtx, background) {
+    const body = document.getElementById("body");
 
-    const flakes = [];
+    window.addEventListener('resize', resizeCanvas, false);
+    resizeCanvas();
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    function Snow(options) {
+        this.size = Math.random() * 2;
+        this.speed = Math.random() * 0.5;
+        this.x = options.x;
+        this.y = options.y;
+        this.angle = Math.random() * Math.PI * 2;
     }
 
-    function createFlake() {
-        return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * (FLAKE_SIZE_MAX - FLAKE_SIZE_MIN) + FLAKE_SIZE_MIN,
-            speed: Math.random() * (FLAKE_SPEED_MAX - FLAKE_SPEED_MIN) + FLAKE_SPEED_MIN,
-            wind: Math.random() * WIND_SPEED - WIND_SPEED / 2
-        };
+    Snow.prototype.reset = function () {
+        this.size = Math.random() * 2;
+        this.speed = Math.random() * 0.5;
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.angle = Math.random() * Math.PI * 2;
     }
 
-    function drawFlake(flake) {
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
-        ctx.fillStyle = FLAKE_COLOR;
-        ctx.fill();
-        ctx.closePath();
-    }
+    Snow.prototype.update = function () {
+        this.y += this.speed;
+        this.angle += 0.01;
+        this.x += Math.sin(this.angle) * 0.1;
 
-    function updateFlakes() {
-        for (let i = 0; i < flakes.length; i++) {
-            flakes[i].y += flakes[i].speed;
-            flakes[i].x += flakes[i].wind;
-
-            if (flakes[i].y > canvas.height) {
-                flakes[i].y = -flakes[i].size;
-                flakes[i].x = Math.random() * canvas.width;
-            }
-
-            if (flakes[i].x > canvas.width) {
-                flakes[i].x = 0;
-            } else if (flakes[i].x < 0) {
-                flakes[i].x = canvas.width;
-            }
+        if (this.y > height) {
+            this.reset();
+        } else {
+            bgCtx.fillRect(this.x, this.y, this.size, this.size);
         }
+    }
+
+    bgCtx.fillRect(0, 0, width, height);
+
+    const entities = [];
+
+    for (let i = 0; i < height; i++) {
+        entities.push(new Snow({
+            x: Math.random() * width,
+            y: Math.random() * height
+        }));
     }
 
     function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = BACKGROUND_COLOR;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        bgCtx.fillStyle = '#6B92B9';
+        bgCtx.fillRect(0, 0, width, height);
+        bgCtx.fillStyle = '#ffffff';
+        bgCtx.strokeStyle = '#ffffff';
 
-        for (let i = 0; i < flakes.length; i++) {
-            drawFlake(flakes[i]);
+        for (let i = 0; i < entities.length; i++) {
+            entities[i].update();
         }
-
-        updateFlakes();
         requestAnimationFrame(animate);
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    for (let i = 0; i < NUM_FLAKES; i++) {
-        flakes.push(createFlake());
-    }
-
     animate();
+
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        background.width = width;
+        background.height = height;
+    }
 }
