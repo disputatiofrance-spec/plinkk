@@ -77,6 +77,18 @@ const canvaData = [
         animationName: 'Matrix Rain', // 15
         fileNames: 'matrix-effect/app.js',
         author: 'sumitKcs & Klaynight',
+    },
+    {
+        animationName: 'Purple Tree', // 16
+        fileNames: 'purpletree.js',
+    },
+    {
+        animationName: 'Cloud', // 17
+        fileNames: 'cloud.js',
+    },
+    {
+        animationName: 'Space', // 18
+        fileNames: 'space.js',
     }
     // Ajouter ici les animations supplémentaires
 ];

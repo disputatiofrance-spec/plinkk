@@ -19,7 +19,7 @@ const profileData = {
     description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
     meta: {
         title: "GitHub User - Linktree", // Titre de l'onglet
-        description: "GitHub User's Linktree", // Description de l'onglet
+        description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description de l'onglet
         keywords: "GitHub, User, Profile, Links, Website, Template, plinkk, klaynight", // Mots-clés de l'onglet
         url: "https://github.com" // URL de l'onglet
     },
@@ -40,7 +40,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 4,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
@@ -87,3 +87,7 @@ const profileData = {
 // 12 : Color Wars
 // 13 : Liquid Light
 // 14 : Rain
+// 15 : Matrix
+// 16 : Purple Tree
+// 17 : Cloud
+// 18 : Space
