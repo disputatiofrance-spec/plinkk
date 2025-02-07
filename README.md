@@ -115,10 +115,60 @@ Ce projet est un modèle de site web de liens, conçu pour afficher des informat
     ];
     ```
 
+## Mettre à jour votre fork automatiquement
+
+Pour automatiser la mise à jour de votre fork avec les dernières modifications du dépôt d'origine, vous pouvez configurer un workflow GitHub Actions. Suivez les étapes ci-dessous :
+
+1. **Créer un fichier de workflow** :
+    - Dans votre fork, créez un répertoire `.github/workflows` s'il n'existe pas déjà.
+    - Ajoutez un fichier nommé `update_fork.yml` dans ce répertoire avec le contenu suivant :
+
+    ```yaml
+    name: Update Fork
+
+    on:
+      schedule:
+        - cron: '0 0 * * 0' # Exécuter chaque dimanche à minuit
+      workflow_dispatch:
+
+    jobs:
+      update-fork:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v2
+
+          - name: Set up Git
+            run: |
+              git config --global user.name 'github-actions'
+              git config --global user.email 'github-actions@github.com'
+
+          - name: Add upstream remote
+            run: git remote add upstream https://github.com/Klaynight-dev/links_website_template.git
+
+          - name: Fetch upstream
+            run: git fetch upstream
+
+          - name: Merge upstream changes
+            run: |
+              git checkout main
+              git merge upstream/main
+
+          - name: Push changes
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: git push origin main
+    ```
+
+2. **Configurer le workflow** :
+    - Le secret `GITHUB_TOKEN` est automatiquement fourni par GitHub Actions et permet d'authentifier les actions GitHub pour pousser les modifications.
+
+3. **Activer le workflow** :
+    - Une fois le fichier `update_fork.yml` ajouté et poussé dans votre fork, le workflow sera automatiquement exécuté selon le planning défini (chaque dimanche à minuit) ou manuellement via l'interface GitHub Actions.
+
+En suivant ces étapes, votre fork sera automatiquement mis à jour avec les dernières modifications du dépôt d'origine tout en conservant vos propres modifications.
+
 ## Licence
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
-
----
-
-Assurez-vous de remplacer les descriptions des nouvelles fonctionnalités par les détails appropriés pour votre projet.
