@@ -37,11 +37,17 @@ function createProfileContainer(profileData) {
     profileContainer.appendChild(profileLink);
 
     // "display:none;" si le texte est vide
-    ["profileSiteText", "profileImage", "profileIcon", "profileLink", "profileHoverColor"].forEach(key => {
-        if (!profileData[key]?.trim()) {
-            profileContainer.style.display = "none";
-        }
-    });
+    if (profileData.profileSiteText.trim() === "") {
+        profileSiteText.style.display = "none";
+    } if (profileData.profileImage.trim() === "") {
+        profilePic.style.display = "none";
+    } if (profileData.profileIcon.trim() === "") {
+        profileIcon.style.display = "none";
+    } if (profileData.profileLink.trim() === "") {
+        profileLink.style.display = "none";
+    } if (profileData.profileHoverColor.trim() === "") {
+        profileContainer.style.display = "none";
+    }
 
     return profileContainer;
 }
@@ -218,6 +224,8 @@ function applyTheme(theme) {
     document.querySelectorAll(".discord-box").forEach(box => {
         box.style.backgroundColor = theme.buttonBackground;
         box.style.color = theme.buttonTextColor;
+    });
+    document.querySelectorAll(".discord-box").forEach(box => {
         box.addEventListener("mouseover", () => {
             box.style.backgroundColor = theme.buttonHoverBackground;
             box.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
@@ -227,31 +235,15 @@ function applyTheme(theme) {
             box.style.boxShadow = "none";
         });
     });
-    document.querySelectorAll("a:not(.footer)").forEach(link => {
+    document.querySelectorAll("a").forEach(link => {
         link.style.color = theme.textColor;
-        link.addEventListener("mouseover", () => {
-            link.style.color = theme.linkHoverColor;
-        });
-        link.addEventListener("mouseout", () => {
-            link.style.color = theme.textColor;
-        });
     });
-    document.querySelectorAll("button").forEach(button => {
-        button.style.backgroundColor = theme.buttonBackground;
-        button.style.color = theme.buttonTextColor;
-        button.addEventListener("mouseover", () => {
-            button.style.color = theme.buttonHoverColor;
-        });
-        button.addEventListener("mouseout", () => {
-            button.style.color = theme.buttonTextColor;
-        });
+    document.querySelectorAll("a:hover").forEach(link => {
+        link.style.color = theme.linkHoverColor;
     });
-
-    const emailDiv = document.querySelector(".email-description-container .email");
+    const emailDiv = document.querySelector(".email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
-    emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
-    emailDiv.style.borderColor = theme.background;
 
     emailDiv.addEventListener("mouseover", () => {
         emailDiv.style.backgroundColor = theme.buttonHoverBackground;
@@ -260,6 +252,25 @@ function applyTheme(theme) {
     emailDiv.addEventListener("mouseout", () => {
         emailDiv.style.backgroundColor = theme.buttonBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+    });
+
+    const themeToggle = document.querySelector(".theme-toggle-button");
+    themeToggle.style.backgroundColor = theme.buttonBackground;
+    themeToggle.style.color = theme.textColor;
+
+    themeToggle.addEventListener("mouseover", () => {
+        themeToggle.style.backgroundColor = theme.buttonHoverBackground;
+        themeToggle.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+    });
+    themeToggle.addEventListener("mouseout", () => {
+        themeToggle.style.backgroundColor = theme.buttonBackground;
+        themeToggle.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+    });
+
+    const labelButtons = document.querySelectorAll(".label-button");
+    labelButtons.forEach(button => {
+        button.style.border = `2px solid ${theme.buttonBackground}`;
+        button.style.color = theme.buttonTextColor;
     });
 
     // Appliquer la nouvelle propriété articleHoverBoxShadow
