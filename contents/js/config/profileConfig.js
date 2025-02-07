@@ -70,6 +70,14 @@ const profileData = {
 // 7 : Pulsation
 // 8 : Balancer
 // 9 : Se balancer
+// 10 : Clignoter
+// 11 : Bande de caoutchouc
+// 12 : Tada
+// 13 : Gélatineux
+// 14 : Battement de coeur
+// 15 : Vitesse de la lumière
+// 16 : Rouler
+// 17 : Charnière
 
 //      Canva Animations      \\
 // 0 : Bubble
