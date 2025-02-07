@@ -72,6 +72,11 @@ const canvaData = [
     {
         animationName: 'Rain', // 14
         fileNames: 'rain.js',
+    },
+    {
+        animationName: 'Matrix Rain', // 15
+        fileNames: 'matrix-effect/app.js',
+        author: 'sumitKcs',
     }
     // Ajouter ici les animations supplémentaires
 ];
