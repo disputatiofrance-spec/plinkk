@@ -87,7 +87,9 @@ article {
     position: relative;
     filter: blur(0);
 }
-
+.profile-container, .profile-pic-wrapper, .profile-link, .profile-container a {
+    border-radius: 100%;
+}
 .profile-pic-wrapper::after {
     content: '';
     position: absolute;
