@@ -105,7 +105,7 @@ function addEmailStyles() {
     styleSheet.insertRule(`
         .email {
             width: 100%;
-            border: 2px solid #7289DA;
+            border: 2px solid ${themes[profileData.selectedThemeIndex % themes.length].buttonHoverBackground};
             border-radius: 10px;
             background-color: #2C2F33;
             color: white;
