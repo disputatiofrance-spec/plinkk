@@ -10,8 +10,9 @@ const profileData = {
         { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2" },
         { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3" }
     ],
-    // Image de fond
-    backgroundImage: "https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
+    // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
+    background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
+    degBackgroundColor: 45, // inclinaison du degradé
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
@@ -37,7 +38,7 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 0,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 0,             // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)

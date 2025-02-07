@@ -37,17 +37,11 @@ function createProfileContainer(profileData) {
     profileContainer.appendChild(profileLink);
 
     // "display:none;" si le texte est vide
-    if (profileData.profileSiteText.trim() === "") {
-        profileSiteText.style.display = "none";
-    } if (profileData.profileImage.trim() === "") {
-        profilePic.style.display = "none";
-    } if (profileData.profileIcon.trim() === "") {
-        profileIcon.style.display = "none";
-    } if (profileData.profileLink.trim() === "") {
-        profileLink.style.display = "none";
-    } if (profileData.profileHoverColor.trim() === "") {
-        profileContainer.style.display = "none";
-    }
+    ["profileSiteText", "profileImage", "profileIcon", "profileLink", "profileHoverColor"].forEach(key => {
+        if (!profileData[key]?.trim()) {
+            profileContainer.style.display = "none";
+        }
+    });
 
     return profileContainer;
 }
@@ -55,7 +49,7 @@ function createProfileContainer(profileData) {
 function createUserName(profileData) {
     const userName = document.createElement("h1");
     userName.textContent = profileData.userName;
-    
+
     if (!profileData.userName.trim()) {
         userName.style.display = "none";
     }
@@ -86,39 +80,45 @@ function createEmailAndDescription(profileData) {
 
     container.appendChild(emailDiv);
     container.appendChild(descriptionDiv);
+
     if (!profileData.description.trim()) {
         descriptionDiv.style.display = "none";
     } else {
-        styleSheet.insertRule(`
-            .email {
-                width: 100%;
-                border: 2px solid #7289DA;
-                border-radius: 10px;
-                background-color: #2C2F33;
-                color: white;
-                font-size: 1em;
-                font-weight: bold;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            }
-            `, styleSheet.cssRules.length);
-        styleSheet.insertRule(`
-            .email a {
-                display: block;
-                padding: 10px;
-                text-align: center;
-                text-decoration: none;
-                color: white;
-                border-radius: 10px;
-            }
-            `, styleSheet.cssRules.length);            
-        
+        addEmailStyles();
     }
+
     if (!profileData.email.trim()) {
         emailDiv.style.display = "none";
     }
 
     return container;
+}
+
+function addEmailStyles() {
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+        .email {
+            width: 100%;
+            border: 2px solid #7289DA;
+            border-radius: 10px;
+            background-color: #2C2F33;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    `, styleSheet.cssRules.length);
+    styleSheet.insertRule(`
+        .email a {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border-radius: 10px;
+        }
+    `, styleSheet.cssRules.length);
 }
 
 function createLinkBoxes(profileData) {
@@ -165,21 +165,19 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
                     runCanvasAnimation(ctx, canvas);
                 } else {
                     console.error("runCanvasAnimation is not a function");
-                    document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+                    setBackgroundStyles(profileData);
                 }
             };
         } catch (error) {
             console.error("Error loading canvas animation:", error);
-            document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+            setBackgroundStyles(profileData);
         }
 
     } else {
-        document.body.style.backgroundImage = `url(${profileData.backgroundImage})`;
+        setBackgroundStyles(profileData);
     }
 
-    document.body.style.backgroundSize = `${profileData.backgroundSize}%`;
-
-    if (EnableAnimationBackground && !useCanvas) {
+    if (EnableAnimationBackground && !useCanvas && !Array.isArray(profileData.background)) {
         document.body.style.animation = `${animationBackground[selectedAnimationBackgroundIndex].keyframes} ${animationDurationBackground}s`;
     } else {
         document.body.style.animation = "none";
@@ -187,28 +185,31 @@ function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackground
 
     // Appliquer le neon si activé
     if (profileData.neonEnable === 0) {
-        const styleSheet = document.styleSheets[0];
         styleSheet.insertRule(`
             .profile-pic-wrapper::before,
             .profile-pic-wrapper::after {
                 display: none;
             }
         `, styleSheet.cssRules.length);
-    } if (profileData.neonEnable === 1) {
+    } else {
         const neonGradient = profileData.neonColors.join(", ");
         styleSheet.insertRule(`
-        .profile-pic-wrapper::after, .profile-pic-wrapper::before {
-            background: linear-gradient(45deg, ${neonGradient});
-        }
+            .profile-pic-wrapper::after, .profile-pic-wrapper::before {
+                background: linear-gradient(45deg, ${neonGradient});
+            }
         `, styleSheet.cssRules.length);
     }
-
-    styleSheet.insertRule(`
-    .profile-container:hover .profile-pic {
-        // ...existing code...
-    }`);
 }
 
+function setBackgroundStyles(profileData) {
+    if (Array.isArray(profileData.background)) {
+        document.body.style.background = `linear-gradient(${profileData.degBackgroundColor}deg, ${profileData.background.join(", ")})`;
+        document.body.style.backgroundSize = "cover";
+    } else {
+        document.body.style.background = `url(${profileData.background})`;
+        document.body.style.backgroundSize = `${profileData.backgroundSize}%`;
+    }
+}
 
 function applyTheme(theme) {
     const article = document.getElementById("profile-article");
@@ -217,8 +218,6 @@ function applyTheme(theme) {
     document.querySelectorAll(".discord-box").forEach(box => {
         box.style.backgroundColor = theme.buttonBackground;
         box.style.color = theme.buttonTextColor;
-    });
-    document.querySelectorAll(".discord-box").forEach(box => {
         box.addEventListener("mouseover", () => {
             box.style.backgroundColor = theme.buttonHoverBackground;
             box.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
@@ -230,20 +229,24 @@ function applyTheme(theme) {
     });
     document.querySelectorAll("a:not(.footer)").forEach(link => {
         link.style.color = theme.textColor;
+        link.addEventListener("mouseover", () => {
+            link.style.color = theme.linkHoverColor;
+        });
+        link.addEventListener("mouseout", () => {
+            link.style.color = theme.textColor;
+        });
     });
-    document.querySelectorAll("a:not(.footer):hover").forEach(link => {
-        link.style.color = theme.linkHoverColor;
+    document.querySelectorAll("button").forEach(button => {
+        button.style.backgroundColor = theme.buttonBackground;
+        button.style.color = theme.buttonTextColor;
+        button.addEventListener("mouseover", () => {
+            button.style.color = theme.buttonHoverColor;
+        });
+        button.addEventListener("mouseout", () => {
+            button.style.color = theme.buttonTextColor;
+        });
     });
-    document.querySelectorAll("button").forEach(link => {
-        link.style.backgroundColor = theme.buttonBackground
-    });
-    document.querySelectorAll("button > *").forEach(link => {
-        link.style.color = theme.buttonTextColor;
-    });
-    document.querySelectorAll("button:hover").forEach(link => {
-        link.style.color = theme.buttonHoverColor;
-    });
-    
+
     const emailDiv = document.querySelector(".email-description-container .email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
@@ -258,7 +261,6 @@ function applyTheme(theme) {
         emailDiv.style.backgroundColor = theme.buttonBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
     });
-    
 
     // Appliquer la nouvelle propriété articleHoverBoxShadow
     const styleSheet = document.styleSheets[0];
