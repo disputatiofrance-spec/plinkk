@@ -135,7 +135,7 @@ function runCanvasAnimation(ctx, canvas) {
     }
     
 
-    canvas.addEventListener('mousemove', function(event) {
+    document.addEventListener('mousemove', function(event) {
         mouseX = event.clientX;
         mouseY = event.clientY;
     });

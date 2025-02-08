@@ -7,13 +7,13 @@ const OVERFLOW_THRESHOLD = 50;
 const STAR_COUNT = ( window.innerWidth + window.innerHeight ) / 8;
 
 let scale = 1,
-    width,
-    height;
+  width,
+  height;
 
 let stars = [];
 
 let pointerX,
-    pointerY;
+  pointerY;
 
 let velocity = { x: 0, y: 0, tx: 0, ty: 0, z: 0.0005 }; 
 
@@ -24,17 +24,17 @@ resize();
 step();
 
 window.onresize = resize;
-canvas.onmousemove = onMouseMove;
-canvas.ontouchmove = onTouchMove;  
+document.onmousemove = onMouseMove;
+document.ontouchmove = onTouchMove;  
 
 function generate() {
 
    for( let i = 0; i < STAR_COUNT; i++ ) {
-    stars.push({
-      x: 0,
-      y: 0,
-      z: STAR_MIN_SCALE + Math.random() * ( 1 - STAR_MIN_SCALE )
-    });
+  stars.push({
+    x: 0,
+    y: 0,
+    z: STAR_MIN_SCALE + Math.random() * ( 1 - STAR_MIN_SCALE )
+  });
    }
 
 }
@@ -51,48 +51,48 @@ function recycleStar(star) {
   let direction = 'z';
 
   let vx = Math.abs(velocity.x),
-        vy = Math.abs(velocity.y);
+    vy = Math.abs(velocity.y);
 
   if(vx > 1 || vy > 1) {
-    let axis;
+  let axis;
 
-    if(vx > vy) {
-      axis = Math.random() < vx / ( vx + vy ) ? 'h' : 'v'; //If statement (same as)
-    }
-    else {
-      axis = Math.random() < vy / ( vx + vy ) ? 'v' : 'h'; 
-    }
+  if(vx > vy) {
+    axis = Math.random() < vx / ( vx + vy ) ? 'h' : 'v'; //If statement (same as)
+  }
+  else {
+    axis = Math.random() < vy / ( vx + vy ) ? 'v' : 'h'; 
+  }
 
-    if(axis === 'h') {
-      direction = velocity.x > 0 ? 'l' : 'r';
-    }
-    else {
-      direction = velocity.y > 0 ? 't' : 'b';
-    }
+  if(axis === 'h') {
+    direction = velocity.x > 0 ? 'l' : 'r';
+  }
+  else {
+    direction = velocity.y > 0 ? 't' : 'b';
+  }
   }
   
   star.z = STAR_MIN_SCALE + Math.random() * (1 - STAR_MIN_SCALE);
 
   if(direction ==='z') {
-    star.z = 0.1;
-    star.x = Math.random() * width;
-    star.y = Math.random() * height;
+  star.z = 0.1;
+  star.x = Math.random() * width;
+  star.y = Math.random() * height;
   }
   else if(direction === 'l') {
-    star.x = -OVERFLOW_THRESHOLD;
-    star.y = height * Math.random();
+  star.x = -OVERFLOW_THRESHOLD;
+  star.y = height * Math.random();
   }
   else if(direction === 'r') {
-    star.x = width + OVERFLOW_THRESHOLD;
-    star.y = height * Math.random();
+  star.x = width + OVERFLOW_THRESHOLD;
+  star.y = height * Math.random();
   }
   else if(direction === 't') {
-    star.x = width * Math.random();
-    star.y = -OVERFLOW_THRESHOLD;
+  star.x = width * Math.random();
+  star.y = -OVERFLOW_THRESHOLD;
   }
   else if(direction === 'b') {
-    star.x = width * Math.random();
-    star.y = height + OVERFLOW_THRESHOLD;
+  star.x = width * Math.random();
+  star.y = height + OVERFLOW_THRESHOLD;
   }
 
 }
@@ -109,26 +109,26 @@ function resize() {
 }
 
 function step() {   
-    // Draw the background with radial gradients
-    context.clearRect(0, 0, width, height);
-    let gradient1 = context.createRadialGradient(width, 0, 0, width, 0, width);
-    gradient1.addColorStop(0, 'rgba(162, 13, 255, 0.344)');
-    gradient1.addColorStop(1, 'transparent');
+  // Draw the background with radial gradients
+  context.clearRect(0, 0, width, height);
+  let gradient1 = context.createRadialGradient(width, 0, 0, width, 0, width);
+  gradient1.addColorStop(0, 'rgba(162, 13, 255, 0.344)');
+  gradient1.addColorStop(1, 'transparent');
 
-    let gradient2 = context.createRadialGradient(width * 0.2, height * 0.8, 0, width * 0.2, height * 0.8, width);
-    gradient2.addColorStop(0, 'rgba(11, 255, 255, 0.54)');
-    gradient2.addColorStop(1, 'transparent');
+  let gradient2 = context.createRadialGradient(width * 0.2, height * 0.8, 0, width * 0.2, height * 0.8, width);
+  gradient2.addColorStop(0, 'rgba(11, 255, 255, 0.54)');
+  gradient2.addColorStop(1, 'transparent');
 
-    context.fillStyle = gradient1;
-    context.fillRect(0, 0, width, height);
+  context.fillStyle = gradient1;
+  context.fillRect(0, 0, width, height);
 
-    context.fillStyle = gradient2;
-    context.fillRect(0, 0, width, height);
+  context.fillStyle = gradient2;
+  context.fillRect(0, 0, width, height);
 
-    update();
-    render();
+  update();
+  render();
 
-    requestAnimationFrame(step);
+  requestAnimationFrame(step);
 }
 
 
@@ -140,47 +140,47 @@ function update() {
   velocity.y += ( velocity.ty - velocity.y ) * 0.8;
 
   stars.forEach((star) => {   
-    star.x += velocity.x * star.z;
-    star.y += velocity.y * star.z;
+  star.x += velocity.x * star.z;
+  star.y += velocity.y * star.z;
 
-    star.x += ( star.x - width/2 ) * velocity.z * star.z;
-    star.y += ( star.y - height/2 ) * velocity.z * star.z;
-    star.z += velocity.z;     
+  star.x += ( star.x - width/2 ) * velocity.z * star.z;
+  star.y += ( star.y - height/2 ) * velocity.z * star.z;
+  star.z += velocity.z;     
   
-    if( star.x < -OVERFLOW_THRESHOLD || star.x > width + OVERFLOW_THRESHOLD || star.y < -OVERFLOW_THRESHOLD || star.y > height + OVERFLOW_THRESHOLD ) {
-      recycleStar( star );
-    }   
+  if( star.x < -OVERFLOW_THRESHOLD || star.x > width + OVERFLOW_THRESHOLD || star.y < -OVERFLOW_THRESHOLD || star.y > height + OVERFLOW_THRESHOLD ) {
+    recycleStar( star );
+  }   
   });   
 }
 
 function render() {   
-    stars.forEach((star) => {   
-        context.beginPath();
-        context.lineCap = 'round';
-        context.lineWidth = STAR_SIZE * star.z * scale;
-        context.globalAlpha = 0.8;
-        context.strokeStyle = STAR_COLOR;   
-        context.beginPath();
-        context.moveTo(star.x, star.y);
+  stars.forEach((star) => {   
+    context.beginPath();
+    context.lineCap = 'round';
+    context.lineWidth = STAR_SIZE * star.z * scale;
+    context.globalAlpha = 0.8;
+    context.strokeStyle = STAR_COLOR;   
+    context.beginPath();
+    context.moveTo(star.x, star.y);
 
-        var tailX = velocity.x * 2,
-                tailY = velocity.y * 2;   
-     
-        if (Math.abs(tailX) < 0.1) tailX = 0.5;
-        if (Math.abs(tailY) < 0.1) tailY = 0.5;
+    var tailX = velocity.x * 2,
+        tailY = velocity.y * 2;   
+   
+    if (Math.abs(tailX) < 0.1) tailX = 0.5;
+    if (Math.abs(tailY) < 0.1) tailY = 0.5;
 
-        context.lineTo(star.x + tailX, star.y + tailY);   
-        context.stroke();   
-    });   
+    context.lineTo(star.x + tailX, star.y + tailY);   
+    context.stroke();   
+  });   
 }
 
  
 function movePointer( x, y ) {   
   if(typeof pointerX === 'number' && typeof pointerY === 'number') {   
-    let ox = x - pointerX,
-        oy = y - pointerY;   
-    velocity.tx = velocity.tx + ( ox / 8*scale ) * ( touchInput ? 1 : -1 );
-    velocity.ty = velocity.ty + ( oy / 8*scale ) * ( touchInput ? 1 : -1 );   
+  let ox = x - pointerX,
+    oy = y - pointerY;   
+  velocity.tx = velocity.tx + ( ox / 8*scale ) * ( touchInput ? 1 : -1 );
+  velocity.ty = velocity.ty + ( oy / 8*scale ) * ( touchInput ? 1 : -1 );   
   }   
   pointerX = x;
   pointerY = y;   
