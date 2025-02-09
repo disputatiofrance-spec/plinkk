@@ -130,18 +130,37 @@ function addEmailStyles() {
 function createLinkBoxes(profileData) {
     return profileData.links.slice(0, 5).map(link => {
         const discordBox = document.createElement("div");
-        discordBox.className = "discord-box";
 
-        const discordIcon = document.createElement("img");
-        discordIcon.src = link.icon;
-        discordIcon.alt = "Discord Logo";
+        if (profileData.buttonThemeEnable === 1) {
+            const themeConfig = btnIconThemeConfig?.find(config => config.name === link.name);
+            if (themeConfig) {
+                const themeClass = themeConfig.themeClass + (themeConfig.themeClassAlt ? ` ${themeConfig.themeClassAlt}` : "");
+                discordBox.className = `button ${themeClass}`;
+                const discordIcon = document.createElement("img");
+                const icon = themeConfig.icon + (themeConfig.iconAlt ? ` ${themeConfig.iconAlt}` : "");
+                discordIcon.src = themeConfig.icon;
+                discordBox.appendChild(discordIcon);
+                discordIcon.className = "icon";
+            } else {
+                discordBox.className = "discord-box";
+                const discordIcon = document.createElement("img");
+                discordIcon.src = link.icon;
+                discordIcon.alt = link.text;
+                discordBox.appendChild(discordIcon);
+            }
+        } else {
+            discordBox.className = "discord-box";
+            const discordIcon = document.createElement("img");
+            discordIcon.src = link.icon;
+            discordIcon.alt = link.text;
+            discordBox.appendChild(discordIcon);
+        }
 
         const discordLink = document.createElement("a");
         discordLink.href = link.url;
         discordLink.target = "_blank";
         discordLink.textContent = link.text;
 
-        discordBox.appendChild(discordIcon);
         discordBox.appendChild(discordLink);
 
         if (!link.text.trim()) {
@@ -235,12 +254,14 @@ function applyTheme(theme) {
             box.style.boxShadow = "none";
         });
     });
-    document.querySelectorAll("a").forEach(link => {
-        link.style.color = theme.textColor;
-    });
-    document.querySelectorAll("a:hover").forEach(link => {
-        link.style.color = theme.linkHoverColor;
-    });
+    if (profileData.buttonThemeEnable !== 1) {
+        document.querySelectorAll("a").forEach(link => {
+            link.style.color = theme.textColor;
+        });
+        document.querySelectorAll("a:hover").forEach(link => {
+            link.style.color = theme.linkHoverColor;
+        });
+    }
     const emailDiv = document.querySelector(".email");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;

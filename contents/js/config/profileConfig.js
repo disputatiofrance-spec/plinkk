@@ -6,9 +6,9 @@ const profileData = {
     userName: "GitHub User", // Nom affiché sur la page et dans le titre de l'onglet
     email: "user@github.com", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link1", text: "Link 1" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3" }
+        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link1", text: "Link 1", name: "GitHub" },
+        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2", name: "Discord" },
+        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3", name: "LinkedIn" },
     ],
     // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
     background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
@@ -31,6 +31,7 @@ const profileData = {
     ],
     
     neonEnable: 1, // 1 : Enable, 0 : Disable
+    buttonThemeEnable: 1, // 1 : Enable, 0 : Disable
 
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
     EnableAnimationButton: 1, // 1 : Enable, 0 : Disable
@@ -38,7 +39,7 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 0,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 1,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 0,             // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
