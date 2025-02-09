@@ -33,7 +33,7 @@ const profileData = {
     neonEnable: 1, // 1 : Enable, 0 : Disable
     buttonThemeEnable: 1, // 1 : Enable, 0 : Disable
 
-    EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
+    EnableAnimationArticle: 1, // 1ecloudserv.fr : Enable, 0 : Disable
     EnableAnimationButton: 1, // 1 : Enable, 0 : Disable
     EnableAnimationBackground: 1, // 1 : Enable, 0 : Disable
 
