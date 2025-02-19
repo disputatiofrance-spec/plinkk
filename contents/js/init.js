@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const footer = document.createElement("footer");
     const themeIndex = (profileData.selectedThemeIndex % themes.length + themes.length) % themes.length;
-    footer.innerHTML = `Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer"><p style="color:${themes[themeIndex]?.buttonTextColor || 'defaultColor'};display:inline;padding:2px 2px 2px 4px;border-radius:5px;background-color:${themes[themeIndex]?.buttonBackground || 'defaultColor'};">Klaynight Studio©</p></a> & Pacman`;
+    footer.innerHTML = `Design with ❤️ by <a href="http://klaynight.fr" target="_blank" rel="noopener noreferrer"><p style="color:${themes[themeIndex]?.buttonTextColor || 'defaultColor'};display:inline;padding:2px 2px 2px 4px;border-radius:5px;background-color:${themes[themeIndex]?.buttonBackground || 'defaultColor'};">Klaynight Studio©</p></a> , Pacman & Neptune`;
     document.body.appendChild(footer);
 });
 
