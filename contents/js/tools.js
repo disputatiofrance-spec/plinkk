@@ -89,8 +89,20 @@ function createEmailAndDescription(profileData) {
 
     if (!profileData.description.trim()) {
         descriptionDiv.style.display = "none";
+        if (!profileData.email.trim()) {
+            container.style.display = "none";
+        } else {
+            addEmailStyles(profileData);
+            container.style.padding = "0";
+            container.style.margin = "0";
+            emailDiv.style.borderRadius = "10px";
+        }
     } else {
-        addEmailStyles();
+        if (!profileData.email.trim()) {
+            emailDiv.style.display = "none";
+        } else {
+            addEmailStyles();
+        }
     }
 
     if (!profileData.email.trim()) {
@@ -115,6 +127,7 @@ function addEmailStyles() {
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
     `, styleSheet.cssRules.length);
+
     styleSheet.insertRule(`
         .email a {
             display: block;
@@ -125,6 +138,7 @@ function addEmailStyles() {
             border-radius: 10px;
         }
     `, styleSheet.cssRules.length);
+    
 }
 
 function createLinkBoxes(profileData) {
