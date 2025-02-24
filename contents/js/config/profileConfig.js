@@ -17,12 +17,6 @@ const profileData = {
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
     description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
-    meta: {
-        title: "GitHub User - Linktree", // Titre de l'onglet
-        description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description de l'onglet
-        keywords: "GitHub, User, Profile, Links, Website, Template, plinkk, klaynight", // Mots-clés de l'onglet
-        url: "https://github.com" // URL de l'onglet
-    },
     
     labels: [
         { data: "Developer", color: "#FF6384", fontColor: "#FFFFFF" },
