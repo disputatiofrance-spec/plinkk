@@ -59,6 +59,8 @@ article {
     object-fit: cover;
     z-index: 2;
     cursor: pointer;
+    min-width: 150px;
+    min-height: 150px;
 }
 
 .profile-link {
