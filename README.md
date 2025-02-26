@@ -225,6 +225,15 @@ Pour automatiser la mise à jour de votre fork avec les dernières modifications
 3. **Activer le workflow** :
     - Une fois le fichier `update_fork.yml` ajouté et poussé dans votre fork, le workflow sera automatiquement exécuté selon le planning défini (chaque dimanche à minuit) ou manuellement via l'interface GitHub Actions.
 
+## Améliorations future pour le projet
+
+| Numéro | Idée                          | Description                                                                                       | Statut       |
+|--------|-------------------------------|---------------------------------------------------------------------------------------------------|--------------|
+| 1      | Catégorisation des liens      | Ajouter des catégories pour organiser les liens (par exemple, travail, loisirs, éducation).       | ❌  |
+| 2      | Recherche et filtres          | Implémenter une fonctionnalité de recherche et des filtres pour trouver des liens spécifiques.    | ❌ |
+| 3      | Interface utilisateur améliorée | Travailler sur le design et l'ergonomie du site pour une meilleure expérience utilisateur.        | ❌ |
+| 4      | Support multilingue           | Ajouter la prise en charge de plusieurs langues pour atteindre un public plus large.              | ❌ |
+
 ## Licence
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
