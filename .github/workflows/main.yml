@@ -33,27 +33,27 @@ jobs:
           # Define the message to send based on the event
           case "${{ github.event_name }}" in
             push)
-              MESSAGE="📦 Commit pushed: ${{ github.actor }} - ${{ github.sha }}\nMessage: ${{ github.event.head_commit.message }}\nLink: https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+              MESSAGE="📦 Commit pushed: ${{ github.actor }} - ${{ github.sha }}\nMessage: ${{ github.event.head_commit.message }}\nLink: https://github.com/${{ github.repository }}/commit/${{ github.sha }}\nMention: ||@Plinkk||"
               ;;
             pull_request)
               case "${{ github.event.action }}" in
                 opened)
-                  MESSAGE="🚀 New PR opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                  MESSAGE="🚀 New PR opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}\nMention: ||@Plinkk||"
                   ;;
                 closed|merged)
                   if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
-                    MESSAGE="🔒 PR merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                    MESSAGE="🔒 PR merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}\nMention: ||@Plinkk||"
                   else
-                    MESSAGE="🔒 PR closed by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}"
+                    MESSAGE="🔒 PR closed by ${{ github.actor }}: ${{ github.event.pull_request.title }}\nLink: ${{ github.event.pull_request.html_url }}\nMention: ||@Plinkk||"
                   fi
                   ;;
               esac
               ;;
             issues)
-              MESSAGE="📄 Issue ${{ github.event.action }}: ${{ github.event.issue.title }}\nLink: ${{ github.event.issue.html_url }}"
+              MESSAGE="📄 Issue ${{ github.event.action }}: ${{ github.event.issue.title }}\nLink: ${{ github.event.issue.html_url }}\nMention: ||@Plinkk||"
               ;;
             release)
-              MESSAGE="🎉 Release ${{ github.event.release.name }}: ${{ github.event.release.body }}\nLink: ${{ github.event.release.html_url }}"
+              MESSAGE="🎉 Release ${{ github.event.release.name }}: ${{ github.event.release.body }}\nLink: ${{ github.event.release.html_url }}\nMention: ||@Plinkk||"
               ;;
           esac
 
