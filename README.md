@@ -231,9 +231,9 @@ Pour automatiser la mise à jour de votre fork avec les dernières modifications
 |--------|--------------------------------|------------------------------------------------------------------------------------------------|--------|
 | 1      | Catégorisation des liens       | Ajouter des catégories pour organiser les liens (par exemple, travail, loisirs, éducation).    | ❌    |
 | 2      | Recherche et filtres           | Implémenter une fonctionnalité de recherche et des filtres pour trouver des liens spécifiques. | ❌    |
-| 3      | Interface utilisateur améliorée| Travailler sur le design et l'ergonomie du site pour une meilleure expérience utilisateur.    | ❌    |
+| 3      | Interface utilisateur améliorée| Travailler sur le design et l'ergonomie du site pour une meilleure expérience utilisateur.     | ❌    |
 | 4      | Support multilingue            | Ajouter la prise en charge de plusieurs langues pour atteindre un public plus large.           | ❌    |
-| 5      | Thèmes adaptatifs              | Ajuster automatiquement le thème selon celui du système de l'utilisateur ou ses préférence     | ✅    | 
+| 5      | Thèmes adaptatifs              | Ajuster automatiquement le thème selon celui du système de l'utilisateur ou ses préférences    | ✅    | 
 
 ## Licence
 
