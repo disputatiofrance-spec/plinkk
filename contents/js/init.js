@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createLinkBoxes(profileData).forEach(box => article.appendChild(box));
 
     applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
-    applyTheme(themes[profileData.selectedThemeIndex % themes.length]);
+    applyFirstTheme(themes[profileData.selectedThemeIndex % themes.length]);
     applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
     applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
 

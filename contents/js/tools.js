@@ -330,28 +330,24 @@ function applyAnimationButton(animation, animationButtonEnabled, delayAnimationB
 
 function setIconBasedOnTheme(theme) {
     const iconElement = document.getElementById("theme-icon");
-
-    if (iconElement) {
-        if (!theme.darkTheme && !document.body.classList.contains("dark-theme")) {
-            iconElement.name = "moon-outline";
-        } else if (theme.darkTheme && document.body.classList.contains("dark-theme")) {
-            iconElement.name = "moon-outline";
-        } else {
-            iconElement.name = "sunny-outline";
-        }
+    if (document.body.classList.contains("dark-theme") || theme.darkTheme) {
+        iconElement.name = "moon-outline";
+    } else {
+        iconElement.name = "sunny-outline";
     }
 }
 
 function loadThemeConfig(theme) {
     applyTheme(theme);
-    setIconBasedOnTheme(theme.darkTheme);
+    setIconBasedOnTheme(theme);
 }
 
 function toggleTheme(theme) {
     const currentTheme = document.body.classList.contains("dark-theme") ? theme : theme.opposite;
-    applyTheme(currentTheme);
-    setIconBasedOnTheme(theme);
     document.body.classList.toggle("dark-theme");
+    applyTheme(currentTheme);
+    setIconBasedOnTheme(currentTheme);
+    setCookie("theme", document.body.classList.contains("dark-theme") ? "dark" : "light", 365);
 }
 
 function createToggleThemeButton(theme) {
@@ -400,4 +396,53 @@ function createLabelButtons(profileData) {
 
     const article = document.getElementById("profile-article");
     article.appendChild(container);
+}
+function applyFirstTheme(theme) {
+    const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = getCookie("theme");
+
+    console.log("Dark theme media quary:", darkThemeMediaQuery.matches);
+
+    if (savedTheme) {
+        if (savedTheme === "dark") {
+            loadThemeConfig(theme.darkTheme ? theme : theme.opposite);
+            document.body.classList.add("dark-theme");
+        } else {
+            loadThemeConfig(theme.darkTheme ? theme.opposite : theme);
+        }
+    } else {
+        if (darkThemeMediaQuery.matches) {
+            if (theme.darkTheme) {
+                loadThemeConfig(theme);
+            } else {
+                loadThemeConfig(theme.opposite);
+                document.body.classList.add("dark-theme");
+            }
+        } else {
+            if (theme.darkTheme) {
+                loadThemeConfig(theme.opposite);
+                document.body.classList.add("dark-theme");
+            } else {
+                loadThemeConfig(theme);
+            }
+        }
+    }
+}
+
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
 }
