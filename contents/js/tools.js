@@ -142,7 +142,7 @@ function addEmailStyles() {
 }
 
 function createLinkBoxes(profileData) {
-    return profileData.links.slice(0, 5).map(link => {
+    return profileData.links.slice(0, 100).map(link => {
         const discordBox = document.createElement("div");
 
         if (profileData.buttonThemeEnable === 1) {
@@ -301,11 +301,39 @@ function applyTheme(theme) {
         themeToggle.style.backgroundColor = theme.buttonBackground;
         themeToggle.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
     });
-    // Appliquer la nouvelle propriété articleHoverBoxShadow
+
+    // Apply the new property articleHoverBoxShadow
     const styleSheet = document.styleSheets[0];
     styleSheet.insertRule(`
         article:hover {
             box-shadow: ${theme.articleHoverBoxShadow};
+        }
+    `, styleSheet.cssRules.length);
+
+    // Apply scrollbar styles
+    styleSheet.insertRule(`
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+    `, styleSheet.cssRules.length);
+    styleSheet.insertRule(`
+        ::-webkit-scrollbar-track {
+            background: ${theme.background};
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+    `, styleSheet.cssRules.length);
+    styleSheet.insertRule(`
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, ${theme.buttonBackground}, ${theme.buttonHoverBackground});
+            border-radius: 10px;
+            border: 3px solid ${theme.background};
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    `, styleSheet.cssRules.length);
+    styleSheet.insertRule(`
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, ${theme.buttonHoverBackground}, ${theme.buttonBackground});
         }
     `, styleSheet.cssRules.length);
 }
@@ -445,4 +473,33 @@ function getCookie(name) {
         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+}
+
+function createIconList(profileData) {
+    const iconList = document.createElement("div");
+    iconList.className = "icon-list";
+
+    profileData.socialIcon.forEach(iconData => {
+        const iconItem = document.createElement("div");
+        iconItem.className = "icon-item";
+
+        const iconImg = document.createElement("img");
+        iconImg.src = `./contents/images/icons/${iconData.icon.toLowerCase().replace(/ /g, '-')}.svg`;
+        iconImg.alt = iconData.icon;
+
+        const iconLink = document.createElement("a");
+        iconLink.href = iconData.url;
+        iconLink.target = "_blank";
+
+        iconLink.appendChild(iconImg);
+        iconItem.appendChild(iconLink);
+        iconList.appendChild(iconItem);
+    });
+
+    if (profileData.socialIcon.length === 0) {
+        iconList.style.display = "none";
+    }
+
+    const article = document.getElementById("profile-article");
+    article.appendChild(iconList);
 }

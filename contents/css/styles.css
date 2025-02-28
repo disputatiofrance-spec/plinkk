@@ -10,11 +10,12 @@ body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background: black;
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     color: white;
+    overflow: auto;
 }
 
 /* Conteneur principal avec néon bleu autour du fond */
@@ -32,6 +33,9 @@ article {
     min-width: 300px;
     z-index: 1;
     max-width: 400px;
+    overflow: auto; 
+    margin: 3em 0 1em 0;
+
 }
 
 /* Conteneur pour l'effet de pivot */
@@ -285,6 +289,8 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
+    min-height: 100%; 
+    min-width: 100%; 
 }
 
 .dg {
@@ -323,4 +329,20 @@ canvas {
     transition: 0.3s;
     font-size: 0.7em;
     width: max-content;
+}
+ .icon-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0.4em 0;
+}
+
+.icon-list .icon-item {
+    margin: 0 5px;
+}
+
+.icon-list .icon-item:hover {
+    transform: scale(1.1);
+    filter: brightness(0.8);
 }

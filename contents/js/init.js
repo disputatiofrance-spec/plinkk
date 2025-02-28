@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
     createLabelButtons(profileData);
+    createIconList(profileData);
     article.appendChild(createEmailAndDescription(profileData));
     createToggleThemeButton(themes[profileData.selectedThemeIndex % themes.length]);
     createLinkBoxes(profileData).forEach(box => article.appendChild(box));
