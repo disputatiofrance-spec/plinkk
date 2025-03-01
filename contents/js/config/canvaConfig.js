@@ -68,6 +68,27 @@ const canvaData = [
         animationName: 'Liquids Lights', // 13
         fileNames: 'liquidslights.js',
         extension: 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js',
+    }, 
+    {
+        animationName: 'Rain', // 14
+        fileNames: 'rain.js',
+    },
+    {
+        animationName: 'Matrix Rain', // 15
+        fileNames: 'matrix-effect/app.js',
+        author: 'sumitKcs & Klaynight',
+    },
+    {
+        animationName: 'Purple Tree', // 16
+        fileNames: 'purpletree.js',
+    },
+    {
+        animationName: 'Cloud', // 17
+        fileNames: 'cloud.js',
+    },
+    {
+        animationName: 'Space', // 18
+        fileNames: 'space.js',
     }
     // Ajouter ici les animations supplémentaires
 ];

@@ -7,14 +7,15 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background: black;
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     color: white;
+    overflow: auto;
 }
 
 /* Conteneur principal avec néon bleu autour du fond */
@@ -26,12 +27,15 @@ article {
     border-radius: 10px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-    /* Ombre noire par défaut */
     overflow: hidden;
     transition: transform 0.4s ease, box-shadow 0.3s ease;
     top: -35px;
     min-width: 300px;
     z-index: 1;
+    max-width: 400px;
+    overflow: auto; 
+    margin: 3em 0 1em 0;
+
 }
 
 /* Conteneur pour l'effet de pivot */
@@ -40,7 +44,6 @@ article {
     width: 150px;
     height: 150px;
     margin: 0 auto 15px auto;
-    /* Centré horizontalement */
     perspective: 1000px;
 }
 
@@ -60,6 +63,8 @@ article {
     object-fit: cover;
     z-index: 2;
     cursor: pointer;
+    min-width: 150px;
+    min-height: 150px;
 }
 
 .profile-link {
@@ -87,6 +92,9 @@ article {
 .profile-container img {
     position: relative;
     filter: blur(0);
+}
+.profile-container, .profile-pic-wrapper, .profile-link, .profile-container a {
+    border-radius: 100%;
 }
 .profile-pic-wrapper::after {
     content: '';
@@ -137,6 +145,7 @@ article {
 .profile-container {
     z-index: -1;
 }
+
 .profile-container a {
     height: 150px;
     display: block;
@@ -148,7 +157,7 @@ article {
 }
 
 /* Email */
-.email {
+.email-description-container {
     font-size: 1em;
     color: white;
     font-weight: bold;
@@ -161,7 +170,6 @@ article {
 /* Carré avec lien Discord */
 .discord-box {
     display: block;
-    /* Changé ici pour s'assurer qu'ils sont en bloc et empilés */
     margin-top: 10px;
     background-color: #2C2F33;
     border-radius: 15px;
@@ -187,7 +195,7 @@ article {
     width: 100%;
     height: 100%;
     text-align: center;
-    padding: 10px; /* Ajustez la valeur selon vos besoins */
+    padding: 10px;
     box-sizing: border-box;
 }
 
@@ -196,7 +204,6 @@ article {
     background-color: #7289DA;
     transform: scale(1.05);
     color: white;
-    /* Le bouton grossit un peu */
 }
 
 .discord-box:hover a {
@@ -235,6 +242,7 @@ span img {
     width: 50px;
     top: 2.5px;
 }
+
 @media (max-width: 320px) {
     article {
         min-width: 200px;
@@ -281,8 +289,60 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
+    min-height: 100%; 
+    min-width: 100%; 
 }
 
-.dg { /* A activer si vous voulez un menu de contrôle */
+.dg {
     display: none;
+}
+
+/* Description */
+.profile-description {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: left;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: normal;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.email {
+    width: 100%;
+}
+
+.label-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.label-button {
+    color: white;
+    padding: 2.5px 5px;
+    border-radius: 10px;
+    margin: 5px; /* Add margin to all sides for better spacing */
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.7em;
+    width: max-content;
+}
+ .icon-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0.4em 0;
+}
+
+.icon-list .icon-item {
+    margin: 0 5px;
+}
+
+.icon-list .icon-item:hover {
+    transform: scale(1.1);
+    filter: brightness(0.8);
 }
