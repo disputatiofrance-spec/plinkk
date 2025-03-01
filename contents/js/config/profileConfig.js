@@ -1,40 +1,32 @@
 const profileData = {
-    profileLink: "https://github.com", // Lien du profil 
-    profileImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Image de profil
-    profileIcon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", // Icone derrière le profil
-    profileSiteText: "GitHub", // Nom derrière le profil
-    userName: "GitHub User", // Nom affiché sur la page et dans le titre de l'onglet
-    email: "user@github.com", // Adresse mail affichée sur la page
+    profileLink: "https://discord.gg/uFZXwWdewc", // Lien du profil 
+    profileImage: "https://www.nautiljon.com/images/perso/00/57/bachira_meguru_21375.webp", // Image de profil
+    profileIcon: "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg", // Icone derrière le profil
+    profileSiteText: "", // Nom derrière le profil
+    userName: "NeptuneOWO", // Nom affiché sur la page et dans le titre de l'onglet
+    email: "neptune@studio.klaynight.fr", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link1", text: "Link 1", name: "GitHub" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2", name: "Discord" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3", name: "LinkedIn" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link4", text: "Link 4", name: "Instagram" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link5", text: "Link 5", name: "YouTube" },
+        { icon: "https://github.com/NeptuneOwwO", url: "https://github.com/link1", text: "NeptuneOwwO", name: "GitHub" },
+        { icon: "https://tr.rbxcdn.com/30DAY-Avatar-D93F7C7A9A55F82FFEF82E48C6A86E6E-Png/352/352/Avatar/Webp/noFilter", url: "https://www.roblox.com/users/3261357291/profile", text: "Roblox", name: "roblox" },
     ],
     // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
     background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
     degBackgroundColor: 45, // inclinaison du degradé
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
-    neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
+    neonColors: ["", "", "", "", ""], // Couleurs du neon de profil
     iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
-    description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
+    description: "", // Description affichée sur la page, display: none si vide
     
     labels: [
         { data: "Developer", color: "#FF6384", fontColor: "#FFFFFF" },
-        { data: "Designer", color: "#36A2EB", fontColor: "#FFFFFF" },
-        { data: "Engineer UI/UX", color: "#4BC0C0", fontColor: "#FFFFFF" },
+        { data: "brm5 builder", color: "#4BC0C0", fontColor: "#FFFFFF" },
     ],
 
     socialIcon: [
         {url: "https://github.com", icon: "Discord"},
-        {url: "https://github.com", icon: "GitHub"},
-        {url: "https://github.com", icon: "LinkedIn"},
-        {url: "https://github.com", icon: "Instagram"},
-        {url: "https://github.com", icon: "YouTube alt"},
     ],
     
-    neonEnable: 1, // 1 : Enable, 0 : Disable
+    neonEnable: 0, // 1 : Enable, 0 : Disable
     buttonThemeEnable: 1, // 1 : Enable, 0 : Disable
 
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
@@ -43,7 +35,7 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 2,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 14,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 0,              // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
@@ -53,7 +45,7 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 12,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 3,          // Animation du canva (voir ci-dessous)
 };
 //      Thèmes      \\
 // 0 : Grey Theme
