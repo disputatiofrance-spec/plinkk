@@ -149,13 +149,13 @@ const themes = [
         articleHoverBoxShadow: "0px 4px 8px rgba(255, 69, 0, 0.3)",
         darkTheme: false,
         opposite: {
-            background: "rgba(0, 0, 0, 0.9)",
+            background: "rgba(255, 255, 255, 0.9)",
             hoverColor: "#FF4500",
-            textColor: "white",
-            buttonBackground: "#333333",
-            buttonHoverBackground: "#FF4500",
-            buttonTextColor: "white",
-            linkHoverColor: "#FF4500",
+            textColor: "black",
+            buttonBackground: "#FF4500",
+            buttonHoverBackground: "#333333",
+            buttonTextColor: "black",
+            linkHoverColor: "#333333",
             articleHoverBoxShadow: "0px 4px 8px rgba(255, 69, 0, 0.3)",
             darkTheme: true
         }
