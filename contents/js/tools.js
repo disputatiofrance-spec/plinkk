@@ -142,7 +142,13 @@ function addEmailStyles() {
 }
 
 function createLinkBoxes(profileData) {
-    return profileData.links.slice(0, 100).map(link => {
+    const maxLinkNumber = 20;
+    if (!profileData.links || !profileData.links.length) {
+        console.warn("No links found in profile data.");
+    } else if (profileData.links.length > maxLinkNumber) {
+        console.warn(`Too many links found in profile data, only the first ${maxLinkNumber} will be displayed.`);
+    }
+    return profileData.links.slice(0, maxLinkNumber).map(link => {
         const discordBox = document.createElement("div");
 
         if (profileData.buttonThemeEnable === 1) {
@@ -397,10 +403,16 @@ function createToggleThemeButton(theme) {
 }
 
 function createLabelButtons(profileData) {
+    const maxLabelNumber = 7;
+    if (!profileData.labels || !profileData.labels.length) {
+        console.warn("No labels found in profile data.");
+    } else if (profileData.labels.length > maxLabelNumber) {
+        console.warn(`Too many labels found in profile data, only the first ${maxLabelNumber} will be displayed.`);
+    }
     const container = document.createElement("div");
     container.className = "label-buttons-container";
 
-    profileData.labels.forEach(label => {
+    profileData.labels.slice(0, maxLabelNumber).forEach(label => {
         const button = document.createElement("div");
         button.className = "label-button";
         button.style.backgroundColor = `${label.color}80`;
@@ -476,10 +488,17 @@ function getCookie(name) {
 }
 
 function createIconList(profileData) {
+    const maxIconNumber = 10;
     const iconList = document.createElement("div");
     iconList.className = "icon-list";
 
-    profileData.socialIcon.forEach(iconData => {
+    if (!profileData.socialIcon || !profileData.socialIcon.length) {
+        console.warn("No social icons found in profile data.");
+    } else if (profileData.socialIcon.length > maxIconNumber) {
+        console.warn(`Too many social icons found in profile data, only the first ${maxIconNumber} will be displayed.`);
+    }
+
+    profileData.socialIcon.slice(0, maxIconNumber).forEach(iconData => {
         const iconItem = document.createElement("div");
         iconItem.className = "icon-item";
 
@@ -502,4 +521,58 @@ function createIconList(profileData) {
 
     const article = document.getElementById("profile-article");
     article.appendChild(iconList);
+}
+
+function createStatusBar(profileData) {
+    const maxCaracter = 25;
+    const circleStatusBar = document.createElement("div");
+    circleStatusBar.className = "circle-status-bar";
+    circleStatusBar.style.border = `10px solid ${profileData.statusbar.borderColor}`;
+    circleStatusBar.style.backgroundColor = profileData.statusbar.colorBg;
+    circleStatusBar.style.transition = "transform 0.3s ease-in-out"; // Add animation
+
+    const statusBarText = document.createElement("div");
+    statusBarText.className = "statusBarText";
+    statusBarText.textContent = profileData.statusbar.text.substring(0, maxCaracter);
+    if (profileData.statusbar.text.length > maxCaracter) {
+        statusBarText.textContent += "...";
+        console.warn("Status bar text is too long, it will be truncated.");
+    }
+    statusBarText.style.color = profileData.statusbar.colorText;
+    circleStatusBar.appendChild(statusBarText);
+
+    if (!profileData.statusbar.text.trim()) {
+        circleStatusBar.style.display = "none";
+    }
+
+    const article = document.querySelector("article");
+    article.appendChild(circleStatusBar);
+
+    // Add hover effect for animation
+    circleStatusBar.addEventListener("mouseover", () => {
+        circleStatusBar.style.transform = "scale(1.1)";
+        statusBarText.style.display = "block";
+        circleStatusBar.style.width = "fit-content";
+        circleStatusBar.style.borderRadius = "20px";
+        circleStatusBar.style.border = "none";
+        if (profileData.statusbar.fontTextColor === 0) {
+            circleStatusBar.style.backgroundColor = profileData.statusbar.colorBg;
+        } else if (profileData.statusbar.fontTextColor === 1) {
+            circleStatusBar.style.backgroundColor = profileData.statusbar.borderColor;
+        } else {
+            console.error("Invalid fontTextColor value: ", profileData.statusbar.fontTextColor, "; Expected 0 or 1.");
+            circleStatusBar.style.background = "none";
+        }
+        circleStatusBar.style.padding = "5px";
+    });
+    circleStatusBar.addEventListener("mouseout", () => {
+        circleStatusBar.style.transform = "scale(1)";
+        statusBarText.style.display = "none";
+        circleStatusBar.style.width = "50px";
+        circleStatusBar.style.borderRadius = "50%";
+        circleStatusBar.style.border = `10px solid ${profileData.statusbar.borderColor}`;
+        circleStatusBar.style.backgroundColor = profileData.statusbar.colorBg;
+        circleStatusBar.style.padding = "0";
+        circleStatusBar.style.width = "28px";
+    });
 }

@@ -346,3 +346,20 @@ canvas {
     transform: scale(1.1);
     filter: brightness(0.8);
 }
+
+.circle-status-bar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 999;
+    top: 9em;
+    right: 35%;
+    transition: all 0.3s ease;
+    transform-origin: bottom right;
+}
+
+.statusBarText {
+    display: none;
+}

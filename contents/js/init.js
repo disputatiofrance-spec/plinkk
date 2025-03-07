@@ -8,24 +8,49 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     }
+
     const article = document.getElementById("profile-article");
+    if (!article) {
+        console.error("Element with id 'profile-article' not found.");
+        return;
+    }
+
     article.appendChild(createProfileContainer(profileData));
     article.appendChild(createUserName(profileData));
+    createStatusBar(profileData);
     createLabelButtons(profileData);
     createIconList(profileData);
     article.appendChild(createEmailAndDescription(profileData));
-    createToggleThemeButton(themes[profileData.selectedThemeIndex % themes.length]);
-    createLinkBoxes(profileData).forEach(box => article.appendChild(box));
 
-    applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
-    applyFirstTheme(themes[profileData.selectedThemeIndex % themes.length]);
-    applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
-    applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
+    if (!themes || !themes.length) {
+        console.warn("Themes array is empty or not defined.");
+    } else {
+        createToggleThemeButton(themes[profileData.selectedThemeIndex % themes.length]);
+    }
+
+    const linkBoxes = createLinkBoxes(profileData);
+    if (!linkBoxes || !linkBoxes.length) {
+        console.warn("No link boxes created.");
+    } else {
+        linkBoxes.forEach(box => article.appendChild(box));
+    }
+
+    if (!animations || !animations.length) {
+        console.warn("Animations array is empty or not defined.");
+    } else {
+        applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
+        applyFirstTheme(themes[profileData.selectedThemeIndex % themes.length]);
+        applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
+        applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
+    }
 
     document.title = profileData.userName ? `${profileData.userName} - Linktree` : "Plinkk By Klaynight";
     const link = document.createElement("link");
     link.rel = "icon";
     link.href = profileData.iconUrl;
+    if (!profileData.iconUrl) {
+        console.warn("Icon URL is not defined.");
+    }
     document.head.appendChild(link);
 
     const footer = document.createElement("footer");
