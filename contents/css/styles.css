@@ -41,8 +41,10 @@ article {
 /* Conteneur pour l'effet de pivot */
 .profile-container {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 151px;
+    height: 151px;
+    min-width: 151px;
+    min-height: 151px;
     margin: 0 auto 15px auto;
     perspective: 1000px;
 }
