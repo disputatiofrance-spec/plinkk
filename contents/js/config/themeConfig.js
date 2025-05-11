@@ -31,7 +31,7 @@ const themes = [
         buttonHoverBackground: "#FFD700",
         buttonTextColor: "black",
         linkHoverColor: "#FFD700",
-        articleHoverBoxShadow: "0px 4px 8px rgba(255, 215, 0, 0.3)",
+        articleHoverBoxShadow: "0px 4px 8px rgba(255, 217, 0, 0.41)",
         darkTheme: false,
         opposite: {
             background: "rgba(0, 0, 0, 0.6)",
@@ -41,7 +41,7 @@ const themes = [
             buttonHoverBackground: "#FFA500",
             buttonTextColor: "white",
             linkHoverColor: "#FFA500",
-            articleHoverBoxShadow: "0px 4px 8px rgba(255, 215, 0, 0.3)",
+            articleHoverBoxShadow: "0px 4px 8px rgba(255, 217, 0, 0.37)",
             darkTheme: true
         }
     },

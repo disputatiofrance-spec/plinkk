@@ -23,7 +23,7 @@ const profileData = {
     ],
 
     socialIcon: [
-        {url: "https://github.com", icon: "Discord"},
+        {url: "https://discord.gg/5EFfn3pZSt", icon: "Discord"},
     ],
     
     neonEnable: 0, // 1 : Enable, 0 : Disable
