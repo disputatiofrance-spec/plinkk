@@ -69,12 +69,81 @@ function createEmailAndDescription(profileData) {
 
     const emailDiv = document.createElement("div");
     emailDiv.className = "email";
+    emailDiv.style.display = "flex";
+    emailDiv.style.alignItems = "center";
+    emailDiv.style.justifyContent = "center";
+    emailDiv.style.gap = "10px";
+    emailDiv.style.width = "100%";
 
     const emailLink = document.createElement("a");
     emailLink.href = `mailto:${profileData.email}`;
     emailLink.textContent = profileData.email;
+    emailLink.style.display = "flex";
+    emailLink.style.alignItems = "center";
+    emailLink.style.justifyContent = "center";
+    emailLink.style.width = "100%";
+    emailLink.style.height = "100%";
+    emailLink.style.textDecoration = "none";
+    emailLink.style.transform = "translateX(15px)";
 
+    // Move the copy button inside the link if you want it clickable as part of the link,
+    // or append after if you want it outside the link.
     emailDiv.appendChild(emailLink);
+
+    const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
+    copyBtn.title = "Copier l'email";
+    copyBtn.style.display = "inline-flex";
+    copyBtn.style.alignItems = "center";
+    copyBtn.style.justifyContent = "center";
+    copyBtn.style.border = "none";
+    copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
+    copyBtn.style.cursor = "pointer";
+    copyBtn.style.padding = "5px";
+    copyBtn.style.borderRadius = "5px";
+    copyBtn.style.transition = "background 0.2s";
+    copyBtn.setAttribute("aria-label", "Copier l'email");
+    copyBtn.style.transform = "translateX(-5px)";
+    copyBtn.addEventListener("mouseover", () => {
+        copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+    });
+    copyBtn.addEventListener("mouseout", () => {
+        copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
+    });
+
+    // Icon (SVG)
+    copyBtn.innerHTML = `
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+    `;
+
+    copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(profileData.email)
+            .then(() => {
+                copyBtn.innerHTML = `
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                `;
+                setTimeout(() => {
+                    copyBtn.innerHTML = `
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    `;
+                }, 2000);
+            })
+            .catch(err => {
+                console.error("Failed to copy email: ", err);
+            });
+    });
+    emailDiv.appendChild(copyBtn);
 
     const descriptionDiv = document.createElement("div");
     descriptionDiv.className = "profile-description";
@@ -96,6 +165,7 @@ function createEmailAndDescription(profileData) {
             container.style.padding = "0";
             container.style.margin = "0";
             emailDiv.style.borderRadius = "10px";
+
         }
     } else {
         if (!profileData.email.trim()) {
@@ -416,14 +486,15 @@ function applyTheme(theme) {
         });
     }
     const emailDiv = document.querySelector(".email");
+    const emailHover = document.querySelector(".email a");
     emailDiv.style.backgroundColor = theme.buttonBackground;
     emailDiv.style.color = theme.buttonTextColor;
 
-    emailDiv.addEventListener("mouseover", () => {
+    emailHover.addEventListener("mouseover", () => {
         emailDiv.style.backgroundColor = theme.buttonHoverBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
     });
-    emailDiv.addEventListener("mouseout", () => {
+    emailHover.addEventListener("mouseout", () => {
         emailDiv.style.backgroundColor = theme.buttonBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
     });
