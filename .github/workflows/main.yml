@@ -69,7 +69,6 @@ jobs:
           EOF
           )
 
-          curl -H "Content-Type: application/json" \
-            -X POST \
-            -d "${EMBED}" \
-            "$DISCORD_WEBHOOK"
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{\"content\": \"$MESSAGE\"}" \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
