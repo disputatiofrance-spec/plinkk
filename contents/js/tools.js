@@ -150,27 +150,28 @@ function createLinkBoxes(profileData) {
     }
     return profileData.links.slice(0, maxLinkNumber).map(link => {
         const discordBox = document.createElement("div");
-
+        const discordIcon = document.createElement("img");
         if (profileData.buttonThemeEnable === 1) {
             const themeConfig = btnIconThemeConfig?.find(config => config.name === link.name);
             if (themeConfig) {
                 const themeClass = themeConfig.themeClass + (themeConfig.themeClassAlt ? ` ${themeConfig.themeClassAlt}` : "");
                 discordBox.className = `button ${themeClass}`;
-                const discordIcon = document.createElement("img");
+                
+                discordIcon.classList = "link-icon";
                 const icon = themeConfig.icon + (themeConfig.iconAlt ? ` ${themeConfig.iconAlt}` : "");
                 discordIcon.src = themeConfig.icon;
                 discordBox.appendChild(discordIcon);
                 discordIcon.className = "icon";
             } else {
                 discordBox.className = "discord-box";
-                const discordIcon = document.createElement("img");
+                discordIcon.classList = "link-icon";
                 discordIcon.src = link.icon;
                 discordIcon.alt = link.text;
                 discordBox.appendChild(discordIcon);
             }
         } else {
             discordBox.className = "discord-box";
-            const discordIcon = document.createElement("img");
+            discordIcon.classList = "link-icon";
             discordIcon.src = link.icon;
             discordIcon.alt = link.text;
             discordBox.appendChild(discordIcon);
@@ -180,16 +181,148 @@ function createLinkBoxes(profileData) {
         discordLink.href = link.url;
         discordLink.target = "_blank";
         discordLink.textContent = link.text;
-
         discordBox.appendChild(discordLink);
 
+        if (link.description && link.description.trim() !== "" && link.showDescription) {
+            // Create the arrow emoji element
+            const arrow = document.createElement("span");
+            arrow.className = "desc-arrow";
+            arrow.style.display = "inline-flex";
+            arrow.style.alignItems = "center";
+            arrow.style.justifyContent = "center";
+            arrow.style.transition = "opacity 0.7s cubic-bezier(0.4,0,0.2,1)";
+            arrow.style.opacity = "1";
+            arrow.style.marginLeft = "5px";
+            arrow.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" 
+                xmlns="http://www.w3.org/2000/svg" style="display:block;margin:auto;">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1" 
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            `;
+            discordLink.appendChild(arrow);
+
+            const desc = document.createElement("p");
+            desc.className = "link-description";
+            desc.textContent = link.description;
+
+            desc.style.transition = "max-height 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s cubic-bezier(0.4,0,0.2,1), margin 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)";
+            desc.style.overflow = "hidden";
+            desc.style.maxHeight = "0";
+            desc.style.opacity = "0";
+            desc.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+            desc.style.padding = "0 5px";
+            desc.style.borderRadius = "5px";
+            desc.style.border = "1px solid rgba(255, 255, 255, 0.5)";
+            desc.style.marginTop = "0";
+            desc.style.marginBottom = "0";
+            desc.style.display = "block";
+
+            discordIcon.style.transform = "translateY(2px)";
+            discordIcon.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
+            arrow.style.transform = "translateY(3px)";
+
+            discordLink.addEventListener("mouseover", () => {
+                discordBox.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
+                desc.style.maxHeight = "200px";
+                desc.style.opacity = "1";
+                desc.style.marginTop = "8px";
+                desc.style.marginBottom = "5px";
+                desc.style.padding = "5px";
+                arrow.style.opacity = "0";
+            });
+            discordLink.addEventListener("mouseout", () => {
+                desc.style.maxHeight = "0";
+                desc.style.opacity = "0";
+                desc.style.marginTop = "0";
+                desc.style.marginBottom = "0";
+                desc.style.padding = "0 5px";
+                arrow.style.opacity = "1";
+            });
+
+            discordLink.appendChild(desc);
+        }
+        
         if (!link.text.trim()) {
             discordLink.style.display = "none";
         }
         return discordBox;
     });
 }
+function validateProfileConfig(profileData, themes, btnIconThemeConfig, canvaData, animationBackground) {
+    const errors = [];
 
+    // Validate themes
+    if (!Array.isArray(themes) || themes.length === 0) {
+        errors.push("Themes array is missing or empty.");
+    } else {
+        themes.forEach((theme, i) => {
+            if (!theme.background || !theme.textColor || !theme.buttonBackground || !theme.buttonHoverBackground) {
+                errors.push(`Theme at index ${i} is missing required properties.`);
+            }
+        });
+    }
+
+    // Validate profileData
+    if (typeof profileData !== "object" || profileData === null) {
+        errors.push("profileData is not an object.");
+    } else {
+        const requiredProfileFields = [
+            "profileLink", "profileImage", "profileIcon", "profileSiteText", "profileHoverColor",
+            "userName", "email", "description", "links", "labels", "socialIcon", "statusbar", "background"
+        ];
+        requiredProfileFields.forEach(field => {
+            if (!(field in profileData)) {
+                errors.push(`profileData is missing field: ${field}`);
+            }
+        });
+        if (!Array.isArray(profileData.links)) {
+            errors.push("profileData.links is not an array.");
+        }
+        if (!Array.isArray(profileData.labels)) {
+            errors.push("profileData.labels is not an array.");
+        }
+        if (!Array.isArray(profileData.socialIcon)) {
+            errors.push("profileData.socialIcon is not an array.");
+        }
+        if (typeof profileData.statusbar !== "object" || profileData.statusbar === null) {
+            errors.push("profileData.statusbar is not an object.");
+        }
+    }
+
+    // Validate btnIconThemeConfig
+    if (!Array.isArray(btnIconThemeConfig)) {
+        errors.push("btnIconThemeConfig is not an array.");
+    }
+
+    // Validate canvaData
+    if (!Array.isArray(canvaData)) {
+        errors.push("canvaData is not an array.");
+    } else {
+        canvaData.forEach((canva, i) => {
+            if (!canva.fileNames) {
+                errors.push(`canvaData at index ${i} is missing fileNames.`);
+            }
+        });
+    }
+
+    // Validate animationBackground
+    if (!Array.isArray(animationBackground)) {
+        errors.push("animationBackground is not an array.");
+    } else {
+        animationBackground.forEach((anim, i) => {
+            if (!anim.keyframes) {
+                errors.push(`animationBackground at index ${i} is missing keyframes.`);
+            }
+        });
+    }
+
+    if (errors.length > 0) {
+        console.error("Validation errors:", errors);
+        return false;
+    }
+    return true;
+}
 function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas, selectedCanvasIndex) {
     if (useCanvas) {
         const canvas = document.createElement("canvas");

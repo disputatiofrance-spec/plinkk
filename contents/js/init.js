@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    validateProfileConfig(profileData);
+    // Ensure profileData is defined
+
+    // Ensure profileData is an object
+    // and contains the expected properties
+    if (!profileData || typeof profileData !== 'object') {
+        console.error("profileData is not defined or is not an object.");
+        return;
+    }
+
     const article = document.getElementById("profile-article");
     if (!article) {
         console.error("Element with id 'profile-article' not found.");

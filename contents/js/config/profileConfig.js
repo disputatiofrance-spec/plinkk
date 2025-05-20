@@ -6,11 +6,62 @@ const profileData = {
     userName: "GitHub User", // Nom affiché sur la page et dans le titre de l'onglet
     email: "user@github.com", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link1", text: "Link 1", name: "GitHub" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link2", text: "Link 2", name: "Discord" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link3", text: "Link 3", name: "LinkedIn" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link4", text: "Link 4", name: "Instagram" },
-        { icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://github.com/link5", text: "Link 5", name: "YouTube" },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link1",
+            text: "Link 1",
+            name: "GitHub",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: true, // ou false, optionnel
+            showDescription : true, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir à venir
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link2",
+            text: "Link 2",
+            name: "Discord",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: false, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link3",
+            text: "Link 3",
+            name: "LinkedIn",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: false, // ou false, optionnel
+            showDescription : true, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link4",
+            text: "Link 4",
+            name: "Instagram",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: true, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link5",
+            text: "Link 5",
+            name: "YouTube",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir vide si vous ne voulez pas d'image
+            description: "Ma description personnalisée", // optionnel vide si vous ne voulez pas de description
+            showDescriptionOnHover: true, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+            
+        },
     ],
     // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
     background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
@@ -56,6 +107,7 @@ const profileData = {
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
     selectedCanvasIndex: 3,          // Animation du canva (voir ci-dessous)
+
 };
 //      Thèmes      \\
 // 0 : Grey Theme
