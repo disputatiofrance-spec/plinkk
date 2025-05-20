@@ -5,6 +5,7 @@ function createProfileContainer(profileData) {
     const profileLink = document.createElement("a");
     profileLink.href = profileData.profileLink;
     profileLink.target = "_blank";
+    profileLink.tabIndex = 0;
 
     const profilePicWrapper = document.createElement("div");
     profilePicWrapper.className = "profile-pic-wrapper";
@@ -13,7 +14,6 @@ function createProfileContainer(profileData) {
     profilePic.src = profileData.profileImage;
     profilePic.alt = "Profile Picture";
     profilePic.className = "profile-pic";
-
     profilePicWrapper.appendChild(profilePic);
 
     const profileLinkDiv = document.createElement("div");
@@ -298,6 +298,7 @@ function applyTheme(theme) {
     const themeToggle = document.querySelector(".theme-toggle-button");
     themeToggle.style.backgroundColor = theme.buttonBackground;
     themeToggle.style.color = theme.textColor;
+    themeToggle.tabIndex = 1;
 
     themeToggle.addEventListener("mouseover", () => {
         themeToggle.style.backgroundColor = theme.buttonHoverBackground;
