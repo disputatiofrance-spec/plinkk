@@ -1,9 +1,9 @@
-*# Documentation de Plinkk
+# Documentation de Plinkk
 ---
 
 ## Sommaire
 
-- [\*# Documentation de Plinkk](#-documentation-de-plinkk)
+- [\# Documentation de Plinkk](#-documentation-de-plinkk)
 - [Sommaire](#sommaire)
 - [Introduction](#introduction)
 - [Structure des fichiers](#structure-des-fichiers)
