@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     footer.style.zIndex = "9999";
     document.body.appendChild(footer);
 
+    initEasterEggs();
 
     if (!animations || !animations.length) {
         console.warn("Animations array is empty or not defined.");
