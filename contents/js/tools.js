@@ -69,49 +69,18 @@ function createEmailAndDescription(profileData) {
 
     const emailDiv = document.createElement("div");
     emailDiv.className = "email";
-    emailDiv.style.display = "flex";
-    emailDiv.style.alignItems = "center";
-    emailDiv.style.justifyContent = "center";
-    emailDiv.style.gap = "10px";
-    emailDiv.style.width = "100%";
+    emailDiv.style.position = "relative"; // Pour le positionnement du modal
 
     const emailLink = document.createElement("a");
     emailLink.href = `mailto:${profileData.email}`;
     emailLink.textContent = profileData.email;
-    emailLink.style.display = "flex";
-    emailLink.style.alignItems = "center";
-    emailLink.style.justifyContent = "center";
-    emailLink.style.width = "100%";
-    emailLink.style.height = "100%";
-    emailLink.style.textDecoration = "none";
-    emailLink.style.transform = "translateX(15px)";
 
-    // Move the copy button inside the link if you want it clickable as part of the link,
-    // or append after if you want it outside the link.
     emailDiv.appendChild(emailLink);
 
     const copyBtn = document.createElement("button");
     copyBtn.type = "button";
     copyBtn.title = "Copier l'email";
-    copyBtn.style.display = "inline-flex";
-    copyBtn.style.alignItems = "center";
-    copyBtn.style.justifyContent = "center";
-    copyBtn.style.border = "none";
-    copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
-    copyBtn.style.cursor = "pointer";
-    copyBtn.style.padding = "5px";
-    copyBtn.style.borderRadius = "5px";
-    copyBtn.style.transition = "background 0.2s";
-    copyBtn.setAttribute("aria-label", "Copier l'email");
-    copyBtn.style.transform = "translateX(-5px)";
-    copyBtn.addEventListener("mouseover", () => {
-        copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-    });
-    copyBtn.addEventListener("mouseout", () => {
-        copyBtn.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
-    });
-
-    // Icon (SVG)
+    copyBtn.className = "copy-btn";
     copyBtn.innerHTML = `
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -119,8 +88,50 @@ function createEmailAndDescription(profileData) {
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
         </svg>
     `;
+    emailDiv.appendChild(copyBtn);
+
+    // --- Système de spam & easter egg ---
+    let spamCount = 0;
+    let lastClick = 0;
+    let resetTimeout = null;
+    let iconTimeout = null;
+    let rpLaunched = false;
 
     copyBtn.addEventListener("click", () => {
+        const now = Date.now();
+        if (now - lastClick < 400) {
+            spamCount++;
+        } else {
+            spamCount = 1;
+            rpLaunched = false; // reset RP si on arrête de spam
+            // reset visuel si besoin
+            copyBtn.classList.remove("btn-crack", "btn-broken", "btn-explode");
+            copyBtn.style = "";
+        }
+        lastClick = now;
+
+        // Reset du compteur après 5s sans clic
+        if (resetTimeout) clearTimeout(resetTimeout);
+        resetTimeout = setTimeout(() => {
+            spamCount = 0;
+            rpLaunched = false;
+            copyBtn.classList.remove("btn-crack", "btn-broken", "btn-explode");
+            copyBtn.style = "";
+        }, 5000);
+
+        // Vibrations
+        if (spamCount >= 3 && spamCount < 6) {
+            copyBtn.classList.add("vibrate_btn");
+            setTimeout(() => copyBtn.classList.remove("vibrate_btn"), 200);
+        } else if (spamCount >= 6 && spamCount < 10) {
+            emailDiv.classList.add("vibrate_parent");
+            setTimeout(() => emailDiv.classList.remove("vibrate_parent"), 200);
+        } else if (spamCount >= 10 && spamCount < 100) {
+            document.body.classList.add("vibrate_parent");
+            setTimeout(() => document.body.classList.remove("vibrate_parent"), 200);
+        }
+
+        // Copie dans le presse-papier
         navigator.clipboard.writeText(profileData.email)
             .then(() => {
                 copyBtn.innerHTML = `
@@ -129,7 +140,9 @@ function createEmailAndDescription(profileData) {
                         <polyline points="20 6 9 17 4 12"/>
                     </svg>
                 `;
-                setTimeout(() => {
+                // Timer indépendant pour l'icône
+                if (iconTimeout) clearTimeout(iconTimeout);
+                iconTimeout = setTimeout(() => {
                     copyBtn.innerHTML = `
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -138,50 +151,153 @@ function createEmailAndDescription(profileData) {
                         </svg>
                     `;
                 }, 2000);
-            })
-            .catch(err => {
-                console.error("Failed to copy email: ", err);
             });
-    });
-    emailDiv.appendChild(copyBtn);
 
+        // RP spécial à partir de 100
+        if (spamCount >= 100 && !rpLaunched) {
+            rpLaunched = true;
+            launchCopyRP(copyBtn, emailDiv, () => {
+                // callback à la fin du RP (optionnel)
+            });
+            return;
+        }
+
+        // Effets progressifs selon le spamCount
+        if (spamCount >= 200 && spamCount < 500) {
+            copyBtn.classList.add("btn-crack");
+        } else if (spamCount >= 500 && spamCount < 1000) {
+            copyBtn.classList.remove("btn-crack");
+            copyBtn.classList.add("btn-broken");
+        } else if (spamCount >= 1000) {
+            copyBtn.classList.remove("btn-broken");
+            copyBtn.classList.add("btn-explode");
+            copyBtn.innerHTML = "💥";
+            setTimeout(() => {
+                copyBtn.style.opacity = "0";
+                showCopyModal("Le bouton a explosé !", copyBtn);
+            }, 800);
+            return;
+        }
+
+        // Messages d'easter egg classiques
+        let msg = "";
+        if (spamCount === 1) msg = "Copie !";
+        else if (spamCount === 2) msg = "Super Copie !";
+        else if (spamCount === 3) msg = "Hyper Copie !";
+        else if (spamCount === 4) msg = "Ultra Copie !";
+        else if (spamCount === 5) msg = "Mega Copie !";
+        else if (spamCount === 6) msg = "Stop spam 😅";
+        else if (spamCount > 6 && spamCount < 10) msg = "Trop de copies !";
+        else if (spamCount >= 10 && spamCount < 20) msg = "Arrête de spammer !";
+        else if (spamCount >= 20 && spamCount < 30) msg = "Tu es vraiment motivé à copier !";
+        else if (spamCount >= 30 && spamCount < 40) msg = "Tu ne t'arrêtes jamais ?";
+        else if (spamCount >= 40 && spamCount < 50) msg = "Toujours là ?";
+        else if (spamCount >= 50 && spamCount < 60) msg = "C'est infini ?";
+        else if (spamCount >= 60 && spamCount < 70) msg = "Tu veux casser le bouton ?";
+        else if (spamCount >= 70 && spamCount < 80) msg = "Courageux !";
+        else if (spamCount >= 80 && spamCount < 90) msg = "Toujours pas fatigué ?";
+        else if (spamCount >= 90 && spamCount < 100) msg = "100 bientôt !";
+        else if (spamCount >= 100 && spamCount < 101) msg = "Tu es un vrai spammeur !";
+        if (msg) showCopyModal(msg, copyBtn);
+    });
+
+    // RP avec histoire et effets
+    function launchCopyRP(copyBtn, emailDiv, onEnd) {
+        const rpMessages = [
+            "💥 Le bouton commence à chauffer...",
+            "😱 Tu sens cette odeur de plastique brûlé ?",
+            "⚡ Des fissures apparaissent sur le bouton !",
+            "🛑 Le bouton crie : « Arrête de me copier ! »",
+            "🔥 Le bouton se fissure de plus en plus...",
+            "🤖 Le bouton : « Je vais craquer... »",
+            "🌈 Explosion de couleurs !",
+            "🎉 Le bouton se déforme et tremble...",
+            "👏 Tu es un vrai spammeur !"
+        ];
+        let i = 0;
+        let rpInterval = setInterval(() => {
+            showCopyModal(rpMessages[i], copyBtn);
+            // Effets visuels progressifs
+            if (i === 2) {
+                copyBtn.classList.add("btn-crack");
+            }
+            if (i === 4) {
+                copyBtn.classList.add("vibrate_btn");
+            }
+            if (i === 6) {
+                copyBtn.style.background = "linear-gradient(90deg, #ff00cc, #3333ff)";
+                copyBtn.style.color = "#fff";
+            }
+            if (i === 7) {
+                copyBtn.classList.add("btn-broken");
+            }
+            i++;
+            if (i >= rpMessages.length) {
+                clearInterval(rpInterval);
+                if (onEnd) onEnd();
+            }
+        }, 1200);
+    }
+
+    // Description
     const descriptionDiv = document.createElement("div");
     descriptionDiv.className = "profile-description";
-
     const descriptionText = document.createElement("p");
     descriptionText.textContent = profileData.description;
-
     descriptionDiv.appendChild(descriptionText);
 
     container.appendChild(emailDiv);
     container.appendChild(descriptionDiv);
 
-    if (!profileData.description.trim()) {
-        descriptionDiv.style.display = "none";
-        if (!profileData.email.trim()) {
-            container.style.display = "none";
-        } else {
-            addEmailStyles(profileData);
-            container.style.padding = "0";
-            container.style.margin = "0";
-            emailDiv.style.borderRadius = "10px";
-
-        }
-    } else {
-        if (!profileData.email.trim()) {
-            emailDiv.style.display = "none";
-        } else {
-            addEmailStyles();
-        }
-    }
-
-    if (!profileData.email.trim()) {
-        emailDiv.style.display = "none";
-    }
+    // Affichage conditionnel
+    if (!profileData.description.trim()) descriptionDiv.style.display = "none";
+    if (!profileData.email.trim()) emailDiv.style.display = "none";
 
     return container;
 }
 
+// Modal localisé au bouton, au-dessus ou en dessous selon la place
+function showCopyModal(message, btn) {
+    let modal = btn.parentNode.querySelector(".copy-modal");
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.className = "copy-modal";
+        btn.parentNode.appendChild(modal);
+    }
+    modal.textContent = message;
+    modal.classList.add("show");
+    modal.style.position = "absolute";
+    modal.style.left = "50%";
+    modal.style.transform = "translate(-50%, -100%)";
+    modal.style.background = "rgba(40,40,40,0.95)";
+    modal.style.color = "#fff";
+    modal.style.padding = "8px 18px";
+    modal.style.borderRadius = "8px";
+    modal.style.fontSize = "1em";
+    modal.style.fontWeight = "bold";
+    modal.style.boxShadow = "0 4px 24px rgba(0,0,0,0.25)";
+    modal.style.pointerEvents = "none";
+    modal.style.zIndex = "100";
+    modal.style.transition = "opacity 0.3s cubic-bezier(0.4,0,0.2,1)";
+
+    // Calcul de la place à l'écran
+    const btnRect = btn.getBoundingClientRect();
+    const modalHeight = 60;
+    if (btnRect.top - modalHeight < 10) {
+        modal.style.top = "calc(100% + 10px)";
+        modal.style.transform = "translate(-50%, 0)";   
+    } else {
+        modal.style.top = "-10px";
+        modal.style.transform = "translate(-50%, -100%)";
+    }
+    modal.style.opacity = "1";
+
+    clearTimeout(modal._timeout);
+    modal._timeout = setTimeout(() => {
+        modal.classList.remove("show");
+        modal.style.opacity = "0";
+    }, 1500);
+}
 function addEmailStyles() {
     const styleSheet = document.styleSheets[0];
     styleSheet.insertRule(`
@@ -547,6 +663,40 @@ function applyTheme(theme) {
             background: linear-gradient(45deg, ${theme.buttonHoverBackground}, ${theme.buttonBackground});
         }
     `, styleSheet.cssRules.length);
+
+    const easterEggsBtn = document.querySelector(".easter-egg-gear-btn");
+    const easterEggsModal = document.querySelector(".easter-egg-modal");
+
+    if (easterEggsBtn) {
+        easterEggsBtn.style.backgroundColor = theme.buttonBackground;
+        easterEggsBtn.style.color = theme.textColor;
+        easterEggsBtn.addEventListener("mouseover", () => {
+            if (easterEggsBtn) {
+                easterEggsBtn.style.backgroundColor = theme.buttonHoverBackground;
+                easterEggsBtn.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+            }
+        });
+        easterEggsBtn.addEventListener("mouseout", () => {
+            if (easterEggsBtn) {
+                easterEggsBtn.style.backgroundColor = theme.buttonBackground;
+                easterEggsBtn.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+            }
+        });
+    } else {
+        console.warn("Easter eggs button not found. Make sure it exists in your HTML.");
+    }
+
+    if (easterEggsModal) {
+        easterEggsModal.style.background = theme.background;
+        easterEggsModal.style.color = theme.textColor;
+        easterEggsModal.style.border = `2px solid ${theme.buttonHoverBackground}`;
+        easterEggsModal.style.boxShadow = `0 0 30px ${theme.buttonHoverBackground}`;
+        easterEggsModal.style.borderRadius = "12px";
+        easterEggsModal.style.padding = "24px";
+        easterEggsModal.style.transition = "background 0.3s, color 0.3s, box-shadow 0.3s";
+    } else {
+        console.warn("Easter eggs modal not found. Make sure it exists in your HTML.");
+    }
 }
 
 function applyAnimation(animation, animationEnabled) {
@@ -557,7 +707,7 @@ function applyAnimation(animation, animationEnabled) {
 }
 
 function applyAnimationButton(animation, animationButtonEnabled, delayAnimationButton) {
-    const articleChildren = document.querySelectorAll("#profile-article > *");
+    const articleChildren = document.querySelectorAll("#profile-article > *:not(.easter-egg-modal)");
     if (animationButtonEnabled) {
         articleChildren.forEach((child, index) => {
             child.style.animationDelay = `${(index + 1) * delayAnimationButton}s`;
@@ -672,24 +822,6 @@ function applyFirstTheme(theme) {
             }
         }
     }
-}
-
-function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
 }
 
 function createIconList(profileData) {
