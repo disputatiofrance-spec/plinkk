@@ -333,6 +333,8 @@ function addEmailStyles() {
 
 function createLinkBoxes(profileData) {
     const maxLinkNumber = 20;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     if (!profileData.links || !profileData.links.length) {
         console.warn("No links found in profile data.");
     } else if (profileData.links.length > maxLinkNumber) {
@@ -341,14 +343,17 @@ function createLinkBoxes(profileData) {
     return profileData.links.slice(0, maxLinkNumber).map(link => {
         const discordBox = document.createElement("div");
         const discordIcon = document.createElement("img");
+        if (profileData.buttonThemeEnable === 0 && link.showDescription === true) {
+            discordIcon.style.top = "24px";
+        }
+
         if (profileData.buttonThemeEnable === 1) {
             const themeConfig = btnIconThemeConfig?.find(config => config.name === link.name);
-            if (themeConfig) {
+            if (themeConfig) {  
                 const themeClass = themeConfig.themeClass + (themeConfig.themeClassAlt ? ` ${themeConfig.themeClassAlt}` : "");
                 discordBox.className = `button ${themeClass}`;
                 
                 discordIcon.classList = "link-icon";
-                const icon = themeConfig.icon + (themeConfig.iconAlt ? ` ${themeConfig.iconAlt}` : "");
                 discordIcon.src = themeConfig.icon;
                 discordBox.appendChild(discordIcon);
                 discordIcon.className = "icon";
@@ -407,28 +412,70 @@ function createLinkBoxes(profileData) {
             desc.style.marginTop = "0";
             desc.style.marginBottom = "0";
             desc.style.display = "block";
-
-            discordIcon.style.transform = "translateY(2px)";
+            
             discordIcon.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
+            if (profileData.buttonThemeEnable === 1) {
+                discordIcon.style.transform = "translateY(3px)";
+            }
+
             arrow.style.transform = "translateY(3px)";
 
-            discordLink.addEventListener("mouseover", () => {
-                discordBox.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
-                desc.style.maxHeight = "200px";
-                desc.style.opacity = "1";
-                desc.style.marginTop = "8px";
-                desc.style.marginBottom = "5px";
-                desc.style.padding = "5px";
-                arrow.style.opacity = "0";
-            });
-            discordLink.addEventListener("mouseout", () => {
-                desc.style.maxHeight = "0";
-                desc.style.opacity = "0";
-                desc.style.marginTop = "0";
-                desc.style.marginBottom = "0";
-                desc.style.padding = "0 5px";
-                arrow.style.opacity = "1";
-            });
+            if (isTouchDevice) {
+                // Sur mobile/tactile : bouton pour afficher/masquer la description
+                const showDescBtn = document.createElement("button");
+                showDescBtn.textContent = "Afficher la description";
+                showDescBtn.className = "show-desc-btn";
+                showDescBtn.style.marginLeft = "10px";
+                showDescBtn.style.fontSize = "0.9em";
+                showDescBtn.style.padding = "2px 8px";
+                showDescBtn.style.borderRadius = "6px";
+                showDescBtn.style.border = "none";
+                showDescBtn.style.background = "#eee";
+                showDescBtn.style.cursor = "pointer";
+                showDescBtn.style.transition = "background 0.2s";
+                let descVisible = false;
+                showDescBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    descVisible = !descVisible;
+                    if (descVisible) {
+                        desc.style.maxHeight = "200px";
+                        desc.style.opacity = "1";
+                        desc.style.marginTop = "8px";
+                        desc.style.marginBottom = "5px";
+                        desc.style.padding = "5px";
+                        arrow.style.opacity = "0";
+                        showDescBtn.textContent = "Masquer la description";
+                    } else {
+                        desc.style.maxHeight = "0";
+                        desc.style.opacity = "0";
+                        desc.style.marginTop = "0";
+                        desc.style.marginBottom = "0";
+                        desc.style.padding = "0 5px";
+                        arrow.style.opacity = "1";
+                        showDescBtn.textContent = "Afficher la description";
+                    }
+                });
+                discordBox.appendChild(showDescBtn);
+            } else {
+                // Desktop : hover classique
+                discordLink.addEventListener("mouseover", () => {
+                    discordBox.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
+                    desc.style.maxHeight = "200px";
+                    desc.style.opacity = "1";
+                    desc.style.marginTop = "8px";
+                    desc.style.marginBottom = "5px";
+                    desc.style.padding = "5px";
+                    arrow.style.opacity = "0";
+                });
+                discordLink.addEventListener("mouseout", () => {
+                    desc.style.maxHeight = "0";
+                    desc.style.opacity = "0";
+                    desc.style.marginTop = "0";
+                    desc.style.marginBottom = "0";
+                    desc.style.padding = "0 5px";
+                    arrow.style.opacity = "1";
+                });
+            }
 
             discordLink.appendChild(desc);
         }
@@ -703,6 +750,22 @@ function applyTheme(theme) {
     } else {
         console.warn("Easter eggs modal not found. Make sure it exists in your HTML.");
     }
+
+    // Appliquer le style à tous les boutons .show-desc-btn
+    const boutonsAffichageDescription = document.querySelectorAll(".show-desc-btn");
+    boutonsAffichageDescription.forEach(bouton => {
+        bouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+        bouton.style.color = theme.textColor;
+        bouton.addEventListener("mouseover", () => {
+            bouton.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+            bouton.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+        });
+        bouton.addEventListener("mouseout", () => {
+            bouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+            bouton.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+        });
+    });
+    
 }
 
 function applyAnimation(animation, animationEnabled) {

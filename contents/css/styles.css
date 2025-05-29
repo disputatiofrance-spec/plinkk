@@ -207,12 +207,16 @@ article {
     transition: 0.3s;
 }
 
-.discord-box img {
+.discord-box img,
+.discord-box .link-icon {
     width: 25px;
     position: absolute;
-    top: 50%;
+    top: 22px;
     left: 20px;
     transform: translateY(-50%);
+    /* Pour éviter que le SVG ou l'image ne saute selon le mode */
+    display: block;
+    pointer-events: none;
 }
 
 .discord-box a {
@@ -464,7 +468,7 @@ canvas {
 .rainbow-footer, h1.rainbow-footer {
   background: linear-gradient(90deg, #ff0080, #7928ca, #0078ff, #00cfff, #00ff8f, #ff0080);
   background-size: 200% auto;
-  color: transparent !important;
+  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -538,4 +542,15 @@ input:checked + .slider {
 }
 input:checked + .slider:before {
   transform: translateX(18px);
+}
+
+.show-desc-btn {
+    margin-top: -5px;
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9em;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
