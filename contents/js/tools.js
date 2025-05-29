@@ -71,10 +71,14 @@ function createEmailAndDescription(profileData) {
     emailDiv.className = "email";
     emailDiv.style.position = "relative"; // Pour le positionnement du modal
 
+    emailDiv.style.padding = "0";
+
     const emailLink = document.createElement("a");
     emailLink.href = `mailto:${profileData.email}`;
     emailLink.textContent = profileData.email;
-
+    emailLink.style.display = "block"; // pour que le padding s'applique sur toute la largeur
+    emailLink.style.padding = "12px";  // padding interne
+    emailLink.style.textAlign = "center"; // centrer le texte
     emailDiv.appendChild(emailLink);
 
     const copyBtn = document.createElement("button");
@@ -609,10 +613,12 @@ function applyTheme(theme) {
     emailHover.addEventListener("mouseover", () => {
         emailDiv.style.backgroundColor = theme.buttonHoverBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+        emailHover.style.color = theme.buttonTextColor;
     });
     emailHover.addEventListener("mouseout", () => {
         emailDiv.style.backgroundColor = theme.buttonBackground;
         emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+        emailHover.style.color = theme.textColor;
     });
 
     const themeToggle = document.querySelector(".theme-toggle-button");
