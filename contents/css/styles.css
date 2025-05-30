@@ -554,3 +554,14 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: background 0.2s;
 }
+
+
+.companion-animal {
+    will-change: left, bottom, transform;
+    transition: filter 0.3s;
+}
+.companion-animal svg {
+    pointer-events: none;
+    user-select: none;
+    display: block;
+}

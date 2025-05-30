@@ -41,7 +41,124 @@ const easterEggsList = [
         onDeactivate: function() {
             document.body.classList.remove("reverse-theme");
         }
-    }
+    },
+    {
+        name: "companionEgg",
+        label: "Compagnon secret",
+        activeCookie: "companionEggActive",
+        unlockCookie: "companionEgg",
+        themeClass: "companion-theme",
+        onActivate: function() {
+            if (document.getElementById("companion-egg")) return;
+            const companion = document.createElement("div");
+            companion.id = "companion-egg";
+            companion.className = "companion-animal";
+            companion.innerHTML = `
+                <svg width="60" height="48" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <ellipse cx="30" cy="38" rx="18" ry="8" fill="#222" opacity="0.15"/>
+                        <g class="cat-tail">
+                            <rect x="44" y="34" width="12" height="6" rx="3" fill="#F4C542"/>
+                        </g>
+                        <ellipse cx="30" cy="28" rx="16" ry="12" fill="#F4C542"/>
+                        <g class="cat-ear-left">
+                            <polygon points="16,18 20,24 22,20" fill="#F4C542"/>
+                        </g>
+                        <g class="cat-ear-right">
+                            <polygon points="44,18 40,24 38,20" fill="#F4C542"/>
+                        </g>
+                        <ellipse cx="22" cy="26" rx="3" ry="4" fill="#fff"/>
+                        <ellipse cx="38" cy="26" rx="3" ry="4" fill="#fff"/>
+                        <ellipse cx="22" cy="27" rx="1" ry="2" fill="#222"/>
+                        <ellipse cx="38" cy="27" rx="1" ry="2" fill="#222"/>
+                        <ellipse cx="30" cy="32" rx="3" ry="2" fill="#fff"/>
+                        <ellipse cx="30" cy="33" rx="1.5" ry="1" fill="#222"/>
+                        <ellipse cx="18" cy="36" rx="2" ry="1" fill="#F4C542"/>
+                        <ellipse cx="42" cy="36" rx="2" ry="1" fill="#F4C542"/>
+                    </g>
+                </svg>
+            `;
+            Object.assign(companion.style, {
+                position: "fixed",
+                bottom: "20px",
+                left: "0",
+                width: "60px",
+                height: "48px",
+                zIndex: "9999",
+                pointerEvents: "none",
+                userSelect: "none"
+            });
+            document.body.appendChild(companion);
+
+            // Mouvement naturel
+            let direction = 1;
+            let pos = 0;
+            let speed = 1.5 + Math.random() * 1.5;
+            let isPaused = false;
+            let bouncePhase = 0;
+            let lastTimestamp = null;
+
+            function animateSVG() {
+                // Queue qui remue
+                const tail = companion.querySelector('.cat-tail');
+                if (tail) {
+                    const t = Date.now() / 300;
+                    tail.setAttribute("transform", `rotate(${Math.sin(t)*20} 50 37)`);
+                }
+                // Oreilles qui bougent
+                const earL = companion.querySelector('.cat-ear-left');
+                const earR = companion.querySelector('.cat-ear-right');
+                if (earL) earL.setAttribute("transform", `rotate(${Math.sin(Date.now()/400)*8} 18 18)`);
+                if (earR) earR.setAttribute("transform", `rotate(${-Math.sin(Date.now()/400)*8} 42 18)`);
+            }
+
+            function moveCompanion(timestamp) {
+                if (!lastTimestamp) lastTimestamp = timestamp;
+                const dt = (timestamp - lastTimestamp) / 16; // normalise à ~60fps
+                lastTimestamp = timestamp;
+
+                if (!isPaused) {
+                    const max = window.innerWidth - 60;
+                    pos += direction * speed * dt;
+                    // Rebond aux bords
+                    if (pos >= max) {
+                        direction = -1;
+                        pos = max;
+                        speed = 1.5 + Math.random() * 1.5;
+                    }
+                    if (pos <= 0) {
+                        direction = 1;
+                        pos = 0;
+                        speed = 1.5 + Math.random() * 1.5;
+                    }
+                    // Animation de rebond
+                    bouncePhase += 0.08 * dt + Math.random() * 0.01;
+                    const bounce = 8 * Math.abs(Math.sin(bouncePhase));
+                    companion.style.left = pos + "px";
+                    companion.style.bottom = (20 + bounce) + "px";
+                    companion.style.transform = direction === 1 ? "scaleX(1)" : "scaleX(-1)";
+                    // Pause aléatoire
+                    if (Math.random() < 0.003) {
+                        isPaused = true;
+                        setTimeout(() => { 
+                            isPaused = false; 
+                            speed = 1.5 + Math.random() * 1.5; 
+                        }, 400 + Math.random() * 1200);
+                    }
+                }
+                animateSVG();
+                companion._animFrame = requestAnimationFrame(moveCompanion);
+            }
+            companion._animFrame = requestAnimationFrame(moveCompanion);
+        },
+        onDeactivate: function() {
+            const companion = document.getElementById("companion-egg");
+            if (companion) {
+                cancelAnimationFrame(companion._animFrame);
+                companion.remove();
+            }
+        }
+    },
     // Ajoute ici d'autres eggs au même format
 ];
 
@@ -92,6 +209,7 @@ function unlockEgg(eggName) {
     if (firstTime) {
         setCookie(egg.unlockCookie, "1", 365);
         setCookie(egg.activeCookie, "1", 365);
+        document.dispatchEvent(new Event("egg-unlocked"));
         if (egg.onActivate) egg.onActivate();
         createEasterEggGearButton();
         showEggUnlockedModal(egg.label, true);
@@ -211,6 +329,27 @@ function createEasterEggGearButton() {
     titleDiv.textContent = "Easter Eggs";
     modal.appendChild(titleDiv);
 
+    // Compteur d'easter eggs débloqués aligné à droite du titre, collé au bord droit du modal
+    titleDiv.style.display = "flex";
+    titleDiv.style.justifyContent = "space-between";
+    titleDiv.style.alignItems = "center";
+
+    const unlockedCount = easterEggsList.filter(egg => getCookie(egg.unlockCookie)).length;
+    const totalCount = easterEggsList.length;
+    const counterDiv = document.createElement("div");
+    counterDiv.style.fontSize = "0.95em";
+    counterDiv.style.color = "#00ff8f";
+    counterDiv.style.fontWeight = "bold";
+    counterDiv.style.marginLeft = "16px";
+    counterDiv.textContent = `${unlockedCount} / ${totalCount} débloqués`;
+    titleDiv.appendChild(counterDiv);
+
+    function updateCounter() {
+        const unlockedCount = easterEggsList.filter(egg => getCookie(egg.unlockCookie)).length;
+        counterDiv.textContent = `${unlockedCount} / ${easterEggsList.length} débloqués`;
+    }
+    document.addEventListener("egg-unlocked", updateCounter);
+
     updateEasterEggModal(modal);
 
     if (document.querySelector('.easter-egg-modal')) {
@@ -260,3 +399,24 @@ function updateEasterEggModal(modal) {
         modal.appendChild(row);
     });
 }
+
+// Easter Egg : compagnon après 1h cumulée sur la page
+(function trackCompanionEggTime() {
+    const EGG_NAME = "companionEgg";
+    const UNLOCK_COOKIE = "companionEgg";
+    const ACTIVE_COOKIE = "companionEggActive";
+    const STORAGE_KEY = "companionEggTime";
+    const UNLOCK_TIME = 3600; // en secondes (1h)
+
+    if (getCookie(UNLOCK_COOKIE)) return; // déjà débloqué
+
+    let time = parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10);
+
+    setInterval(() => {
+        time++;
+        localStorage.setItem(STORAGE_KEY, time);
+        if (time >= UNLOCK_TIME && !getCookie(UNLOCK_COOKIE)) {
+            unlockEgg(EGG_NAME);
+        }
+    }, 1000);
+})();
