@@ -96,7 +96,7 @@ const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 0,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 5,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 0,              // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Ensure profileData is a valid JSON string before parsing
     if (typeof profileData === 'string') {
         try {
             profileData = JSON.parse(profileData);
@@ -10,10 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     validateProfileConfig(profileData);
-    // Ensure profileData is defined
 
-    // Ensure profileData is an object
-    // and contains the expected properties
     if (!profileData || typeof profileData !== 'object') {
         console.error("profileData is not defined or is not an object.");
         return;
