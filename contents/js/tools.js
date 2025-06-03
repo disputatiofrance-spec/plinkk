@@ -3,17 +3,33 @@ function createProfileContainer(profileData) {
     profileContainer.className = "profile-container";
 
     const profileLink = document.createElement("a");
-    profileLink.href = profileData.profileLink;
-    profileLink.target = "_blank";
+    if (isSafeUrl(profileData.profileLink)) {
+        profileLink.href = profileData.profileLink;
+        profileLink.target = "_blank";
+        profileLink.rel = "noopener noreferrer";
+    } else {
+        profileLink.href = "#";
+        profileLink.title = "Lien non valide";
+    }
     profileLink.tabIndex = 0;
 
     const profilePicWrapper = document.createElement("div");
     profilePicWrapper.className = "profile-pic-wrapper";
 
     const profilePic = document.createElement("img");
-    profilePic.src = profileData.profileImage;
+    if (isSafeUrl(profileData.profileImage)) {
+        profilePic.src = profileData.profileImage;
+    } else {
+        profilePic.src = "./contents/images/logo.png";
+    }
+    profilePic.onerror = () => {
+        profilePic.src = "./contents/images/logo.png";
+    };
     profilePic.alt = "Profile Picture";
     profilePic.className = "profile-pic";
+    profilePic.loading = "lazy";
+    disableDrag(profilePic);
+    disableContextMenuOnImage(profilePic);
     profilePicWrapper.appendChild(profilePic);
 
     const profileLinkDiv = document.createElement("div");
@@ -22,11 +38,22 @@ function createProfileContainer(profileData) {
     const profileLinkSpan = document.createElement("span");
 
     const profileIcon = document.createElement("img");
-    profileIcon.src = profileData.profileIcon;
+    if (isSafeUrl(profileData.profileIcon)) {
+        profileIcon.src = profileData.profileIcon;
+    } else {
+        profileIcon.src = "./contents/images/icons/default-icon.svg";
+    }
+    profileIcon.onerror = () => {
+        profileIcon.src = "./contents/images/icons/default-icon.svg";
+    };
     profileIcon.alt = "globe";
+    profileIcon.className = "profile-icon";
+    profileIcon.loading = "lazy";
+    disableDrag(profileIcon);
+    disableContextMenuOnImage(profileIcon);
 
     const profileSiteText = document.createElement("p");
-    profileSiteText.textContent = profileData.profileSiteText;
+    setSafeText(profileSiteText, profileData.profileSiteText);
 
     profileLinkSpan.appendChild(profileIcon);
     profileLinkSpan.appendChild(profileSiteText);
@@ -45,7 +72,7 @@ function createProfileContainer(profileData) {
         profileIcon.style.display = "none";
     } if (profileData.profileLink.trim() === "") {
         profileLink.style.display = "none";
-    } if (profileData.profileHoverColor.trim() === "") {
+    } if (profileData.profileHoverColor.trim() === "" || !isSafeColor(profileData.profileHoverColor)) {
         profileContainer.style.display = "none";
     }
 
@@ -54,7 +81,7 @@ function createProfileContainer(profileData) {
 
 function createUserName(profileData) {
     const userName = document.createElement("h1");
-    userName.textContent = profileData.userName;
+    setSafeText(userName, profileData.userName);
 
     if (!profileData.userName.trim()) {
         userName.style.display = "none";
@@ -75,7 +102,7 @@ function createEmailAndDescription(profileData) {
 
     const emailLink = document.createElement("a");
     emailLink.href = `mailto:${profileData.email}`;
-    emailLink.textContent = profileData.email;
+    setSafeText(emailLink, profileData.email);
     emailLink.style.display = "block"; // pour que le padding s'applique sur toute la largeur
     emailLink.style.padding = "12px";  // padding interne
     emailLink.style.textAlign = "center"; // centrer le texte
@@ -136,26 +163,40 @@ function createEmailAndDescription(profileData) {
         }
 
         // Copie dans le presse-papier
-        navigator.clipboard.writeText(profileData.email)
-            .then(() => {
-                copyBtn.innerHTML = `
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                `;
-                // Timer indépendant pour l'icône
-                if (iconTimeout) clearTimeout(iconTimeout);
-                iconTimeout = setTimeout(() => {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(profileData.email)
+                .then(() => {
                     copyBtn.innerHTML = `
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            <polyline points="20 6 9 17 4 12"/>
                         </svg>
                     `;
-                }, 2000);
-            });
+                    // Timer indépendant pour l'icône
+                    if (iconTimeout) clearTimeout(iconTimeout);
+                    iconTimeout = setTimeout(() => {
+                        copyBtn.innerHTML = `
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        `;
+                    }, 2000);
+                })
+                .catch(() => {
+                    showCopyModal("Erreur lors de la copie", copyBtn);
+                });
+        } else {
+            // Fallback : sélection manuelle
+            const tempInput = document.createElement("input");
+            tempInput.value = profileData.email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showCopyModal("Copié (fallback)", copyBtn);
+        }
 
         // RP spécial à partir de 100
         if (spamCount >= 100 && !rpLaunched) {
@@ -247,7 +288,7 @@ function createEmailAndDescription(profileData) {
     const descriptionDiv = document.createElement("div");
     descriptionDiv.className = "profile-description";
     const descriptionText = document.createElement("p");
-    descriptionText.textContent = profileData.description;
+    setSafeText(descriptionText, profileData.description);
     descriptionDiv.appendChild(descriptionText);
 
     container.appendChild(emailDiv);
@@ -327,6 +368,7 @@ function createLinkBoxes(profileData) {
                 
                 discordIcon.classList = "link-icon";
                 discordIcon.src = themeConfig.icon;
+                discordIcon.loading = "lazy";
                 discordBox.appendChild(discordIcon);
                 discordIcon.className = "icon";
             } else {
@@ -334,6 +376,7 @@ function createLinkBoxes(profileData) {
                 discordIcon.classList = "link-icon";
                 discordIcon.src = link.icon;
                 discordIcon.alt = link.text;
+                discordIcon.loading = "lazy";
                 discordBox.appendChild(discordIcon);
             }
         } else {
@@ -341,12 +384,19 @@ function createLinkBoxes(profileData) {
             discordIcon.classList = "link-icon";
             discordIcon.src = link.icon;
             discordIcon.alt = link.text;
+            discordIcon.loading = "lazy";
             discordBox.appendChild(discordIcon);
         }
 
         const discordLink = document.createElement("a");
-        discordLink.href = link.url;
-        discordLink.target = "_blank";
+        if (isSafeUrl(link.url)) {
+            discordLink.href = link.url;
+            discordLink.target = "_blank";
+            discordLink.rel = "noopener noreferrer";
+        } else {
+            discordLink.href = "#";
+            discordLink.title = "Lien non valide";
+        }
         discordLink.textContent = link.text;
         discordBox.appendChild(discordLink);
 
@@ -371,7 +421,7 @@ function createLinkBoxes(profileData) {
 
             const desc = document.createElement("p");
             desc.className = "link-description";
-            desc.textContent = link.description;
+            setSafeText(desc, link.description);
 
             desc.style.transition = "max-height 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s cubic-bezier(0.4,0,0.2,1), margin 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)";
             desc.style.overflow = "hidden";
@@ -546,17 +596,17 @@ function createLabelButtons(profileData) {
     profileData.labels.slice(0, maxLabelNumber).forEach(label => {
         const button = document.createElement("div");
         button.className = "label-button";
-        button.style.backgroundColor = `${label.color}80`;
-        button.style.border = `2px solid ${label.color}`;
-        button.style.color = label.fontColor;
-        button.textContent = label.data;
+        button.style.backgroundColor = isSafeColor(label.color) ? `${label.color}80` : "#cccccc80";
+        button.style.border = isSafeColor(label.color) ? `2px solid ${label.color}` : "2px solid #ccc";
+        button.style.color = isSafeColor(label.fontColor) ? label.fontColor : "#222";
+        setSafeText(button, label.data);
 
         button.addEventListener("mouseover", () => {
-            button.style.backgroundColor = label.color;
+            button.style.backgroundColor = isSafeColor(label.color) ? label.color : "#cccccc";
         });
 
         button.addEventListener("mouseout", () => {
-            button.style.backgroundColor = `${label.color}80`;
+            button.style.backgroundColor = isSafeColor(label.color) ? `${label.color}80` : "#cccccc80";
         });
 
         container.appendChild(button);
@@ -586,11 +636,21 @@ function createIconList(profileData) {
 
         const iconImg = document.createElement("img");
         iconImg.src = `./contents/images/icons/${iconData.icon.toLowerCase().replace(/ /g, '-')}.svg`;
+        setSafeText(iconImg, iconData.icon);
         iconImg.alt = iconData.icon;
+        iconImg.loading = "lazy";
+        disableDrag(iconImg);
+        disableContextMenuOnImage(iconImg);
 
         const iconLink = document.createElement("a");
-        iconLink.href = iconData.url;
-        iconLink.target = "_blank";
+        if (isSafeUrl(iconData.url)) {
+            iconLink.href = iconData.url;
+            iconLink.target = "_blank";
+            iconLink.rel = "noopener noreferrer";
+        } else {
+            iconLink.href = "#";
+            iconLink.title = "Lien non valide";
+        }
 
         iconLink.appendChild(iconImg);
         iconItem.appendChild(iconLink);
@@ -658,3 +718,10 @@ function createStatusBar(profileData) {
         circleStatusBar.style.width = "28px";
     });
 }
+
+window.addEventListener("error", function(event) {
+    console.error("Erreur JS globale :", event.message, event.filename, event.lineno);
+});
+window.addEventListener("unhandledrejection", function(event) {
+    console.error("Promesse non gérée :", event.reason);
+});
