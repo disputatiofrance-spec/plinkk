@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    validateProfileConfig(profileData);
+    // validateProfileConfig(profileData); // Uncomment if you have a validation function
 
     if (!profileData || typeof profileData !== 'object') {
         console.error("profileData is not defined or is not an object.");
