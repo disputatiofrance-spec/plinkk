@@ -1,0 +1,157 @@
+name: 🚀 Deploy Plinkk
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Permet de déclencher manuellement le workflow
+
+# Configuration des permissions pour GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Empêche les déploiements concurrents
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Job de build et test
+  build:
+    name: 🔨 Build & Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 🔧 Install dependencies
+      run: npm ci
+      
+    - name: 🏗️ Build TypeScript
+      run: npm run build
+      
+    - name: ✅ Verify build output
+      run: |
+        echo "Vérification des fichiers générés..."
+        ls -la dist/
+        echo "Contenu du répertoire dist:"
+        find dist -type f -name "*.js" | head -10
+        
+    - name: 📤 Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: dist/
+        retention-days: 1
+
+  # Job de déploiement sur GitHub Pages
+  deploy:
+    name: 🌐 Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 🔧 Install dependencies
+      run: npm ci
+      
+    - name: 🏗️ Build TypeScript
+      run: npm run build
+      
+    - name: 📁 Prepare deployment folder
+      run: |
+        # Créer le dossier de déploiement
+        mkdir -p deploy
+        
+        # Copier TOUS les fichiers statiques d'abord
+        cp index.html deploy/
+        cp -r contents deploy/
+        
+        # Supprimer les fichiers TypeScript du dossier déployé
+        find deploy/contents/js -name "*.ts" -delete 2>/dev/null || true
+        
+        # Copier les fichiers JavaScript compilés
+        if [ -d "dist" ] && [ "$(ls -A dist)" ]; then
+          cp dist/*.js deploy/contents/js/ 2>/dev/null || true
+          cp dist/*.js.map deploy/contents/js/ 2>/dev/null || true
+        fi
+        
+        # Corriger les chemins dans index.html
+        sed -i 's|src="./dist/init.js"|src="./contents/js/init.js"|g' deploy/index.html
+        sed -i 's|src="./dist/tools.js"|src="./contents/js/tools.js"|g' deploy/index.html
+        
+        # Vérifier que le fichier HTML a été modifié
+        echo "🔧 Contenu du fichier HTML après modification:"
+        grep -n "src.*\.js" deploy/index.html || echo "Aucune référence JS trouvée"
+        
+        # Vérifier que tous les fichiers critiques existent
+        echo "🔍 Vérification des fichiers critiques:"
+        ls -la deploy/
+        ls -la deploy/contents/
+        ls -la deploy/contents/js/
+        ls -la deploy/contents/css/
+        
+        echo "📋 Structure complète du dossier deploy:"
+        find deploy -type f | sort
+        
+        # Vérifier les fichiers JavaScript
+        echo "🔧 Fichiers JavaScript trouvés:"
+        find deploy -name "*.js" | sort
+        
+    - name: 🔧 Setup GitHub Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 📤 Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: deploy
+        
+    - name: 🚀 Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # Job de notification (optionnel)
+  notify:
+    name: 📢 Notify
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    if: always() && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📊 Build Status
+      run: |
+        if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.deploy.result }}" == "success" ]; then
+          echo "✅ Déploiement réussi ! 🎉"
+          echo "🌐 Votre site est maintenant disponible sur GitHub Pages"
+        elif [ "${{ needs.build.result }}" == "failure" ]; then
+          echo "❌ Échec de la compilation TypeScript"
+          exit 1
+        elif [ "${{ needs.deploy.result }}" == "failure" ]; then
+          echo "❌ Échec du déploiement"
+          exit 1
+        else
+          echo "⚠️ Statut de déploiement incertain"
+        fi

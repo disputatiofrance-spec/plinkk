@@ -1,0 +1,100 @@
+name: 🔥 Build & Deploy Plinkk (Simple)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: 🚀 Build TypeScript & Deploy
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 🔧 Install dependencies
+      run: npm install
+      
+    - name: 🏗️ Compile TypeScript
+      run: |
+        echo "🔨 Compilation du TypeScript..."
+        npm run build
+        echo "✅ Compilation terminée"
+        
+    - name: 📁 Setup deployment directory
+      run: |
+        echo "🗂️ Préparation du dossier de déploiement..."
+        
+        # Créer le dossier de déploiement
+        mkdir -p public
+        
+        # Copier les fichiers de base
+        cp index.html public/
+        cp -r contents public/
+        
+        # Remplacer les fichiers TS par les fichiers JS compilés
+        rm -rf public/contents/js/*.ts 2>/dev/null || true
+        cp -f dist/*.js public/contents/js/ 2>/dev/null || true
+        cp -f dist/*.js.map public/contents/js/ 2>/dev/null || true
+        
+        # Corriger les chemins dans le fichier HTML
+        sed -i 's|src="./dist/init.js"|src="./contents/js/init.js"|g' public/index.html
+        sed -i 's|src="./dist/tools.js"|src="./contents/js/tools.js"|g' public/index.html
+        
+        # Garder les autres fichiers JS existants
+        find contents/js -name "*.js" -not -path "*/node_modules/*" -exec cp {} public/contents/js/ \; 2>/dev/null || true
+        
+        # Copier les dossiers spéciaux
+        if [ -d "contents/js/assets" ]; then
+          cp -r contents/js/assets public/contents/js/
+        fi
+        if [ -d "contents/js/canvaAnimation" ]; then
+          cp -r contents/js/canvaAnimation public/contents/js/
+        fi
+        if [ -d "contents/js/config" ]; then
+          cp -r contents/js/config public/contents/js/
+        fi
+        
+        echo "🔧 Vérification du fichier HTML modifié:"
+        grep -n "src.*\.js" public/index.html || echo "Aucune référence JS trouvée"
+        
+        echo "📋 Contenu du dossier public:"
+        find public -type f | sort
+        
+    - name: 🔧 Configure GitHub Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 📤 Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./public
+        
+    - name: 🌐 Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
+    - name: 🎉 Success notification
+      run: |
+        echo "🎊 Déploiement réussi !"
+        echo "🔗 URL: ${{ steps.deployment.outputs.page_url }}"

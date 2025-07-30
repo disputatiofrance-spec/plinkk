@@ -8,7 +8,11 @@
     "dev": "tsc --watch",
     "serve": "python -m http.server 8000",
     "clean": "rimraf dist",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "deploy:local": "npm run build && npm run copy:files",
+    "copy:files": "node scripts/copy-files.js",
+    "preview": "npm run deploy:local && npm run serve",
+    "test:deployment": "powershell -ExecutionPolicy Bypass -File scripts/test-deployment.ps1"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",
