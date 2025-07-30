@@ -4,7 +4,47 @@ import { profileData } from '../config/profileConfig.js';
 import { themes } from '../config/themeConfig.js';
 import { animationBackground } from '../config/animationConfig.js';
 
-export function applyFirstTheme(theme) {
+// Types pour TypeScript
+interface Theme {
+    darkTheme?: boolean;
+    opposite?: Theme;
+    background: string;
+    textColor: string;
+    buttonBackground: string;
+    buttonTextColor: string;
+    buttonHoverBackground: string;
+    linkHoverColor: string;
+    articleHoverBoxShadow: string;
+}
+
+interface ProfileData {
+    buttonThemeEnable: number;
+    background: string | string[];
+    backgroundSize?: number;
+    degBackgroundColor?: number;
+    neonEnable: number;
+    neonColors: string[];
+    selectedThemeIndex: number;
+}
+
+interface Animation {
+    keyframes: string;
+    duration?: number;
+}
+
+interface CanvaData {
+    fileNames: string;
+}
+
+declare global {
+    interface Window {
+        Effect?: any;
+        MatrixSymbol?: any;
+    }
+    function runCanvasAnimation(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void;
+}
+
+export function applyFirstTheme(theme: Theme): void {
     const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const savedTheme = getCookie("theme");
 
@@ -12,22 +52,22 @@ export function applyFirstTheme(theme) {
 
     if (savedTheme) {
         if (savedTheme === "dark") {
-            loadThemeConfig(theme.darkTheme ? theme : theme.opposite);
+            loadThemeConfig(theme.darkTheme ? theme : theme.opposite!);
             document.body.classList.add("dark-theme");
         } else {
-            loadThemeConfig(theme.darkTheme ? theme.opposite : theme);
+            loadThemeConfig(theme.darkTheme ? theme.opposite! : theme);
         }
     } else {
         if (darkThemeMediaQuery.matches) {
             if (theme.darkTheme) {
                 loadThemeConfig(theme);
             } else {
-                loadThemeConfig(theme.opposite);
+                loadThemeConfig(theme.opposite!);
                 document.body.classList.add("dark-theme");
             }
         } else {
             if (theme.darkTheme) {
-                loadThemeConfig(theme.opposite);
+                loadThemeConfig(theme.opposite!);
                 document.body.classList.add("dark-theme");
             } else {
                 loadThemeConfig(theme);
@@ -36,8 +76,8 @@ export function applyFirstTheme(theme) {
     }
 }
 
-export function setIconBasedOnTheme(theme) {
-    const iconElement = document.getElementById("theme-icon");
+export function setIconBasedOnTheme(theme: Theme): void {
+    const iconElement = document.getElementById("theme-icon") as HTMLElement & { name: string };
     if (document.body.classList.contains("dark-theme") || theme.darkTheme) {
         iconElement.name = "moon-outline";
     } else {
@@ -45,23 +85,23 @@ export function setIconBasedOnTheme(theme) {
     }
 }
 
-export function loadThemeConfig(theme) {
+export function loadThemeConfig(theme: Theme): void {
     applyTheme(theme);
     setIconBasedOnTheme(theme);
 }
 
-export function toggleTheme(theme) {
-    const currentTheme = document.body.classList.contains("dark-theme") ? theme : theme.opposite;
+export function toggleTheme(theme: Theme): void {
+    const currentTheme = document.body.classList.contains("dark-theme") ? theme : theme.opposite!;
     document.body.classList.toggle("dark-theme");
     applyTheme(currentTheme);
     setIconBasedOnTheme(currentTheme);
     setCookie("theme", document.body.classList.contains("dark-theme") ? "dark" : "light", 365);
 }
 
-export function createToggleThemeButton(theme) {
+export function createToggleThemeButton(theme: Theme): void {
     const button = document.createElement("button");
     button.className = "theme-toggle-button";
-    const icon = document.createElement("ion-icon");
+    const icon = document.createElement("ion-icon") as HTMLElement & { name: string };
     icon.id = "theme-icon";
     icon.name = theme.darkTheme ? "moon-outline" : "sunny-outline";
     button.appendChild(icon);
@@ -69,71 +109,89 @@ export function createToggleThemeButton(theme) {
     button.addEventListener("click", () => toggleTheme(theme));
 
     const article = document.getElementById("profile-article");
-    article.appendChild(button);
+    article?.appendChild(button);
 
     if (!theme) {
         button.style.display = "none";
     }
 }
 
-export function applyTheme(theme) {
-    const article = document.getElementById("profile-article");
+export function applyTheme(theme: Theme): void {
+    const article = document.getElementById("profile-article") as HTMLElement;
     article.style.background = theme.background;
     article.style.color = theme.textColor;
-    document.querySelectorAll(".discord-box").forEach(box => {
-        box.style.backgroundColor = theme.buttonBackground;
-        box.style.color = theme.buttonTextColor;
+    
+    document.querySelectorAll(".discord-box").forEach((box: Element) => {
+        const htmlBox = box as HTMLElement;
+        htmlBox.style.backgroundColor = theme.buttonBackground;
+        htmlBox.style.color = theme.buttonTextColor;
     });
-    document.querySelectorAll(".discord-box").forEach(box => {
-        box.addEventListener("mouseover", () => {
-            box.style.backgroundColor = theme.buttonHoverBackground;
-            box.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
+    
+    document.querySelectorAll(".discord-box").forEach((box: Element) => {
+        const htmlBox = box as HTMLElement;
+        htmlBox.addEventListener("mouseover", () => {
+            htmlBox.style.backgroundColor = theme.buttonHoverBackground;
+            htmlBox.style.boxShadow = "0 0 50px " + theme.buttonHoverBackground;
         });
-        box.addEventListener("mouseout", () => {
-            box.style.backgroundColor = theme.buttonBackground;
-            box.style.boxShadow = "none";
+        htmlBox.addEventListener("mouseout", () => {
+            htmlBox.style.backgroundColor = theme.buttonBackground;
+            htmlBox.style.boxShadow = "none";
         });
     });
+    
     if (profileData.buttonThemeEnable !== 1) {
-        document.querySelectorAll("a").forEach(link => {
-            link.style.color = theme.textColor;
+        document.querySelectorAll("a").forEach((link: Element) => {
+            const htmlLink = link as HTMLElement;
+            htmlLink.style.color = theme.textColor;
         });
-        document.querySelectorAll("a:hover").forEach(link => {
-            link.style.color = theme.linkHoverColor;
+        document.querySelectorAll("a:hover").forEach((link: Element) => {
+            const htmlLink = link as HTMLElement;
+            htmlLink.style.color = theme.linkHoverColor;
         });
     }
-    const emailDiv = document.querySelector(".email");
-    const emailHover = document.querySelector(".email a");
-    emailDiv.style.backgroundColor = theme.buttonBackground;
-    emailDiv.style.color = theme.buttonTextColor;
-
-    emailHover.addEventListener("mouseover", () => {
-        emailDiv.style.backgroundColor = theme.buttonHoverBackground;
-        emailDiv.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
-        emailHover.style.color = theme.buttonTextColor;
-    });
-    emailHover.addEventListener("mouseout", () => {
+    
+    const emailDiv = document.querySelector(".email") as HTMLElement;
+    const emailHover = document.querySelector(".email a") as HTMLElement;
+    if (emailDiv) {
         emailDiv.style.backgroundColor = theme.buttonBackground;
-        emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
-        emailHover.style.color = theme.textColor;
-    });
+        emailDiv.style.color = theme.buttonTextColor;
+    }
 
-    const themeToggle = document.querySelector(".theme-toggle-button");
-    themeToggle.style.backgroundColor = theme.buttonBackground;
-    themeToggle.style.color = theme.textColor;
-    themeToggle.tabIndex = 1;
+    if (emailHover) {
+        emailHover.addEventListener("mouseover", () => {
+            if (emailDiv) {
+                emailDiv.style.backgroundColor = theme.buttonHoverBackground;
+                emailDiv.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+                emailHover.style.color = theme.buttonTextColor;
+            }
+        });
+        emailHover.addEventListener("mouseout", () => {
+            if (emailDiv) {
+                emailDiv.style.backgroundColor = theme.buttonBackground;
+                emailDiv.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+                emailHover.style.color = theme.textColor;
+            }
+        });
+    }
 
-    themeToggle.addEventListener("mouseover", () => {
-        themeToggle.style.backgroundColor = theme.buttonHoverBackground;
-        themeToggle.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
-    });
-    themeToggle.addEventListener("mouseout", () => {
+    const themeToggle = document.querySelector(".theme-toggle-button") as HTMLElement;
+    if (themeToggle) {
         themeToggle.style.backgroundColor = theme.buttonBackground;
-        themeToggle.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
-    });
+        themeToggle.style.color = theme.textColor;
+        themeToggle.tabIndex = 1;
+
+        themeToggle.addEventListener("mouseover", () => {
+            themeToggle.style.backgroundColor = theme.buttonHoverBackground;
+            themeToggle.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+        });
+        themeToggle.addEventListener("mouseout", () => {
+            themeToggle.style.backgroundColor = theme.buttonBackground;
+            themeToggle.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+        });
+    }
 
     // Apply the new property articleHoverBoxShadow
-    const styleSheet = document.styleSheets[0];
+    const styleSheet = document.styleSheets[0] as CSSStyleSheet;
     styleSheet.insertRule(`
         article:hover {
             box-shadow: ${theme.articleHoverBoxShadow};
@@ -167,8 +225,8 @@ export function applyTheme(theme) {
         }
     `, styleSheet.cssRules.length);
 
-    const easterEggsBtn = document.querySelector(".easter-egg-gear-btn");
-    const easterEggsModal = document.querySelector(".easter-egg-modal");
+    const easterEggsBtn = document.querySelector(".easter-egg-gear-btn") as HTMLElement;
+    const easterEggsModal = document.querySelector(".easter-egg-modal") as HTMLElement;
 
     if (easterEggsBtn) {
         easterEggsBtn.style.backgroundColor = theme.buttonBackground;
@@ -203,22 +261,22 @@ export function applyTheme(theme) {
 
     // Appliquer le style à tous les boutons .show-desc-btn
     const boutonsAffichageDescription = document.querySelectorAll(".show-desc-btn");
-    boutonsAffichageDescription.forEach(bouton => {
-        bouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-        bouton.style.color = theme.textColor;
-        bouton.addEventListener("mouseover", () => {
-            bouton.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
-            bouton.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
+    boutonsAffichageDescription.forEach((bouton: Element) => {
+        const htmlBouton = bouton as HTMLElement;
+        htmlBouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+        htmlBouton.style.color = theme.textColor;
+        htmlBouton.addEventListener("mouseover", () => {
+            htmlBouton.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+            htmlBouton.style.boxShadow = `0 0 10px ${theme.buttonHoverBackground}`;
         });
-        bouton.addEventListener("mouseout", () => {
-            bouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-            bouton.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
+        htmlBouton.addEventListener("mouseout", () => {
+            htmlBouton.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+            htmlBouton.style.boxShadow = `0 0 10px ${theme.buttonBackground}`;
         });
     });
-    
 }
 
-export function setBackgroundStyles(profileData) {
+export function setBackgroundStyles(profileData: ProfileData): void {
     if (Array.isArray(profileData.background)) {
         document.body.style.background = `linear-gradient(${profileData.degBackgroundColor}deg, ${profileData.background.join(", ")})`;
         document.body.style.backgroundSize = "cover";
@@ -228,30 +286,39 @@ export function setBackgroundStyles(profileData) {
     }
 }
 
-export function applyAnimation(animation, animationEnabled) {
-    const article = document.getElementById("profile-article");
+export function applyAnimation(animation: Animation, animationEnabled: boolean): void {
+    const article = document.getElementById("profile-article") as HTMLElement;
     if (animationEnabled) {
         article.style.animation = animation.keyframes;
     }
 }
 
-export function applyAnimationButton(animation, animationButtonEnabled, delayAnimationButton) {
+export function applyAnimationButton(animation: Animation, animationButtonEnabled: boolean, delayAnimationButton: number): void {
     const articleChildren = document.querySelectorAll("#profile-article > *:not(.easter-egg-modal)");
     if (animationButtonEnabled) {
-        articleChildren.forEach((child, index) => {
-            child.style.animationDelay = `${(index + 1) * delayAnimationButton}s`;
-            child.style.animation = `${animation.keyframes} ${animation.duration || delayAnimationButton * index}s`;
-            child.style.animationFillMode = "backwards";
+        articleChildren.forEach((child: Element, index: number) => {
+            const htmlChild = child as HTMLElement;
+            htmlChild.style.animationDelay = `${(index + 1) * delayAnimationButton}s`;
+            htmlChild.style.animation = `${animation.keyframes} ${animation.duration || delayAnimationButton * index}s`;
+            htmlChild.style.animationFillMode = "backwards";
         });
     }
 }
 
-export function applyDynamicStyles(profileData, styleSheet, selectedAnimationBackgroundIndex, EnableAnimationBackground, animationDurationBackground, useCanvas, selectedCanvasIndex) {
+export function applyDynamicStyles(
+    profileData: ProfileData, 
+    styleSheet: CSSStyleSheet, 
+    selectedAnimationBackgroundIndex: number, 
+    EnableAnimationBackground: boolean, 
+    animationDurationBackground: number, 
+    useCanvas: boolean, 
+    selectedCanvasIndex: number
+): void {
     if (useCanvas) {
         const canvas = document.createElement("canvas");
         canvas.id = "backgroundCanvas";
         document.body.appendChild(canvas);
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d")!;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         document.body.id = "container";
@@ -262,7 +329,7 @@ export function applyDynamicStyles(profileData, styleSheet, selectedAnimationBac
                 console.log("Loading Matrix Effect animation...");
                 
                 // Fonction helper pour charger un script
-                const loadScript = (src) => {
+                const loadScript = (src: string): Promise<void> => {
                     return new Promise((resolve, reject) => {
                         console.log("Loading script:", src);
                         const script = document.createElement("script");
@@ -280,14 +347,14 @@ export function applyDynamicStyles(profileData, styleSheet, selectedAnimationBac
                 };
 
                 // Charger les scripts dans l'ordre
-                loadScript('./contents/js/canvaAnimation/matrix-effect/effect.js')
+                loadScript('./dist/canvaAnimation/matrix-effect/effect.js')
                     .then(() => {
                         console.log("Effect.js loaded, checking window.Effect:", typeof window.Effect);
-                        return loadScript('./contents/js/canvaAnimation/matrix-effect/symbol.js');
+                        return loadScript('./dist/canvaAnimation/matrix-effect/symbol.js');
                     })
                     .then(() => {
-                        console.log("Symbol.js loaded, checking window.MatrixSymbol:", typeof window.MatrixSymbol);
-                        return loadScript('./contents/js/canvaAnimation/matrix-effect/app.js');
+                        console.log("Symbol.js loaded, checking window.Symbol:", typeof window.Symbol);
+                        return loadScript('./dist/canvaAnimation/matrix-effect/app.js');
                     })
                     .then(() => {
                         console.log("App.js loaded, checking runCanvasAnimation:", typeof runCanvasAnimation);
@@ -305,7 +372,7 @@ export function applyDynamicStyles(profileData, styleSheet, selectedAnimationBac
             } else {
                 // Pour les autres animations
                 const script = document.createElement("script");
-                script.src = `./contents/js/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
+                script.src = `./dist/canvaAnimation/${canvaData[selectedCanvasIndex].fileNames}`;
                 document.body.appendChild(script);
 
                 script.onload = () => {
@@ -350,8 +417,8 @@ export function applyDynamicStyles(profileData, styleSheet, selectedAnimationBac
     }
 }
 
-export function addEmailStyles() {
-    const styleSheet = document.styleSheets[0];
+export function addEmailStyles(): void {
+    const styleSheet = document.styleSheets[0] as CSSStyleSheet;
     styleSheet.insertRule(`
         .email {
             width: 100%;
@@ -376,7 +443,6 @@ export function addEmailStyles() {
             border-radius: 10px;
         }
     `, styleSheet.cssRules.length);
-    
 }
 
 export default {
@@ -391,4 +457,4 @@ export default {
     applyAnimationButton,
     applyDynamicStyles,
     addEmailStyles,
-}
+};

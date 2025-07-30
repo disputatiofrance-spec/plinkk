@@ -1,4 +1,4 @@
-const profileData = {
+export const profileData = {
     profileLink: "https://github.com", // Lien du profil 
     profileImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Image de profil
     profileIcon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", // Icone derrière le profil
@@ -106,9 +106,11 @@ const profileData = {
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
     canvaEnable: 1, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 3,          // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 15,          // Animation du canva (voir ci-dessous) - Matrix Effect
 
 };
+
+export default profileData;
 //      Thèmes      \\
 // 0 : Grey Theme
 // 1 : Light Yellow Theme

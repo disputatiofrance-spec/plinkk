@@ -29,3 +29,6 @@ class Symbol {
     }
   }
 }
+
+// Rendre Symbol disponible globalement
+window.Symbol = Symbol;

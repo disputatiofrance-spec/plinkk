@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./contents/js",
+    "declaration": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false
+  },
+  "include": [
+    "contents/js/**/*.ts",
+    "contents/js/canvaAnimation/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "contents/js/assets/*.js"
+  ]
+}

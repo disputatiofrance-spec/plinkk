@@ -1,4 +1,4 @@
-const btnIconThemeConfig = [
+export const btnIconThemeConfig = [
     {
         name: "Amazon",
         icon: "contents/images/icons/amazon.svg",
@@ -522,3 +522,5 @@ const btnIconThemeConfig = [
         alt: "Zoom"
     }
 ];
+
+export default btnIconThemeConfig;

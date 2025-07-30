@@ -347,3 +347,5 @@ const themes = [
 
 // Ajoutez autant de thèmes que vous le souhaitez
 ];
+
+export { themes };

@@ -3,13 +3,55 @@
 
 ## Sommaire
 
-- [\# Documentation de Plinkk](#-documentation-de-plinkk)
+- [Documentation de Plinkk](#-documentation-de-plinkk)
 - [Sommaire](#sommaire)
 - [Introduction](#introduction)
 - [Structure des fichiers](#structure-des-fichiers)
 - [Configuration du profil (`profileConfig.js`)](#configuration-du-profil-profileconfigjs)
   - [Champs principaux](#champs-principaux)
-- [| `selectedCanvasIndex`        | Index de l’animation canvas (voir canva)                      | `3`                         |](#-selectedcanvasindex---------index-de-lanimation-canvas-voir-canva-----------------------3-------------------------)
+- # 📚 Documentation Complète de Plinkk
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)](https://github.com/Klaynight-dev/links_website_template)
+[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+
+---
+
+## 📖 Sommaire
+
+- [🚀 Introduction](#-introduction)
+- [📁 Architecture du projet](#-architecture-du-projet)
+- [⚙️ Configuration détaillée](#️-configuration-détaillée)
+- [🎨 Système de thèmes](#-système-de-thèmes)
+- [✨ Animations et effets](#-animations-et-effets)
+- [🔒 Sécurité et validation](#-sécurité-et-validation)
+- [📱 Responsive et accessibilité](#-responsive-et-accessibilité)
+- [🛠️ Guide de développement](#️-guide-de-développement)
+- [🐛 Dépannage](#-dépannage)
+- [❓ FAQ](#-faq)
+
+---
+
+## 🚀 Introduction
+
+**Plinkk** est un template moderne de page de liens développé en TypeScript, offrant une expérience utilisateur raffinée avec un design inspiré de Discord. Il combine performance, sécurité et personnalisation avancée.
+
+### 🎯 Objectifs du projet
+
+- **Modernité** : Utilisation des dernières technologies web (TypeScript, CSS modernes)
+- **Sécurité** : Validation rigoureuse de tous les contenus utilisateur
+- **Performance** : Optimisations pour des temps de chargement rapides
+- **Personnalisation** : Configuration flexible sans compétences techniques
+- **Accessibilité** : Respect des standards WCAG
+
+### 🌟 Points forts
+
+- ✅ **Design glassmorphism** avec effets visuels avancés
+- ✅ **Barre de statut Discord** avec détection automatique d'état
+- ✅ **TypeScript natif** pour une robustesse accrue
+- ✅ **Système de sécurité intégré** contre les injections
+- ✅ **Easter eggs interactifs** pour l'engagement utilisateur
+- ✅ **Animations cinématographiques** fluides et optimisées(#-selectedcanvasindex---------index-de-lanimation-canvas-voir-canva-----------------------3-------------------------)
   - [Exemple complet](#exemple-complet)
   - [Ajouter ou modifier un lien](#ajouter-ou-modifier-un-lien)
   - [Ajouter ou modifier un label](#ajouter-ou-modifier-un-label)

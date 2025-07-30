@@ -1,4 +1,4 @@
-const canvaData = [
+export const canvaData = [
     {
         animationName: 'Bubble', // 0
         fileNames: 'bubble.js',
@@ -92,3 +92,25 @@ const canvaData = [
     }
     // Ajouter ici les animations supplémentaires
 ];
+
+export default canvaData;
+//      Canva Animations      \\
+// 0 : Bubble
+// 1 : Neuronal
+// 2 : Particule
+// 3 : Stars Array
+// 4 : Snow
+// 5 : Galaxy
+// 6 : Hexagone
+// 7 : Confetti
+// 8 : Fireworks
+// 9 : Boom CLick
+// 10 : Crowd
+// 11 : Storm
+// 12 : Color Wars
+// 13 : Liquid Light
+// 14 : Rain
+// 15 : Matrix
+// 16 : Purple Tree
+// 17 : Cloud
+// 18 : Space

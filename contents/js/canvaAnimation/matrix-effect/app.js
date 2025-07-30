@@ -104,5 +104,5 @@ function runCanvasAnimation(ctx, canvas) {
     }
   }
   swRegistration();
-  consoleText();
+  // consoleText(); // Function not defined, commented out to avoid error
 }

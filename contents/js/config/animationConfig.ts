@@ -1,5 +1,6 @@
-const styleSheet = document.styleSheets[0];
-const animations = [
+export const styleSheet = document.styleSheets[0];
+
+export const animations = [
     {
     name: "fade",
     keyframes: "fade 1s ease-in-out"
@@ -74,7 +75,7 @@ const animations = [
     }
 ];
 
-const animationBackground = [
+export const animationBackground = [
     {
         name: "moveBackground",
         keyframes: "moveBackground linear infinite"

@@ -25,3 +25,6 @@ class Effect {
     this.#initialize();
   }
 }
+
+// Rendre Effect disponible globalement
+window.Effect = Effect;

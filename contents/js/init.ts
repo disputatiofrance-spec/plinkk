@@ -1,16 +1,26 @@
+import { createToggleThemeButton, applyTheme, setBackgroundStyles, applyAnimation, applyAnimationButton, applyDynamicStyles, addEmailStyles, applyFirstTheme } from './assets/styleTools.js';
+import { createProfileContainer, createUserName, createStatusBar, createLabelButtons, createIconList, createEmailAndDescription, createLinkBoxes } from './tools.js';
+import { initEasterEggs } from './assets/easterEggs.js';
+import { setSafeText, isSafeUrl, isSafeColor, limitTextLength } from './assets/security.js';
+import {profileData} from './config/profileConfig.js';
+import { themes } from './config/themeConfig.js';
+import { animations, styleSheet } from './config/animationConfig.js';
+import { canvaData } from './config/canvaConfig.js';
+
 document.addEventListener("DOMContentLoaded", function () {
+    let parsedProfileData = profileData;
     if (typeof profileData === 'string') {
         try {
-            profileData = JSON.parse(profileData);
+            parsedProfileData = JSON.parse(profileData);
         } catch (e) {
             console.error("Invalid JSON data:", e);
             return;
         }
     }
 
-    // validateProfileConfig(profileData); // Uncomment if you have a validation function
+    // validateProfileConfig(parsedProfileData); // Uncomment if you have a validation function
 
-    if (!profileData || typeof profileData !== 'object') {
+    if (!parsedProfileData || typeof parsedProfileData !== 'object') {
         console.error("profileData is not defined or is not an object.");
         return;
     }
@@ -38,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!linkBoxes || !linkBoxes.length) {
         console.warn("No link boxes created.");
     } else {
-        linkBoxes.forEach(box => article.appendChild(box));
+        linkBoxes.forEach((box: HTMLElement) => article.appendChild(box));
     }
 
     
@@ -63,9 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!animations || !animations.length) {
         console.warn("Animations array is empty or not defined.");
     } else {
-        applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, profileData.EnableAnimationBackground, profileData.animationDurationBackground, profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
+        applyDynamicStyles(profileData, styleSheet, profileData.selectedAnimationBackgroundIndex % animations.length, !!profileData.EnableAnimationBackground, profileData.animationDurationBackground, !!profileData.canvaEnable, profileData.selectedCanvasIndex % canvaData.length);
         applyFirstTheme(themes[profileData.selectedThemeIndex % themes.length]);
-        applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], profileData.EnableAnimationArticle, profileData.EnableAnimationBackground);
-        applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], profileData.EnableAnimationButton, profileData.delayAnimationButton);
+        applyAnimation(animations[profileData.selectedAnimationIndex % animations.length], !!profileData.EnableAnimationArticle);
+        applyAnimationButton(animations[profileData.selectedAnimationButtonIndex % animations.length], !!profileData.EnableAnimationButton, profileData.delayAnimationButton);
     }
 });

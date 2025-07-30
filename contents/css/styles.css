@@ -1,55 +1,282 @@
-/* Reset */
+/* Reset & Modern Foundation */
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     user-select: none;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background: black;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
     position: relative;
     min-height: 100vh;
-    color: white;
+    color: #f8fafc;
     overflow: auto;
+    font-weight: 400;
+    line-height: 1.6;
+    background-attachment: fixed;
 }
 
-/* Conteneur principal avec néon bleu autour du fond */
+/* Conteneur principal ultra-moderne */
 article {
     position: relative;
     text-align: center;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 30px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.08) 0%, 
+            rgba(255, 255, 255, 0.03) 100%);
+    padding: 48px 32px;
+    border-radius: 32px;
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 24px 64px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     top: -35px;
-    min-width: 300px;
-    z-index: 1;
-    max-width: 400px;
-    overflow: auto; 
-    margin: 3em 0 1em 0;
-
+    min-width: 380px;
+    max-width: 480px;
+    z-index: 10;
+    margin: 3em auto 1em auto;
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
 }
 
-/* Conteneur pour l'effet de pivot */
+article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, 
+            rgba(120, 119, 198, 0.08) 0%, 
+            rgba(255, 119, 198, 0.08) 50%, 
+            rgba(120, 219, 226, 0.08) 100%);
+    opacity: 0.6;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    border-radius: 32px;
+    z-index: 1;
+}
+
+article:hover::before {
+    opacity: 1;
+}
+
+article:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        0 24px 64px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(120, 119, 198, 0.25);
+}
+
+/* Typographie futuriste */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, 
+        #f8fafc 0%, 
+        #cbd5e1 30%, 
+        #7c3aed 60%, 
+        #f59e0b 100%);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientFlow 8s ease-in-out infinite;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 32px;
+    color: rgba(248, 250, 252, 0.8);
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 16px;
+}
+
+.profile-link p {
+    margin-bottom: -10px;
+}
+
+
+
+/* Conteneur profile ultra-moderne avec système logo préservé */
 .profile-container {
     position: relative;
-    width: 151px;
-    height: 151px;
-    min-width: 151px;
-    min-height: 151px;
-    margin: 0 auto 15px auto;
+    width: 180px;
+    height: 180px;
+    min-width: 180px;
+    min-height: 180px;
+    margin: 0 auto 32px auto;
     perspective: 1000px;
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.4));
 }
 
-/* Effet de pivot */
+.profile-container a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Wrapper pour le système de logo */
+.profile-pic-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    backface-visibility: hidden;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+/* Image de profil sans animation */
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 3;
+}
+
+/* Système d'éclairage neon préservé */
+.profile-pic-wrapper::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        #7c3aed, #f59e0b, #06b6d4, #7c3aed);
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: neon 2s infinite alternate;
+    opacity: 0.6;
+    transition: opacity 0.6s ease;
+}
+
+.profile-pic-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        #7c3aed, #f59e0b, #06b6d4, #7c3aed);
+    background-size: 500% 500%;
+    z-index: -2;
+    animation: neon-2 2s infinite alternate;
+    opacity: 0.4;
+    transition: opacity 0.6s ease;
+}
+
+/* Intensification du neon au survol */
+.profile-container:hover .profile-pic-wrapper::after,
+.profile-container:hover .profile-pic-wrapper::before {
+    opacity: 1;
+}
+
+/* Effet de pivot ultra-fluide */
+.profile-link {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    backface-visibility: hidden;
+    background: 
+        linear-gradient(135deg, 
+            rgba(15, 15, 15, 0.95) 0%, 
+            rgba(30, 30, 30, 0.9) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+    backdrop-filter: blur(20px);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 3;
+    top: 0;
+    left: 0;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.profile-container:hover .profile-pic-wrapper {
+    transform: rotateY(180deg) scale(1.08);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 80px rgba(124, 58, 237, 0.4);
+}
+
+.profile-container:hover .profile-link {
+    transform: rotateY(0deg) scale(1.08);
+    background: 
+        linear-gradient(135deg, 
+            rgba(25, 25, 25, 0.95) 0%, 
+            rgba(40, 40, 40, 0.9) 100%);
+}
+
+.profile-link a {
+    color: #f8fafc;
+    font-size: 2.2em;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.profile-link:hover a {
+    transform: scale(1.15);
+    text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 40px rgba(124, 58, 237, 0.4);
+    color: #7c3aed;
+}
+
+/* Effet de pivot ultra-fluide */
 .profile-pic,
 .profile-link {
     width: 100%;
@@ -57,106 +284,122 @@ article {
     border-radius: 50%;
     position: absolute;
     backface-visibility: hidden;
-    transition: transform 0.6s;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .profile-pic {
-    border: 3px solid white;
+    border: 3px solid rgba(255, 255, 255, 0.15);
     object-fit: cover;
-    z-index: 2;
+    z-index: 3;
     cursor: pointer;
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 180px;
+    min-height: 180px;
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
 }
 
 .profile-link {
-    background: rgba(0, 0, 0, 0.6);
+    background: 
+        linear-gradient(135deg, 
+            rgba(15, 15, 15, 0.95) 0%, 
+            rgba(30, 30, 30, 0.9) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     transform: rotateY(180deg);
+    backdrop-filter: blur(20px);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 3;
 }
 
 .profile-container:hover .profile-pic {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) scale(1.03);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(124, 58, 237, 0.3);
 }
 
 .profile-container:hover .profile-link {
-    transform: rotateY(0deg);
+    transform: rotateY(0deg) scale(1.03);
+    background: 
+        linear-gradient(135deg, 
+            rgba(25, 25, 25, 0.95) 0%, 
+            rgba(40, 40, 40, 0.9) 100%);
 }
 
 .profile-link a {
-    color: white;
-    font-size: 2em;
+    color: #f8fafc;
+    font-size: 2.2em;
     text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.profile-link:hover a {
+    transform: scale(1.15);
+    text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 40px rgba(124, 58, 237, 0.4);
+    color: #7c3aed;
+}
+
+/* Classes communes pour le système */
+.profile-container, .profile-pic-wrapper, .profile-link, .profile-container a {
+    border-radius: 100%;
 }
 
 .profile-container img {
     position: relative;
     filter: blur(0);
 }
-.profile-container, .profile-pic-wrapper, .profile-link, .profile-container a {
-    border-radius: 100%;
-}
-.profile-pic-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    transform: scale(1.02);
-    background-size: 500%;
-    z-index: -1;
-    animation: neon 2s infinite alternate;
-}
 
-.profile-pic-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    transform: scale(1.02);
-    background-size: 500%;
-    z-index: -1;
-    animation: neon-2 2s infinite alternate;
-}
-
-@keyframes neon-2 {
-    0% {
-    filter: hue-rotate(0deg);
-    }
-    100% {
-    filter: hue-rotate(360deg);
-    }
-}
-
+/* Animations neon existantes préservées */
 @keyframes neon {
     0% {
-    filter: hue-rotate(0deg) blur(20px);
+        filter: hue-rotate(0deg);
     }
     100% {
-    filter: hue-rotate(360deg) blur(20px);
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Animation neon-2 préservée */
+@keyframes neon-2 {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Animation neon avec blur préservée */
+@keyframes neonBlur {
+    0% {
+        filter: hue-rotate(0deg) blur(20px);
+    }
+    100% {
+        filter: hue-rotate(360deg) blur(20px);
     }
 }
 
 .profile-container {
-    z-index: -1;
+    z-index: 1;
 }
 
 .profile-container a {
-    height: 150px;
+    height: 180px;
+    width: 180px;
     display: block;
 }
 
-.profile-container .profile-link {
-    position: relative;
-    top: calc(-100% - 4px);
-}
+
 
 /* Email */
 .email-description-container {
@@ -192,31 +435,106 @@ article {
     background-color: rgba(255,255,255, 0.3);
 }
 
-/* Carré avec lien Discord */
+/* Cartes ultra-modernes avec design futuriste */
 .discord-box {
-    display: block;
-    margin-top: 10px;
-    background-color: #2C2F33;
-    border-radius: 15px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 20px 24px;
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.09) 0%, 
+            rgba(255, 255, 255, 0.04) 100%);
+    border-radius: 20px;
+    color: #f8fafc;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     position: relative;
-    transition: 0.3s;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(180%);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.discord-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        transparent 100%);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.discord-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, 
+            rgba(124, 58, 237, 0.15) 0%, 
+            rgba(255, 119, 198, 0.15) 50%, 
+            rgba(120, 219, 226, 0.15) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.discord-box:hover {
+    transform: translateY(-2px) scale(1.01);
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.12) 0%, 
+            rgba(255, 255, 255, 0.06) 100%);
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.25),
+        0 12px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(124, 58, 237, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.discord-box:hover::before {
+    left: 100%;
+}
+
+.discord-box:hover::after {
+    opacity: 1;
 }
 
 .discord-box img,
 .discord-box .link-icon {
-    width: 25px;
-    position: absolute;
-    top: 22px;
-    left: 20px;
-    transform: translateY(-50%);
-    /* Pour éviter que le SVG ou l'image ne saute selon le mode */
-    display: block;
-    pointer-events: none;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: iconPulse 6s ease-in-out infinite;
+    z-index: 2;
+    position: relative;
+}
+
+.discord-box:hover img,
+.discord-box:hover .link-icon {
+    transform: scale(1.05) rotate(2deg);
+    filter: 
+        drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3)) 
+        drop-shadow(0 0 15px rgba(124, 58, 237, 0.2));
 }
 
 .discord-box a {
@@ -224,36 +542,52 @@ article {
     width: 100%;
     height: 100%;
     text-align: center;
-    padding: 10px;
+    padding: 16px 20px;
     box-sizing: border-box;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
-/* Effet hover pour le lien Discord */
-.discord-box:hover {
-    background-color: #7289DA;
-    transform: scale(1.05);
-    color: white;
-}
-
-.discord-box:hover a {
-    color: white;
-}
-
-/* Design by Pacman en bas de la page */
+/* Footer ultra-moderne */
 footer {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    font-size: 0.7em;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 2px;
-    background-color: #2C2F33;
-    width: fit-content;
-    padding: 0.5em;
-    border-radius: 10px;
-    margin: 0 10px;
+    font-size: 0.75em;
+    font-weight: 500;
+    color: rgba(248, 250, 252, 0.7);
+    letter-spacing: 0.8px;
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.08) 0%, 
+            rgba(255, 255, 255, 0.04) 100%);
+    backdrop-filter: blur(16px) saturate(180%);
+    padding: 12px 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 100;
+}
+
+footer:hover {
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.10) 0%, 
+            rgba(255, 255, 255, 0.05) 100%);
+    transform: translateX(-50%) translateY(-2px) scale(1.01);
+    color: rgba(248, 250, 252, 0.9);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.25),
+        0 12px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(124, 58, 237, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 a {
@@ -272,10 +606,48 @@ span img {
     top: 2.5px;
 }
 
+/* Responsive Design amélioré */
+@media (max-width: 480px) {
+    article {
+        margin: 2em 10px 1em 10px;
+        padding: 30px 20px;
+        min-width: auto;
+        width: calc(100vw - 20px);
+        max-width: 360px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    h2 {
+        font-size: 1rem;
+    }
+    
+    /* Ajustements pour la barre de statut mobile */
+    .status-bar-container {
+        bottom: 6px;
+        right: 6px;
+        gap: 8px;
+    }
+    
+    .circle-status-bar {
+        width: 20px;
+        height: 20px;
+        border-width: 3px;
+    }
+    
+    .statusBarText {
+        font-size: 0.7em;
+        padding: 6px 10px;
+    }
+}
+
 @media (max-width: 320px) {
     article {
         min-width: 200px;
-        padding: 20px 30px;
+        padding: 20px 15px;
+        margin: 1.5em 5px;
     }
     .profile-container {
         width: 100px;
@@ -287,13 +659,47 @@ span img {
     .profile-pic {
         width: 100px;
         height: 100px;
+        min-width: 100px;
+        min-height: 100px;
     }
     .profile-link a {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
+    
+    h1 {
+        font-size: 1.4rem;
+    }
+    
+    .label-button {
+        padding: 6px 12px;
+        font-size: 0.7em;
+    }
+    
     footer {
         font-size: 0.5em;
         padding: 1em;
+    }
+    
+    /* Barre de statut ultra-compacte sur très petits écrans */
+    .status-bar-container {
+        bottom: 4px;
+        right: 4px;
+        gap: 6px;
+    }
+    
+    .circle-status-bar {
+        width: 18px;
+        height: 18px;
+        border-width: 3px;
+    }
+    
+    .statusBarText {
+        font-size: 0.65em;
+        padding: 4px 8px;
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
@@ -343,22 +749,72 @@ canvas {
     position: relative;
 }
 
+/* Labels ultra-modernes */
 .label-buttons-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center vertically */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
 }
 
 .label-button {
-    color: white;
-    padding: 2.5px 5px;
-    border-radius: 10px;
-    margin: 5px; /* Add margin to all sides for better spacing */
+    color: #f8fafc;
+    padding: 10px 20px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.7em;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-size: 0.85em;
+    font-weight: 500;
     width: max-content;
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.12) 0%, 
+            rgba(255, 255, 255, 0.06) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(150%);
+    letter-spacing: 0.03em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.label-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, 
+            rgba(124, 58, 237, 0.2) 0%, 
+            rgba(255, 119, 198, 0.2) 50%, 
+            rgba(120, 219, 226, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 25px;
+}
+
+.label-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.16) 0%, 
+            rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.2),
+        0 12px 32px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(124, 58, 237, 0.2);
+}
+
+.label-button:hover::before {
+    opacity: 1;
 }
  .icon-list {
     display: flex;
@@ -377,22 +833,174 @@ canvas {
     filter: brightness(0.8);
 }
 
+/* Barre de statut style Discord */
+.status-bar-container {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none;
+}
+
 .circle-status-bar {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    position: absolute;
+    position: relative;
     cursor: pointer;
-    z-index: 999;
-    top: 9em;
-    right: 35%;
-    transition: all 0.3s ease;
-    transform-origin: bottom right;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.95) 0%, 
+            rgba(255, 255, 255, 0.85) 100%);
+    border: 5px solid rgba(25, 25, 25, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+    transform-origin: center;
+    overflow: hidden;
+    will-change: transform;
+    pointer-events: auto;
 }
 
-.statusBarText {
-    display: none;
+.circle-status-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
+
+.circle-status-bar::after {
+    content: none;
+}
+
+.circle-status-bar:hover {
+    transform: scale(1.2);
+    box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.6),
+        0 0 0 4px rgba(255, 255, 255, 0.4),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.circle-status-bar:hover::before {
+    opacity: 1;
+}
+
+/* Texte de statut style Discord */
+.statusBarText {
+    background: 
+        linear-gradient(135deg, 
+            rgba(20, 20, 20, 0.95) 0%, 
+            rgba(10, 10, 10, 0.95) 100%);
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.7em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateX(-8px) scale(0.9);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    will-change: transform, opacity;
+    pointer-events: auto;
+    order: -1;
+}
+
+.statusBarText::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    transition: left 0.4s ease;
+}
+
+.statusBarText.show {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.statusBarText:hover {
+    background: 
+        linear-gradient(135deg, 
+            rgba(40, 40, 40, 0.95) 0%, 
+            rgba(30, 30, 30, 0.95) 100%);
+    transform: translateX(0) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.statusBarText:hover::before {
+    left: 100%;
+}
+
+/* États de la barre de statut style Discord */
+.circle-status-bar.status-online {
+    background: #43b581;
+    border-color: rgba(25, 25, 25, 1);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.circle-status-bar.status-busy {
+    background: #f04747;
+    border-color: rgba(25, 25, 25, 1);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.circle-status-bar.status-away {
+    background: #faa61a;
+    border-color: rgba(25, 25, 25, 1);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.circle-status-bar.status-offline {
+    background: #747f8d;
+    border-color: rgba(25, 25, 25, 1);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+
 
 /* Animation de vibration */
 @keyframes vibrate_btn {
@@ -453,16 +1061,16 @@ canvas {
     animation: shake 0.2s linear infinite alternate;
 }
 @keyframes shake {
-    0% { transform: rotate(-2deg) scale(1.05), translateY(-50%);}
-    100% { transform: rotate(2deg) scale(0.95), translateY(-50%);}
+    0% { transform: rotate(-2deg) scale(1.05) translateY(-50%);}
+    100% { transform: rotate(2deg) scale(0.95) translateY(-50%);}
 }
 .btn-explode {
     animation: explode 0.8s forwards;
 }
 @keyframes explode {
-    0% { transform: scale(1) rotate(0deg), translateY(-50%); opacity: 1;}
-    80% { transform: scale(2) rotate(720deg), translateY(-50%); opacity: 1;}
-    100% { transform: scale(0.1) rotate(1080deg), translateY(-50%); opacity: 0;}
+    0% { transform: scale(1) rotate(0deg) translateY(-50%); opacity: 1;}
+    80% { transform: scale(2) rotate(720deg) translateY(-50%); opacity: 1;}
+    100% { transform: scale(0.1) rotate(1080deg) translateY(-50%); opacity: 0;}
 }
 
 .rainbow-footer, h1.rainbow-footer {
@@ -500,6 +1108,82 @@ canvas {
 @keyframes fadeInEggModal {
     from { opacity: 0; transform: translateY(-10px);}
     to { opacity: 1; transform: translateY(0);}
+}
+
+/* Animations ultra-fluides et modernes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes gradientFlow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes floatGentle {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+    66% {
+        transform: translateY(-4px) rotate(-1deg);
+    }
+}
+
+@keyframes gradientRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(124, 58, 237, 0.6);
+    }
 }
 .egg-switch-row {
     display: flex;
