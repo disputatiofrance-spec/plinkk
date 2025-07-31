@@ -299,19 +299,45 @@ npm run build
 ## 🚀 Déploiement
 
 ### GitHub Pages
-1. Fork le repository
-2. Activez GitHub Pages dans Settings
-3. Choisissez la branche `main`
+1. **Fork ou clone ce repository**
+   ```bash
+   git clone https://github.com/Klaynight-dev/links_website_template.git
+   cd links_website_template
+   ```
+
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
+
+3. **Compiler le projet**
+   ```bash
+   npm run build
+   ```
+
+4. **Push vers votre repository GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+5. **Activer GitHub Pages**
+   - Allez dans les **Settings** de votre repository
+   - Scrollez jusqu'à la section **Pages**
+   - Dans **Source**, sélectionnez **GitHub Actions**
+   - Le déploiement se fera automatiquement à chaque push sur la branche `main`
+
+### Vercel (Recommandé)
+1. **Connectez votre repository GitHub à Vercel**
+2. **Configuration automatique** : Vercel détectera le `vercel.json`
+3. **Build automatique** : Le script `npm run build` sera exécuté
+4. **Déploiement instantané** vers le dossier `public/`
 
 ### Netlify
-1. Connectez votre repository GitHub
-2. Build command : `npm run build`
-3. Publish directory : `/`
-
-### Vercel
-1. Importez le projet depuis GitHub
-2. Configuration automatique détectée
-3. Déploiement instantané
+1. **Connectez votre repository GitHub**
+2. **Build command** : `npm run build`
+3. **Publish directory** : `public`
 
 ## 🤝 Contribution
 

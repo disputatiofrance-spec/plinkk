@@ -1,29 +1,37 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
+    "module": "ES2020",
     "moduleResolution": "node",
-    "strict": false,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "outDir": "./public/contents/js",
+    "rootDir": "./contents/js",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./contents/js",
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": false
+    "removeComments": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
   },
   "include": [
     "contents/js/**/*.ts",
-    "contents/js/canvaAnimation/**/*.js"
+    "contents/js/**/*.js"
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "contents/js/assets/*.js"
+    "public",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }
