@@ -593,3 +593,65 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 ## 📄 Licence
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+
+# Plinkk - Template de site de liens
+
+Un template élégant pour créer votre page de liens personnalisée.
+
+## 🚀 Déploiement sur GitHub Pages
+
+### Instructions de déploiement :
+
+1. **Fork ou clone ce repository**
+   ```bash
+   git clone https://github.com/Klaynight-dev/plinkk.git
+   cd plinkk
+   ```
+
+2. **Push vers votre repository GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+3. **Activer GitHub Pages**
+   - Allez dans les **Settings** de votre repository
+   - Scrollez jusqu'à la section **Pages**
+   - Dans **Source**, sélectionnez **GitHub Actions**
+   - Le déploiement se fera automatiquement à chaque push sur la branche `main`
+
+4. **Accéder à votre site**
+   - Votre site sera disponible à l'adresse : `https://[votre-username].github.io/[nom-du-repo]`
+
+## 🛠️ Personnalisation
+
+1. Modifiez le fichier `contents/js/config.js` pour personnaliser vos informations
+2. Remplacez les images dans `contents/images/`
+3. Ajustez les styles dans `contents/css/`
+
+## 📁 Structure du projet
+
+```
+├── contents/
+│   ├── css/          # Fichiers de styles
+│   ├── js/           # Scripts JavaScript
+│   └── images/       # Images et assets
+├── .github/
+│   └── workflows/    # Actions GitHub pour le déploiement
+├── index.html        # Page principale
+└── README.md         # Documentation
+```
+
+## 🔧 Technologies utilisées
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Anime.js pour les animations
+- GSAP pour les animations avancées
+- Ionicons pour les icônes
+
+## 📝 Licence
+
+Ce projet est sous licence MIT.
