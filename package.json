@@ -4,13 +4,12 @@
   "description": "Template moderne pour créer votre page de liens personnalisée avec TypeScript",
   "main": "index.html",
   "scripts": {
-    "build": "tsc && npm run copy-assets",
+    "prebuild": "npm run clean",
+    "build": "tsc && npm run copy-files",
+    "copy-files": "mkdir -p public && cp -r contents public/ && cp index.html public/ && cp -r contents/images public/contents/ 2>/dev/null || (mkdir public 2>nul & xcopy /s /e contents public\\contents\\ & copy index.html public\\ & xcopy /s /e contents\\images public\\contents\\images\\)",
+    "clean": "rimraf dist public",
     "dev": "tsc --watch",
-    "clean": "rimraf public",
-    "copy-assets": "npm run clean && mkdir public && cp -r contents public/ && cp index.html public/",
-    "serve": "python -m http.server 8000 --directory public",
-    "start": "npm run build && npm run serve",
-    "prebuild": "npm run clean"
+    "serve": "python -m http.server 8000 --directory public || python3 -m http.server 8000 --directory public"
   },
   "keywords": [
     "linktree",
@@ -38,4 +37,5 @@
   "engines": {
     "node": ">=16.0.0"
   }
+}
 }

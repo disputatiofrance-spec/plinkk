@@ -3,6 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "installCommand": "npm install",
+  "devCommand": "npm run serve",
   "framework": null,
   "functions": {},
   "routes": [

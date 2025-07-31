@@ -298,6 +298,29 @@ npm run build
 
 ## 🚀 Déploiement
 
+### Vercel (Recommandé)
+1. **Connectez votre repository GitHub à Vercel**
+2. **Configuration automatique** : Vercel détectera le `vercel.json`
+3. **Build automatique** : Le script `npm run build` sera exécuté
+4. **Déploiement instantané** vers le dossier `public/`
+
+**Configuration locale pour test :**
+```bash
+# Installer les dépendances
+npm install
+
+# Compiler et préparer pour la production
+npm run build
+
+# Tester localement
+npm run serve
+```
+
+### Netlify
+1. **Connectez votre repository GitHub**
+2. **Build command** : `npm run build`
+3. **Publish directory** : `public`
+
 ### GitHub Pages
 1. **Fork ou clone ce repository**
    ```bash
@@ -324,20 +347,9 @@ npm run build
 
 5. **Activer GitHub Pages**
    - Allez dans les **Settings** de votre repository
-   - Scrollez jusqu'à la section **Pages**
+   - Scrollez jusqu'à la section **Pages** 
    - Dans **Source**, sélectionnez **GitHub Actions**
    - Le déploiement se fera automatiquement à chaque push sur la branche `main`
-
-### Vercel (Recommandé)
-1. **Connectez votre repository GitHub à Vercel**
-2. **Configuration automatique** : Vercel détectera le `vercel.json`
-3. **Build automatique** : Le script `npm run build` sera exécuté
-4. **Déploiement instantané** vers le dossier `public/`
-
-### Netlify
-1. **Connectez votre repository GitHub**
-2. **Build command** : `npm run build`
-3. **Publish directory** : `public`
 
 ## 🤝 Contribution
 
