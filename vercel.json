@@ -5,7 +5,6 @@
   "installCommand": "npm install",
   "devCommand": "npm run serve",
   "framework": null,
-  "functions": {},
   "routes": [
     {
       "src": "/(.*)",
