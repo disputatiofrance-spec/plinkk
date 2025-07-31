@@ -46,7 +46,7 @@ jobs:
 
       - name: 🔧 Compile TypeScript
         run: |
-          echo "::group::Compiling TypeScript with relaxed settings"
+          echo "::group::Compiling TypeScript"
           npx tsc --noImplicitAny false --strictNullChecks false
           echo "✅ TypeScript compilation completed"
           echo "::endgroup::"
@@ -55,12 +55,65 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true
-          cache-version: 1
+
+      - name: 📝 Create Gemfile if missing
+        run: |
+          if [ ! -f Gemfile ]; then
+            echo "::group::Creating Gemfile"
+            cat > Gemfile << 'EOF'
+          source "https://rubygems.org"
+          
+          gem "jekyll", "~> 4.3.0"
+          gem "webrick", "~> 1.8"
+          
+          group :jekyll_plugins do
+            gem "jekyll-feed", "~> 0.12"
+            gem "jekyll-sitemap"
+            gem "jekyll-seo-tag"
+          end
+          EOF
+            echo "✅ Gemfile created"
+            echo "::endgroup::"
+          fi
+
+      - name: 💎 Install Ruby Dependencies
+        run: |
+          echo "::group::Installing Ruby gems"
+          bundle install
+          echo "::endgroup::"
 
       - name: ⚙️ Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v4
+
+      - name: 📝 Create _config.yml if missing
+        run: |
+          if [ ! -f _config.yml ]; then
+            echo "::group::Creating Jekyll config"
+            cat > _config.yml << 'EOF'
+          title: Links Website
+          description: A modern links website template
+          baseurl: ""
+          url: ""
+          
+          markdown: kramdown
+          highlighter: rouge
+          
+          plugins:
+            - jekyll-feed
+            - jekyll-sitemap
+            - jekyll-seo-tag
+          
+          exclude:
+            - node_modules/
+            - contents/js/
+            - package*.json
+            - tsconfig.json
+            - README.md
+          EOF
+            echo "✅ Jekyll config created"
+            echo "::endgroup::"
+          fi
 
       - name: 🏗️ Build Jekyll Site
         run: |
