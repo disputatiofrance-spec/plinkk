@@ -22,16 +22,3 @@
     "public"
   ]
 }
-    "exactOptionalPropertyTypes": true
-  },
-  "include": [
-    "contents/js/**/*.ts",
-    "contents/js/**/*.js"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ]
-}
