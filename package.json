@@ -1,15 +1,13 @@
 {
-  "name": "plinkk-links-template",
+  "name": "plinkk",
   "version": "1.25.07.31",
   "description": "Template moderne pour créer votre page de liens personnalisée avec TypeScript",
   "main": "index.html",
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "tsc && npm run copy-files",
-    "copy-files": "mkdir -p public && cp -r contents public/ && cp index.html public/ && cp -r contents/images public/contents/ 2>/dev/null || (mkdir public 2>nul & xcopy /s /e contents public\\contents\\ & copy index.html public\\ & xcopy /s /e contents\\images public\\contents\\images\\)",
     "clean": "rimraf dist public",
-    "dev": "tsc --watch",
-    "serve": "python -m http.server 8000 --directory public || python3 -m http.server 8000 --directory public"
+    "build": "tsc && npm run copy-files",
+    "copy-files": "mkdir -p public && cp -r contents public/ && cp index.html public/ && cp -r contents/images public/contents/"
   },
   "keywords": [
     "linktree",
@@ -41,19 +39,5 @@
   "dependencies": {
     "typescript": "^5.0.0",
     "rimraf": "^5.0.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": ["error"],
-      "@typescript-eslint/no-explicit-any": "off"
-    }
   }
 }
