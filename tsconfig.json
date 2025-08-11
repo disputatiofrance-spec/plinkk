@@ -1,24 +1,26 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "outDir": "./public/contents/js",
-    "rootDir": "./contents/js",
-    "strict": true,
-    "esModuleInterop": true,
+    "module": "commonjs",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": false,
-    "sourceMap": false,
-    "removeComments": true
+    "outDir": "./dist",
+    "rootDir": "./",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "downlevelIteration": true
   },
   "include": [
     "contents/js/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "public"
+    "dist"
   ]
 }
