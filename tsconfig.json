@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "allowImportingTsExtensions": true,
   },
   "include": [
     "contents/js/**/*.ts"
