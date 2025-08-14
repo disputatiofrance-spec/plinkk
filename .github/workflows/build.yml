@@ -33,6 +33,10 @@ jobs:
           tree dist
           ls -l dist
 
+      - name: Copier dist dans la racine du dépôt
+        run: |
+          cp -r dist/* .
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
