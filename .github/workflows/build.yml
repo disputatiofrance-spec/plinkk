@@ -1,39 +1,30 @@
-name: NodeJS with Grunt
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Build
-      run: |
-        npm install
-        grunt
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy with PolyAPI
-        uses: polyapi/poly-deployment-action-js@v0.2.16
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          poly_api_key: ${{ secrets.POLY_API_KEY }}
-          poly_api_base_url: ${{ secrets.POLY_API_BASE_URL }}
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
