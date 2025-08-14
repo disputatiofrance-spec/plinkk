@@ -1,8 +1,8 @@
-import { getCookie, setCookie } from './cookies.js';
-import { canvaData } from '../config/canvaConfig.js';
-import { profileData } from '../config/profileConfig.js';
-import { themes } from '../config/themeConfig.js';
-import { animationBackground } from '../config/animationConfig.js';
+import { getCookie, setCookie } from './cookies.ts';
+import { canvaData } from '../config/canvaConfig.ts';
+import { profileData } from '../config/profileConfig.ts';
+import { themes } from '../config/themeConfig.ts';
+import { animationBackground } from '../config/animationConfig.ts';
 
 // Types pour TypeScript
 interface Theme {
