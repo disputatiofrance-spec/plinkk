@@ -6,8 +6,12 @@
   "scripts": {
     "prebuild": "npm run clean",
     "clean": "rimraf dist public",
-    "build": "tsc && npm run copy-files",
-    "copy-files": "mkdir -p public && cp -r contents public/ && cp index.html public/ && cp -r contents/images public/contents/"
+    "build": "tsc && npm run copy-canva && npm run copy-js && npm run copy-css && npm run copy-images && npm run copy-html",
+    "copy-js": "bash -c \"mkdir -p dist/contents && cp -r contents/js dist/contents/\"",
+    "copy-css": "bash -c \"mkdir -p dist/contents && cp -r contents/css dist/contents/\"",
+    "copy-images": "bash -c \"mkdir -p dist/contents && cp -r contents/images dist/contents/\"",
+    "copy-html": "bash -c \"mkdir -p dist && cp index.html dist/\"",
+    "copy-canva": "bash -c \"mkdir -p dist/canvaAnimation && cp -r contents/js/canvaAnimation/* dist/canvaAnimation/\""
   },
   "keywords": [
     "linktree",

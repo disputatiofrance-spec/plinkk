@@ -87,7 +87,7 @@ function runCanvasAnimation(ctx, canvas) {
     lastTouchEnd = now;
   });
 
-  function swRegistration() {
+  /*function swRegistration() {
     const heart = [
       "font-size: 20px",
       "padding: 12px",
@@ -103,6 +103,6 @@ function runCanvasAnimation(ctx, canvas) {
         .catch((error) => console.log(error));
     }
   }
-  swRegistration();
+  swRegistration();*/
   // consoleText(); // Function not defined, commented out to avoid error
 }
