@@ -30,6 +30,7 @@ jobs:
       - name: List dist contents
         run: |
           echo "Contenu du dossier dist :"
+          tree dist
           ls -l dist
 
       - name: Deploy to GitHub Pages
