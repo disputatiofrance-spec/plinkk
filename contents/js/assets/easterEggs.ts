@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from './cookies.js';
+import { getCookie, setCookie } from './cookies.ts';
 
 // Types pour TypeScript
 interface EasterEgg {
