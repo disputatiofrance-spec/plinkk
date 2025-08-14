@@ -1,11 +1,11 @@
-import { createToggleThemeButton, applyTheme, setBackgroundStyles, applyAnimation, applyAnimationButton, applyDynamicStyles, addEmailStyles, applyFirstTheme } from './assets/styleTools.js';
-import { createProfileContainer, createUserName, createStatusBar, createLabelButtons, createIconList, createEmailAndDescription, createLinkBoxes } from './tools.js';
-import { initEasterEggs } from './assets/easterEggs.js';
-import { setSafeText, isSafeUrl, isSafeColor, limitTextLength } from './assets/security.js';
-import {profileData} from './config/profileConfig.js';
-import { themes } from './config/themeConfig.js';
-import { animations, styleSheet } from './config/animationConfig.js';
-import { canvaData } from './config/canvaConfig.js';
+import { createToggleThemeButton, applyTheme, setBackgroundStyles, applyAnimation, applyAnimationButton, applyDynamicStyles, addEmailStyles, applyFirstTheme } from './assets/styleTools.ts';
+import { createProfileContainer, createUserName, createStatusBar, createLabelButtons, createIconList, createEmailAndDescription, createLinkBoxes } from './tools.Ts';
+import { initEasterEggs } from './assets/easterEggs.ts';
+import { setSafeText, isSafeUrl, isSafeColor, limitTextLength } from './assets/security.ts';
+import {profileData} from './config/profileConfig.ts';
+import { themes } from './config/themeConfig.ts';
+import { animations, styleSheet } from './config/animationConfig.ts';
+import { canvaData } from './config/canvaConfig.ts';
 
 document.addEventListener("DOMContentLoaded", function () {
     let parsedProfileData = profileData;
