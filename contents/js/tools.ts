@@ -1,5 +1,5 @@
-import { setSafeText, isSafeUrl, isSafeColor, disableDrag, disableContextMenuOnImage } from './assets/security.js';
-import { btnIconThemeConfig } from './config/btnIconThemeConfig.js';
+import { setSafeText, isSafeUrl, isSafeColor, disableDrag, disableContextMenuOnImage } from './assets/security.ts';
+import { btnIconThemeConfig } from './config/btnIconThemeConfig.ts';
 
 export function createProfileContainer(profileData: any) {
     const profileContainer = document.createElement("div");
