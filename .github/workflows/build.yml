@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy TypeScript Project
 
 on:
   push:
@@ -10,10 +10,10 @@ permissions:
   pages: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -27,18 +27,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: List dist contents
-        run: |
-          echo "Contenu du dossier dist :"
-          tree dist
-          ls -l dist
-
-      - name: Copier dist dans la racine du dépôt
-        run: |
-          cp -r dist/* .
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: main
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
