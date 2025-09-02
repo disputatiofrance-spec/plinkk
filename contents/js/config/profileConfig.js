@@ -1,9 +1,9 @@
 export const profileData = {
-    profileLink: "https://github.com", // Lien du profil 
-    profileImage: "https://cdn.discordapp.com/attachments/1411705645291405434/1411714991643693179/Capture_daAcran_2025-07-25_A_20.23.37.png?ex=68b5a98a&is=68b4580a&hm=d679baf689201889ff5e1dd969c84f5e1dddb213625779db551b7784f7e8f5b2&", // Image de profil
-    profileIcon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", // Icone derrière le profil
-    profileSiteText: "GitHub", // Nom derrière le profil
-    userName: "Disputatio Montpellier", // Nom affiché sur la page et dans le titre de l'onglet
+    profileLink: "https://www.instagram.com/disputatio_montpellier", // Lien du profil 
+    profileImage: "https://i.ibb.co/F4NYPvRB/Capture-da-Acran-2025-07-25-A-20-23-37.png", // Image de profil
+    profileIcon: "", // Icone derrière le profil
+    profileSiteText: "Notre Insta", // Nom derrière le profil
+    userName: "Disputatio", // Nom affiché sur la page et dans le titre de l'onglet
     email: "disputatio@gmail.com", // Adresse mail affichée sur la page
     links: [
         {
@@ -14,16 +14,16 @@ export const profileData = {
             // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
             description: "Ma description personnalisée", // optionnel
             showDescriptionOnHover: true, // ou false, optionnel
-            showDescription: false, // ou false, optionnel
+            showDescription: true, // ou false, optionnel
             // showImage : true, // ou false, optionnel à venir à venir
         },
     ],
     // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
-    background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
-    degBackgroundColor: 45, // inclinaison du degradé
+    background: ["#7b0a0aff", "#4b02c8ff"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
+    degBackgroundColor: 130, // inclinaison du degradé
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
-    iconUrl: "https://cdn.discordapp.com/attachments/1411705645291405434/1411714991643693179/Capture_daAcran_2025-07-25_A_20.23.37.png?ex=68b5a98a&is=68b4580a&hm=d679baf689201889ff5e1dd969c84f5e1dddb213625779db551b7784f7e8f5b2&", // Icone de l'onglet
+    iconUrl: "https://i.ibb.co/F4NYPvRB/Capture-da-Acran-2025-07-25-A-20-23-37.png", // Icone de l'onglet
     description: "L'éloquence au service d'un dialogue sans frontières. Débats, concours & conférences multilingues, au croisement du droit et des enjeux contemporains", // Description affichée sur la page, display: none si vide
     labels: [
         { data: "Éloquence", color: "#FF6384", fontColor: "#FFFFFF" },
@@ -52,8 +52,9 @@ export const profileData = {
     animationDurationBackground: 30, // Durée de l'animation en secondes
     delayAnimationButton: 0.1, // Délai de l'animation en secondes
     canvaEnable: 0, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 3, // Animation du canva (voir ci-dessous)
+    selectedCanvasIndex: 0, // Animation du canva (voir ci-dessous)
 };
+export default profileData;
 //      Thèmes      \\
 // 0 : Grey Theme
 // 1 : Light Yellow Theme
@@ -222,5 +223,4 @@ export const profileData = {
 // 110. Slideshare
 // 111. Soundcloud
 // 112. Spotify
-// 113. Stack Exchange
 // 113. Stack Exchange

@@ -343,9 +343,31 @@ const themes = [
         articleHoverBoxShadow: "0px 4px 8px rgba(210, 180, 140, 0.3)",
         darkTheme: true
     }
+},
+{
+    // Disputatio Theme (15)
+    background: "rgba(128, 0, 32, 0.85)", // bordeaux profond
+    hoverColor: "#C0A060", // doré atténué
+    textColor: "#C0A060", // bordeaux
+    buttonBackground: "#6b011bff", // bordeaux
+    buttonHoverBackground: "#500115ff", // doré atténué
+    buttonTextColor: "#C0A060", // doré atténué
+    linkHoverColor: "#C0A060", // doré atténué
+    articleHoverBoxShadow: "0px 4px 8px rgba(128, 0, 32, 0.3)", // ombre bordeaux
+    darkTheme: false,
+    opposite: {
+        background: "rgba(20, 0, 0, 0.95)", // bordeaux très foncé
+        hoverColor: "#C0A060",
+        textColor: "#ffffffff",
+        buttonBackground: "#7e693eff",
+        buttonHoverBackground: "#5f4f2fff",
+        buttonTextColor: "#800020",
+        linkHoverColor: "#800020",
+        articleHoverBoxShadow: "0px 4px 8px rgba(192, 160, 96, 0.3)", // ombre dorée atténuée
+        darkTheme: true
+    }
 }
 
 // Ajoutez autant de thèmes que vous le souhaitez
 ];
-
 export { themes };
