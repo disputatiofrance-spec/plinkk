@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     article.appendChild(createUserName(profileData));
     createStatusBar(profileData);
     createLabelButtons(profileData);
-    article.appendChild(createEmailAndDescription(profileData));
     createIconList(profileData);
+    article.appendChild(createEmailAndDescription(profileData));
 
     if (!themes || !themes.length) {
         console.warn("Themes array is empty or not defined.");

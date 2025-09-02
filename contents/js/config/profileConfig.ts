@@ -1,50 +1,94 @@
 export const profileData = {
-    profileLink: "https://www.instagram.com/disputatio_montpellier", // Lien du profil 
-    profileImage: "https://i.ibb.co/F4NYPvRB/Capture-da-Acran-2025-07-25-A-20-23-37.png", // Image de profil
-    profileIcon: "", // Icone derrière le profil
-    profileSiteText: "Notre Insta", // Nom derrière le profil
-    userName: "Disputatio", // Nom affiché sur la page et dans le titre de l'onglet
-    email: "disputatio@gmail.com", // Adresse mail affichée sur la page
+    profileLink: "https://github.com", // Lien du profil 
+    profileImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Image de profil
+    profileIcon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", // Icone derrière le profil
+    profileSiteText: "GitHub", // Nom derrière le profil
+    userName: "GitHub User", // Nom affiché sur la page et dans le titre de l'onglet
+    email: "user@github.com", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
         {
-            icon: "https://cdn-icons-png.flaticon.com/512/942/942779.png",
-            url: "https://forms.gle/QsjWL5h4pqVqfxty9",
-            text: "Recrutement 2025",
-            name: "Google",
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link1",
+            text: "Link 1",
+            name: "GitHub",
             // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
             description: "Ma description personnalisée", // optionnel
             showDescriptionOnHover: true, // ou false, optionnel
             showDescription : true, // ou false, optionnel
             // showImage : true, // ou false, optionnel à venir à venir
         },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link2",
+            text: "Link 2",
+            name: "Discord",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: false, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link3",
+            text: "Link 3",
+            name: "LinkedIn",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: false, // ou false, optionnel
+            showDescription : true, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link4",
+            text: "Link 4",
+            name: "Instagram",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir
+            description: "Ma description personnalisée", // optionnel
+            showDescriptionOnHover: true, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+        },
+        {
+            icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            url: "https://github.com/link5",
+            text: "Link 5",
+            name: "YouTube",
+            // fontImage: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // optionnel à venir vide si vous ne voulez pas d'image
+            description: "Ma description personnalisée", // optionnel vide si vous ne voulez pas de description
+            showDescriptionOnHover: true, // ou false, optionnel
+            showDescription : false, // ou false, optionnel
+            // showImage : true, // ou false, optionnel à venir
+            
+        },
     ],
     // Fond de la page si une liste est utilisée alors le fond sera via les couleurs que vous mettez dedans
-    background: ["#7b0a0aff", "#4b02c8ff"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
-    degBackgroundColor: 130, // inclinaison du degradé
+    background: ["#FF5733", "#33FF57"], //"https://static.vecteezy.com/ti/vecteur-libre/p1/12697876-motif-geometriquele-continue-noir-et-blanc-motif-repetitif-monochrome-arriere-plan-abstrait-optique-tridimensionnel-avec-cubes-troues-vectoriel.jpg",
+    degBackgroundColor: 45, // inclinaison du degradé
     profileHoverColor: "#7289DA", // Couleur de hover sur l'article (l'élément principal)
     neonColors: ["#7289DA", "#FF4500", "#00FF00", "#FFD700", "#FF69B4"], // Couleurs du neon de profil
-    iconUrl: "https://i.ibb.co/F4NYPvRB/Capture-da-Acran-2025-07-25-A-20-23-37.png", // Icone de l'onglet
-    description: "L'éloquence au service d'un dialogue sans frontières. Débats, concours & conférences multilingues, au croisement du droit et des enjeux contemporains", // Description affichée sur la page, display: none si vide
-
+    iconUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // Icone de l'onglet
+    description: "Mollit laboris cupidatat do enim nulla ex laborum. Nulla labore reprehenderit nisi non anim aute.", // Description affichée sur la page, display: none si vide
+    
     labels: [
-        { data: "Éloquence", color: "#FF6384", fontColor: "#FFFFFF" },
-        { data: "Multilinguisme", color: "#36A2EB", fontColor: "#FFFFFF" },
-        { data: "Droit & Citoyenneté", color: "#4BC0C0", fontColor: "#FFFFFF" },
-        { data: "Rencontres Interculturelles", color: "#FFCE56", fontColor: "#FFFFFF" }
+        { data: "Developer", color: "#FF6384", fontColor: "#FFFFFF" },
+        { data: "Designer", color: "#36A2EB", fontColor: "#FFFFFF" },
+        { data: "Engineer UI/UX", color: "#4BC0C0", fontColor: "#FFFFFF" },
     ],
 
     socialIcon: [
-        {url: "https://www.linkedin.com/in/disputatio-france-234a81377/", icon: "LinkedIn"},
-        {url: "https://www.instagram.com/disputatio_montpellier", icon: "Instagram"},
-        {url: "https://x.com/DisputatioFr", icon: "X"},
-        {url: "https://www.tiktok.com/@disputatio7", icon: "TikTok"},
-        // {url: "https://www.youtube.com/@disputatio_france", icon: "YouTube Alt"},
+        {url: "https://github.com", icon: "Discord"},
+        {url: "https://github.com", icon: "GitHub"},
+        {url: "https://github.com", icon: "LinkedIn"},
+        {url: "https://github.com", icon: "Instagram"},
+        {url: "https://github.com", icon: "YouTube alt"},
     ],
 
-    statusbar: { text: "En recrutement", colorBg: "#222222", colorText: "#cccccc", borderColor:"#7289DA", fontTextColor:1,}, // Barre de statut , fontTextColor : 1 = borderColor, 0 = colorBg
+    statusbar: { text: "Hello World!", colorBg: "#222222", colorText: "#cccccc", borderColor:"#7289DA", fontTextColor:1,}, // Barre de statut , fontTextColor : 1 = borderColor, 0 = colorBg
 
-    neonEnable: 0, // 1 : Enable, 0 : Disable
-    buttonThemeEnable: 0, // 1 : Enable, 0 : Disable
+    neonEnable: 1, // 1 : Enable, 0 : Disable
+    buttonThemeEnable: 1, // 1 : Enable, 0 : Disable
 
     EnableAnimationArticle: 1, // 1 : Enable, 0 : Disable
     EnableAnimationButton: 1, // 1 : Enable, 0 : Disable
@@ -52,7 +96,7 @@ export const profileData = {
 
     backgroundSize : 50, // En pourcentage
     
-    selectedThemeIndex: 15,                   // Thème sélectionné            (voir ci-dessous)
+    selectedThemeIndex: 13,                   // Thème sélectionné            (voir ci-dessous)
 
     selectedAnimationIndex : 0,              // Animation de l'article       (voir ci-dessous)
     selectedAnimationButtonIndex : 10,       // Animation des boutons        (voir ci-dessous)
@@ -61,13 +105,12 @@ export const profileData = {
     animationDurationBackground: 30,  // Durée de l'animation en secondes
     delayAnimationButton: 0.1,        // Délai de l'animation en secondes
 
-    canvaEnable: 0, // 1 : Enable, 0 : Disable
-    selectedCanvasIndex: 0,          // Animation du canva (voir ci-dessous)
+    canvaEnable: 1, // 1 : Enable, 0 : Disable
+    selectedCanvasIndex: 16,          // Animation du canva (voir ci-dessous) - Matrix Effect
 
 };
 
 export default profileData;
-
 //      Thèmes      \\
 // 0 : Grey Theme
 // 1 : Light Yellow Theme
