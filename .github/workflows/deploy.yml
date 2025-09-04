@@ -13,6 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Clean build cache
+        run: rm -rf node_modules/.cache dist .next
+        
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -24,8 +27,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Debug config file (profileConfig.js)
+        run: cat contents/js/config/profileConfig.js
+
+      - name: List config folder
+        run: ls -l contents/js/config/
+
       - name: Build project
         run: npm run build
+
+      - name: Show build output folder
+        run: ls -l dist/
+
+      - name: Search for config data in build output
+        run: grep -i 'Disputatio' dist/* || true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
