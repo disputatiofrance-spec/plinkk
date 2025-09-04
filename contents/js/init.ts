@@ -1,3 +1,5 @@
+// v.test
+
 import { createToggleThemeButton, applyTheme, setBackgroundStyles, applyAnimation, applyAnimationButton, applyDynamicStyles, addEmailStyles, applyFirstTheme } from './assets/styleTools.js';
 import { createProfileContainer, createUserName, createStatusBar, createLabelButtons, createIconList, createEmailAndDescription, createLinkBoxes } from './tools.js';
 import { initEasterEggs } from './assets/easterEggs.js';
