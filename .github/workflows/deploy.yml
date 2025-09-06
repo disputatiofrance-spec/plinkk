@@ -26,10 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Debug config file (profileConfig.js)
-        run: cat contents/js/config/profileConfig.js
-
+        
       - name: List config folder
         run: ls -l contents/js/config/
 
