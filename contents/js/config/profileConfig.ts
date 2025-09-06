@@ -4,7 +4,7 @@ export const profileData = {
     profileIcon: "", // Icone derrière le profil
     profileSiteText: "Notre Insta", // Nom derrière le profil
     userName: "Disputatio", // Nom affiché sur la page et dans le titre de l'onglet
-    email: "disputatio@gmail.com", // Adresse mail affichée sur la page
+    email: "disputatio.montpellier@gmail.com", // Adresse mail affichée sur la page
     links: [ // Liens affichés sur la page
         {
             icon: "https://cdn-icons-png.flaticon.com/512/942/942779.png",
