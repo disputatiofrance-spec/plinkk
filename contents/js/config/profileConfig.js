@@ -2,7 +2,7 @@ export const profileData = {
     profileLink: "https://www.instagram.com/disputatio_montpellier", // Lien du profil 
     profileImage: "https://i.ibb.co/F4NYPvRB/Capture-da-Acran-2025-07-25-A-20-23-37.png", // Image de profil
     profileIcon: "", // Icone derrière le profil
-    profileSiteText: "Notre Insta", // Nom derrière le profil
+    profileSiteText: "Recrutement 2025 ouvert!", // Nom derrière le profil
     userName: "Disputatio", // Nom affiché sur la page et dans le titre de l'onglet
     email: "disputatio.montpellier@gmail.com", // Adresse mail affichée sur la page
     links: [
